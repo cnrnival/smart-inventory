@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Link from 'next/link';
 import { ShieldCheck, Leaf, BarChart3 } from 'lucide-react';
 
@@ -67,5 +68,15 @@ export default function Home() {
         </div>
       </main>
     </div>
+=======
+
+
+export default function Home() {
+  return (
+    <div className="w-screen h-screen flex flex-col items-center justify-center bg-neutral-400">
+      <h1 className="text-6xl">Smart Inventory</h1>
+      <h2 className="text-blue-600">Eu sei centralizar uma div (isso não é uma)</h2>
+    </div>  
+>>>>>>> a24ad35890351794330b6b38a31e1d70fb7a7950
   );
 }
