@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
-export function CreateAccountPage() {
+export default function CreateAccountPage() {
   const router = useRouter();
   const [form, setForm] = useState({
     name: '',
