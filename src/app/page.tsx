@@ -27,7 +27,7 @@ export default function Home() {
             <Leaf className="h-4 w-4" />
             Gestão Preventiva de Estoque
           </div>
-          <h1 className="text-md font-bold">
+          <h1 className="text-4xl font-bold">
             Smart Inventory
           </h1>
           <p className="mt-4 text-lg text-gray-600 md:text-xl">
@@ -37,9 +37,9 @@ export default function Home() {
         </div>
 
         <div className="mx-auto flex flex-row space-between gap-6">
-          {features.map((f, i) => (
+          {features.map((f, index) => (
             <div
-              key={f.title}
+              key={index}
               className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md w-[350px] h-[250px]">
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
                 <f.icon className="h-5 w-5 text-blue-600" />
