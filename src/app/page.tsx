@@ -1,10 +1,9 @@
-
 import Link from 'next/link';
 import { ShieldCheck, Leaf, BarChart3 } from 'lucide-react';
 
 const features = [
   {
-    icon: ShieldCheck,//icon: o componente do ícone (importado acima).
+    icon: ShieldCheck, // icon: o componente do ícone (importado acima).
     title: 'Controle Preventivo',
     desc: 'Alertas automáticos antes do vencimento dos produtos.',
   },
@@ -37,9 +36,10 @@ export default function Home() {
             <span className="font-semibold"> redução de desperdício de alimentos</span>.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            {}
             <Link
-              href="/create-account"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
+              href="/criar-conta"
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5"
             >
               Criar Conta Grátis
             </Link>
@@ -59,7 +59,7 @@ export default function Home() {
               className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
-                <f.icon className="h-5 w-5 text-primary" />
+                <f.icon className="h-5 w-5 text-blue-600" />
               </div>
               <h3 className="text-lg font-semibold">{f.title}</h3>
               <p className="mt-1 text-sm text-gray-600">{f.desc}</p>
@@ -68,6 +68,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-)}
-
-
+  );
+}
