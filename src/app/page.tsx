@@ -21,43 +21,26 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <main className="container mx-auto px-4 py-16 md:py-24">
-        <div className="mx-auto max-w-3xl text-center">
+      <div className="container mx-auto px-4 w-screen h-calc(100vh - 60px) flex flex-col">
+        <div className="mx-auto max-w-3xl text-center py-10">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-200 px-4 py-1.5 text-sm font-medium">
             <Leaf className="h-4 w-4" />
             Gestão Preventiva de Estoque
           </div>
-          <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
+          <h1 className="text-md font-bold">
             Smart Inventory
           </h1>
           <p className="mt-4 text-lg text-gray-600 md:text-xl">
             Plataforma IoT e Mobile para gestão preventiva de estoque com foco na
             <span className="font-semibold"> redução de desperdício de alimentos</span>.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            {}
-            <Link
-              href="/criar-conta"
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5"
-            >
-              Criar Conta Grátis
-            </Link>
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-2 rounded-lg border bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100"
-            >
-              Já tenho conta
-            </Link>
-          </div>
         </div>
 
-        <div className="mx-auto mt-20 grid max-w-4xl gap-6 md:grid-cols-3">
+        <div className="mx-auto flex flex-row space-between gap-6">
           {features.map((f, i) => (
             <div
               key={f.title}
-              className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
-            >
+              className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md w-[350px] h-[250px]">
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
                 <f.icon className="h-5 w-5 text-blue-600" />
               </div>
@@ -66,7 +49,6 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </main>
-    </div>
+      </div>
   );
 }

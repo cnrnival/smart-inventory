@@ -15,11 +15,10 @@ export default function CreateAccountPage() {
     confirmPassword: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, email, confirmEmail, password, confirmPassword } = form;
 
-    // Refatorado com o switch que você pediu anteriormente!
     switch (true) {
       case (!name || !email || !confirmEmail || !password || !confirmPassword):
         toast.error('Preencha todos os campos.');
@@ -92,7 +91,7 @@ export default function CreateAccountPage() {
 
           <p className="mt-6 text-center text-sm text-gray-600">
             Já tem conta?{' '}
-            <Link href="/login" className="font-medium text-blue-600 hover:underline">
+            <Link href="/login" className="font-medium text-[#125048] hover:underline">
               Fazer login
             </Link>
           </p>

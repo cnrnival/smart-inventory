@@ -2,20 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Package, LayoutDashboard, PlusCircle, Layers } from 'lucide-react';
+import { Package, LayoutDashboard, PlusCircle, Layers, User } from 'lucide-react';
 
 const links = [
   { to: '/', label: 'Início', icon: Package },
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/cadastro-produto', label: 'Novo Produto', icon: PlusCircle },
   { to: '/cadastro-lote', label: 'Novo Lote', icon: Layers },
+  { to: '/create-account', label: 'Criar Conta/Entrar', icon: User },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md h-[60px]">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 text-xl font-bold text-primary">
           <Package className="h-6 w-6" />
