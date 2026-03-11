@@ -8,7 +8,7 @@ const links = [
   { to: '/', label: 'Início', icon: Package },
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/register-product', label: 'Novo Produto', icon: PlusCircle },
-  { to: '/register-batch', label: 'Novo Lote', icon: Layers },
+  // { to: '/register-batch', label: 'Novo Lote', icon: Layers },
   { to: '/create-account', label: 'Criar Conta/Entrar', icon: User },
 ];
 

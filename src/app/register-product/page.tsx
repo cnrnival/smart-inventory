@@ -55,7 +55,7 @@ export default function RegisterProductPage(){
                         <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> e.target.value} value={productPrice} />
 
                         <button type="submit" className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 bg-blue-600">
-                            Criar Conta
+                            Registrar Produto
                         </button>
                     </form>
                 </div>
