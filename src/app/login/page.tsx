@@ -28,12 +28,12 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="container mx-auto flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm">
+      <main className="container mx-auto flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm h-[400px]">
           <h1 className="text-center text-3xl font-bold">Smart Inventory</h1>
           <p className="mt-2 text-center text-gray-600">Entre na sua conta</p>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+          <form onSubmit={handleSubmit} className="mt-5 space-y-5">
             <div>
               <label htmlFor="email" className="mb-1 block text-sm font-medium">Email</label>
               <input

@@ -7,8 +7,8 @@ import { Package, LayoutDashboard, PlusCircle, Layers, User } from 'lucide-react
 const links = [
   { to: '/', label: 'Início', icon: Package },
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/cadastro-produto', label: 'Novo Produto', icon: PlusCircle },
-  { to: '/cadastro-lote', label: 'Novo Lote', icon: Layers },
+  { to: '/register-product', label: 'Novo Produto', icon: PlusCircle },
+  { to: '/register-batch', label: 'Novo Lote', icon: Layers },
   { to: '/create-account', label: 'Criar Conta/Entrar', icon: User },
 ];
 
@@ -23,9 +23,9 @@ export function Navbar() {
           Smart Inventory
         </Link>
         <div className="flex items-center gap-1">
-          {links.map(({ to, label, icon: Icon }) => (
+          {links.map(({ to, label, icon: Icon }, index) => (
             <Link
-              key={to}
+              key={index}
               href={to}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors
                 ${pathname === to

@@ -53,12 +53,12 @@ export default function CreateAccountPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="container mx-auto flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm">
+      <main className="container mx-auto flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm ">
           <h1 className="text-center text-3xl font-bold">Criar Conta</h1>
           <p className="mt-2 text-center text-gray-600">Cadastre-se no Smart Inventory</p>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+          <form onSubmit={handleSubmit} className="mt-5 space-y-5">
             <div>
               <label htmlFor="name" className="mb-1 block text-sm font-medium">Nome *</label>
               <input id="name" type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Seu nome completo" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" required />
