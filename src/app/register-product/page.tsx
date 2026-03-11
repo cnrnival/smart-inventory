@@ -5,6 +5,7 @@ import { use, useState } from "react";
 // import { toast } from 'sonner';
 import Link from "next/link";
 import { ScanBarcodeIcon } from 'lucide-react';
+import { BarcodeScanner } from "@/components/barcodescanner";
 
 export default function RegisterProductPage(){
 
@@ -14,6 +15,8 @@ export default function RegisterProductPage(){
     const [productPrice, setProductPrice] = useState('');
     const  [manufactureDate, setManufactureDate] = useState('');
     const  [expirationDate, setExpirationDate] = useState('');
+
+    const [openScanner, setOpenScanner] = useState(false);
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 
@@ -27,7 +30,7 @@ export default function RegisterProductPage(){
 
                     <form onSubmit={handleSubmit} className="mt-5 space-y-5">
 
-                        <button type="submit" className="w-full rounded-lg border border-primary px-4 py-2.5 shadow-sm transition-colors hover:bg-primary/90 flex flex-row items-center justify-center">
+                        <button type="button" className="w-full rounded-lg border border-primary px-4 py-2.5 shadow-sm transition-colors hover:bg-primary/90 flex flex-row items-center justify-center" onClick={() => setOpenScanner(true)}>
                             <ScanBarcodeIcon className="inline-block h-5 w-5 mr-2 font-semibold text-primary" />
                             <p className=" text-sm font-semibold text-primary">Ler código de barras</p>
                         </button>
@@ -56,11 +59,15 @@ export default function RegisterProductPage(){
                         </button>
                     </form>
                 </div>
-                <div className="absolute flex items-center justify-center w-full h-full">
-                        <span className=" mt-16 w-[450px] h-full rounded-xl border bg-green-200 p-8 shadow-sm flex flex-col items-center justify-center">
-                            
+                {
+                    openScanner && (
+                        <div className="absolute flex items-center justify-center w-full h-full" onClick={()=> setOpenScanner(false)}>  
+                        <span className=" mt-16 w-[450px] h-full rounded-xl border bg-primary p-8 shadow-sm flex flex-col items-center justify-center" onClick={e => e.stopPropagation()}>
+                            <BarcodeScanner />
                          </span>
                     </div>
+                    )
+                }
             </main>
         </div>
     );
