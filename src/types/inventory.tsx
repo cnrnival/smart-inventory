@@ -41,16 +41,16 @@ export function ProductStatus({ status }: { status: LoteStatus }) {
 
   switch (status) {
     case 'válido':
-      config = { label: 'Válido', className: 'bg-green-100 text-green-700' };
+      config = { label: 'válido', className: 'bg-green-100 text-green-700' };
       break;
     case 'alerta':
-      config = { label: 'Em Alerta', className: 'bg-yellow-100 text-yellow-800' };
+      config = { label: 'alerta', className: 'bg-yellow-100 text-yellow-800' };
       break;
     case 'crítico':
-      config = { label: 'Crítico', className: 'bg-orange-100 text-orange-800' };
+      config = { label: 'crítico', className: 'bg-orange-100 text-orange-800' };
       break;
     case 'vencido':
-      config = { label: 'Vencido', className: 'bg-red-100 text-red-700' };
+      config = { label: 'vencido', className: 'bg-red-100 text-red-700' };
       break;
   }
 
