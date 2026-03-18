@@ -30,13 +30,13 @@ function loadFromStorage<T>(key: string, fallback: T[]): T[] {
   // }, []);
 
   // Busca um usuário por email (para login)
-  const findUserByEmail = useCallback((email: string) => {
-    return users.find(u => u.email === email);
-  }, [users]);
+//   const findUserByEmail = useCallback((email: string) => {
+//     return users.find(u => u.email === email);
+//   }, [users]);
 
-  return {
-    users,
-    registerUser,
-    findUserByEmail,
-  };
-}
+//   return {
+//     users,
+//     registerUser,
+//     findUserByEmail,
+//   };
+// }
