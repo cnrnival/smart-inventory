@@ -25,14 +25,19 @@ export default function RegisterProductPage(){
         setExpirationDate(newDate);
     }
 
+    function fillFormWithBarcodeData(barcode: string, productName: string){
+        setBarCode(barcode);
+        setProductName(productName);
+    }
+
     function handleSubmit() { // e: React.FormEvent<HTMLFormElement>
         alert(expirationDate.toLocaleDateString('pt-BR'));
     }
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <main className="container mx-auto flex items-center justify-center px-4 py-10">
-                <div className="w-[450px] rounded-xl border bg-white p-8 shadow-sm">
+            <main className="container mx-auto flex items-center justify-center px-4 py-10 relative select-none">
+                <div className="w-[450px] rounded-xl bg-white p-8 shadow-sm">
                     <h1 className="text-center text-3xl font-bold">Registrar Produto</h1>
                     <p className="mt-2 text-center text-gray-600">Adicione um novo produto ao estoque</p>
 
@@ -70,16 +75,12 @@ export default function RegisterProductPage(){
                             Registrar Produto
                         </button>
                     </form>
-                </div>
-                {
-                    openScanner && (
-                        <div className="absolute flex items-center justify-center w-full h-full" onClick={()=> setOpenScanner(false)}>  
-                        <span className=" mt-16 w-[450px] h-full rounded-xl border bg-primary p-8 shadow-sm flex flex-col items-center justify-center" onClick={e => e.stopPropagation()}>
-                            <BarcodeScanner />
-                         </span>
                     </div>
-                    )
-                }
+                    {
+                        openScanner && (
+                            <BarcodeScanner setOpenScanner={()=>setOpenScanner(false)} fillFormWithBarcodeData={(barcode: string, productName: string)=>fillFormWithBarcodeData(barcode, productName)} />
+                        )
+                    }
             </main>
         </div>
     );
