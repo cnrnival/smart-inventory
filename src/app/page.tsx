@@ -32,7 +32,8 @@ export default function Home() {
           </h1>
           <p className="mt-4 text-lg text-gray-600 md:text-xl">
             Plataforma IoT e Mobile para gestão preventiva de estoque com foco na
-            <span className="font-semibold"> redução de desperdício de alimentos</span>.
+            <span className="font-semibold"> redução de desperdício de itens
+              </span>.
           </p>
         </div>
 

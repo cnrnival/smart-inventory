@@ -94,7 +94,7 @@ export default function DashboardPage() {
           <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-3 text-yellow-600 mb-2">
               <AlertTriangle size={20} />
-              <h3 className="text-sm font-medium text-gray-600">Em Alerta</h3>
+              <h3 className="text-sm font-medium text-gray-600">Alerta</h3>
             </div>
             <p className="text-3xl font-bold text-gray-900">{totalAlerta}</p>
           </div>
