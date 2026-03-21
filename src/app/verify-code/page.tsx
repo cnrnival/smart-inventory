@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useInventory } from '@/hooks/useInventory';
+// import { useInventory } from '@/hooks/useInventory';
 
 export default function VerifyCodePage() {
   const router = useRouter();
-  const { registerUser } = useInventory();
+  // const { registerUser } = useInventory();
   const [code, setCode] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ export default function VerifyCodePage() {
 
     if (code === storedCode) {
       const user = JSON.parse(tempUser);
-      registerUser({ name: user.name, email: user.email, password: user.password });
+      // registerUser({ name: user.name, email: user.email, password: user.password });
 
       sessionStorage.removeItem('temp_user');
       sessionStorage.removeItem('verification_code');
