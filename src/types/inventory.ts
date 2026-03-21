@@ -1,35 +1,48 @@
-// //Definir as estruturas dos produtos e lotes, e a função de calculo de status
+// Representa um usuário do sistema
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}
 
-// export interface Produto{
-//     id: string;
-//     sku: string;
-//     nome: string;
-//     categoria: string;
-//     subcategoria: string;
-//     custo_unitario: number;
-// }
+// Representa um produto
+export interface Product {
+  id: string;               // ID único
+  sku: string;              // Código SKU
+  name: string;             // Nome do produto
+  category: string;         // Categoria principal
+  subcategory: string;      // Subcategoria (pode ser vazia)
+  unitCost: number;         // Custo por unidade (R$)
+}
 
-// export interface Lote{
-//     id: string;
-//     produto_id: string;
-//     lote: string;
-//     data_fabricacao: string;
-//     data_vencimento: string;
-//     quantidade: number;
-//     status: 'válido' | 'alerta' | 'crítico' | 'vencido';
-// }
+// Representa um lote
+export interface Batch {
+  id: string;
+  productId: string;
+  batchCode: string;
+  manufacturingDate: string; 
+  expiryDate: string;
+  quantity: number;
+  status: 'valid' | 'alert' | 'critical' | 'expired'; 
+}
 
-// export type LoteStatus = Lote['status'];
+// Tipo auxiliar para o status
+export type BatchStatus = Batch['status'];
 
-// //ccalcuyla status com base na data de vencimento
-// export function calcularStatusLote(dataVencimento: string): LoteStatus {
-//     const hoje = new Date();
-//     hoje.setHours(0, 0, 0, 0); //ignora horas
-//     const venc = new Date(dataVencimento);
-//     const diffDias = Math.ceil((venc.getTime() - hoje.getTime()) / (1000 * 60 *60 * 24));
+/**
+ * Calcula o status do lote com base na data de vencimento (RF04)
+ * @param expiryDate - Data no formato YYYY-MM-DD
+ * @returns Status correspondente: 'valid' | 'alert' | 'critical' | 'expired'
+ */
+export function calculateBatchStatus(expiryDate: string): BatchStatus {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Ignora horas
+  const expiry = new Date(expiryDate);
+  const diffDays = Math.ceil((expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-//     if (diffDias < 0) return 'vencido';
-//     if (diffDias < 7) return 'crítico'; //vermelhor
-//     if (diffDias < 30) return 'alerta'; //amarelo
-//     return 'válido'; //verde
-// }
+  if (diffDays < 0) return 'expired';      // Já passou
+  if (diffDays < 7) return 'critical';     // Menos de 7 dias → vermelho
+  if (diffDays < 30) return 'alert';       // Entre 7 e 29 → amarelo
+  return 'valid';                           // 30+ dias → verde
+}
