@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth'; // ← useAuth
 // import { useInventory } from '@/hooks/useInventory';
 
 export default function VerifyCodePage() {
   const router = useRouter();
-  // const { registerUser } = useInventory();
+  const { registerUser } = useAuth();
   const [code, setCode] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
