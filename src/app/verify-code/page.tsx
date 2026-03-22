@@ -25,7 +25,7 @@ export default function VerifyCodePage() {
 
     if (code === storedCode) {
       const user = JSON.parse(tempUser);
-      // registerUser({ name: user.name, email: user.email, password: user.password });
+      registerUser({ name: user.name, email: user.email, password: user.password });
 
       sessionStorage.removeItem('temp_user');
       sessionStorage.removeItem('verification_code');
