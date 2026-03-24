@@ -1,8 +1,6 @@
 
 import { Product, Batch } from '@/types/inventory';
 
-
-
 const addDays = (days: number) => {
   const date = new Date();
   date.setDate(date.getDate() + days);
@@ -21,6 +19,8 @@ const calculateBatchStatus = (expiryDate: string | Date): 'valid' | 'alert' | 'e
   return 'valid';
 };
 
+//produtos mockados enquanto não tem dados de produtos registrados
+
 let mockProducts: Product[] =[
 
 { id: 'p1', name: 'Dipirona 500mg', sku: 'MED-001', unitCost: 5.50, description: 'Analgésico', category: 'Medicamento', minThreshold: 50 },
@@ -37,11 +37,11 @@ let mockBatches: Batch[] = [
   { id: 'b5', productId: 'p3', batchCode: 'LOTE-C300', quantity: 80, expiryDate: addDays(5)},
   { id: 'b6', productId: 'p3', batchCode: 'LOTE-C301', quantity: 300, expiryDate: addDays(200)},
 
+//ajuda a fazer a localização pro calculo automatico dos dias!
 ].map(batch => ({
   ...batch,
   status: calculateBatchStatus(batch.expiryDate)
 })) as Batch[];
-
 
 
 export const api = {
