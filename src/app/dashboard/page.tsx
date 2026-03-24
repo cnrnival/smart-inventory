@@ -12,15 +12,22 @@ import { useInventory } from '@/hooks/useInventory';
 import { useAuth } from '@/hooks/useAuth';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Package, AlertTriangle, XCircle, DollarSign, LogOut } from 'lucide-react';
-
 // Placeholder para gráficos (serão implementados pela Pessoa B)
-// import { PieChart, BarChart, ... } from 'recharts';
+import { 
+  PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid 
+} from 'recharts';
+
+// Constante de cores para o gráfico de pizza
+const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { products, batches, expiredBatches, nearExpiryBatches, validBatches, financialRisk } = useInventory();
+  const { products, batches, expiredBatches, nearExpiryBatches, validBatches, financialRisk, isLoading } = useInventory();
   const { findUserByEmail } = useAuth(); // será usado após implementar login real
 
+
+  
   // Obter nome do usuário logado (mock enquanto não há autenticação real)
   const userName = 'Usuário'; // substituir por dados do usuário real
 
@@ -37,6 +44,30 @@ export default function DashboardPage() {
     router.push('/login');
   };
 
+if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <p className="animate-pulse text-lg font-medium text-gray-500">Carregando dashboard...</p>
+      </div>
+    );
+  }
+
+  const pieData = [
+    { name: 'Válidos', value: validBatches.length },
+    { name: 'Em alerta', value: nearExpiryBatches.length },
+    { name: 'Vencidos', value: expiredBatches.length },
+  ];
+
+  const barData = products.map(product => {
+    const productBatches = batches.filter(b => b.productId === product.id);
+    return {
+      name: product.name,
+      validos: productBatches.filter(b => b.status === 'valid').reduce((acc, b) => acc + b.quantity, 0),
+      alerta: productBatches.filter(b => b.status === 'alert').reduce((acc, b) => acc + b.quantity, 0),
+      vencidos: productBatches.filter(b => b.status === 'expired' || b.status === 'critical').reduce((acc, b) => acc + b.quantity, 0),
+    };
+  }).filter(data => data.validos > 0 || data.alerta > 0 || data.vencidos > 0);
+  
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto max-w-6xl space-y-8">
@@ -162,13 +193,58 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Área para gráficos (a ser preenchida pela Pessoa B) */}
-        <div className="rounded-xl border bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Gráficos</h2>
-          <div className="h-64 flex items-center justify-center text-gray-500">
-            <p>Em desenvolvimento – em breve gráficos com recharts</p>
+         {/*Gráfico em pizza */}
+       {batches.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="rounded-xl border bg-white p-6 shadow-sm h-[400px] flex flex-col">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Proporção de Lotes</h2>
+              <div className="flex-1 min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percent }) => percent > 0 ? `${name}: ${(percent * 100).toFixed(0)}%` : ''}
+                      outerRadius={100}
+                      dataKey="value"
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => [`${value} lotes`, 'Quantidade']} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/*Gráficos em barra */}
+            <div className="rounded-xl border bg-white p-6 shadow-sm h-[400px] flex flex-col">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Estoque por Produto</h2>
+               <div className="flex-1 min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={barData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis dataKey="name" tick={{fontSize: 12}} interval={0} angle={-45} textAnchor="end" height={60} />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend verticalAlign="top" height={36}/>
+                    {[
+                      { key: 'validos', name: 'Válidos' },
+                      { key: 'alerta', name: 'Em Alerta' },
+                      { key: 'vencidos', name: 'Vencidos/Críticos' }
+                          ].map((item, index) => (
+                    <Bar key={item.key} dataKey={item.key} name={item.name} stackId="a" fill={COLORS[index]} />
+))}
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
