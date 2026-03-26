@@ -50,58 +50,7 @@ export default function Home() {
         </p>
       </div>
             
-            {/* Lista dos produtos comentados */}
 
-      {/* <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
-          <div className="border-b px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Listagem de produtos</h2>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-gray-600">
-              <thead className="bg-gray-50 text-gray-900">
-                <tr>
-                  <th className="whitespace-nowrap px-6 py-4 font-medium">Produto</th>
-                  <th className="whitespace-nowrap px-6 py-4 font-medium">SKU</th>
-                  <th className="whitespace-nowrap px-6 py-4 font-medium">Lote</th>
-                  <th className="whitespace-nowrap px-6 py-4 font-medium">Validade</th>
-                  <th className="whitespace-nowrap px-6 py-4 text-right font-medium">Qtd</th>
-                  <th className="whitespace-nowrap px-6 py-4 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {batches.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
-                      Nenhum lote cadastrado no momento.
-                    </td>
-                  </tr>
-                ) : (
-                  batches
-                    .sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime())
-                    .map((batch) => (
-                      <tr key={batch.id} className="transition-colors hover:bg-gray-50/50">
-                        <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                          {getProductName(batch.productId)}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-gray-600">
-                          {getProductSku(batch.productId)}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">{batch.batchCode}</td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {new Date(batch.expiryDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-right font-medium">{batch.quantity}</td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          <StatusBadge status={batch.status} />
-                        </td>
-                      </tr>
-                    ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div> */}
 
       <div className="mx-auto flex space-between gap-6 flex-wrap justify-center items-center">
         {features.map((f, index) => (
