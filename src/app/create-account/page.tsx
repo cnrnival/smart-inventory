@@ -58,9 +58,9 @@ export default function CreateAccountPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-white">
       <main className="container mx-auto flex items-center justify-center px-4 py-10">
-        <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm ">
+        <div className="w-full max-w-md rounded-xl border border-secondary bg-third p-8 shadow-sm ">
           <h1 className="text-center text-3xl font-bold">Criar Conta</h1>
           <p className="mt-2 text-center text-gray-600">
             Cadastre-se no Smart Inventory
@@ -182,7 +182,7 @@ export default function CreateAccountPage() {
             Já tem conta?{" "}
             <Link
               href="/login"
-              className="font-medium text-[#125048] hover:underline"
+              className="font-medium text-primary hover:underline"
             >
               Fazer login
             </Link>

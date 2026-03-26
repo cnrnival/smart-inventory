@@ -35,11 +35,11 @@ export default function RegisterProductPage(){
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-background text-white">
             <main className="container mx-auto flex items-center justify-center px-4 py-10 relative select-none">
-                <div className="w-[450px] rounded-xl bg-white p-8 shadow-sm">
+                <div className="w-[450px] rounded-xl bg-third p-8 shadow-sm">
                     <h1 className="text-center text-3xl font-bold">Registrar Produto</h1>
-                    <p className="mt-2 text-center text-gray-600">Adicione um novo produto ao estoque</p>
+                    <p className="mt-2 text-center">Adicione um novo produto ao estoque</p>
 
                     <form onSubmit={handleSubmit} className="mt-5 space-y-5">
 
@@ -49,27 +49,27 @@ export default function RegisterProductPage(){
                         </button>
 
                         <label htmlFor="barcode" className="mb-1 block text-sm ">Código de barras</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setBarCode(e.target.value)} value={barCode} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setBarCode(e.target.value)} value={barCode} />
 
                         <label htmlFor="productName" className="mb-1 block text-sm">Nome do Produto</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductName(e.target.value)} value={productName} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductName(e.target.value)} value={productName} />
 
                         {/* <label htmlFor="productNam" className="mb-1 block text-sm font-medium">SKU</label>
                         <input type="text" className="border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" onChange={(e)=> e.target.value} value={productSKU} /> */}
 
-                         <label htmlFor="expirationDate" className="mb-1 block text-sm ">Data de Validade</label>
+                         <label htmlFor="expirationDate" className="mb-1 block text-sm">Data de Validade</label>
                          <DatePickerComponent expirationDatePicker={expirationDatePicker} selectedDate={expirationDate}/>
                         {/* <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> e.target.value} value={expirationDate} /> */}
 
                         <label htmlFor="category" className="mb-1 block text-sm">Categoria</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setCategory(e.target.value)} value={category} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setCategory(e.target.value)} value={category} />
 
 
                         <label htmlFor="productPrice" className="mb-1 block text-sm">Valor</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
 
                         <label htmlFor="quantity" className="mb-1 block text-sm">Quantidade</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
+                        <input type="number" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
 
                         <button type="submit" className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 bg-blue-600">
                             Registrar Produto

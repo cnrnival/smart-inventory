@@ -44,7 +44,7 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
           onClick={e => e.stopPropagation()}>
             <div className="w-full h-[60px] flex items-center justify-end" 
             onClick={setOpenScanner}>
-              <button className="w-[60px] h-[30px] border rounded-lg border-white text-white">voltar</button>
+              <button className="w-[60px] h-[30px] border rounded-lg border-white text-white md:hidden">voltar</button>
             </div>
             <video ref={ref} className="size-60 object-cover"/>
             <p className="mt-4 text-sm text-white">

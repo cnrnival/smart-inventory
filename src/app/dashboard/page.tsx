@@ -46,8 +46,8 @@ export default function DashboardPage() {
 
 if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <p className="animate-pulse text-lg font-medium text-gray-500">Carregando dashboard...</p>
+      <div className="flex min-h-screen items-center justify-center bg-background text-white">
+        <p className="animate-pulse text-lg font-medium">Carregando dashboard...</p>
       </div>
     );
   }
@@ -69,13 +69,13 @@ if (isLoading) {
   }).filter(data => data.validos > 0 || data.alerta > 0 || data.vencidos > 0);
   
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen bg-background p-4 md:p-8 text-white">
       <div className="mx-auto max-w-6xl space-y-8">
         {/* Cabeçalho */}
-        <header className="flex flex-col items-start justify-between gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center">
+        <header className="flex flex-col items-start justify-between gap-4 rounded-xl border bg-third p-6 shadow-sm sm:flex-row sm:items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Dashboard de Risco</h1>
-            <p className="text-sm text-gray-600">
+            <h1 className="text-2xl font-bold">Dashboard de Risco</h1>
+            <p className="text-sm">
               Bem-vindo(a), <span className="font-semibold text-primary">{userName}</span>
             </p>
           </div>
@@ -90,66 +90,66 @@ if (isLoading) {
 
         {/* Cards de resumo */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border bg-white p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm">
             <div className="flex items-center gap-3 text-green-600 mb-2">
               <Package size={20} />
-              <h3 className="text-sm font-medium text-gray-600">produtos Válidos</h3>
+              <h3 className="text-sm font-medium">Lotes Válidos</h3>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{validBatches.length}</p>
+            <p className="text-3xl font-bold">{validBatches.length}</p>
           </div>
 
-          <div className="rounded-xl border bg-white p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm">
             <div className="flex items-center gap-3 text-yellow-600 mb-2">
               <AlertTriangle size={20} />
-              <h3 className="text-sm font-medium text-gray-600">Em alerta</h3>
+              <h3 className="text-sm font-medium ">Em alerta</h3>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{nearExpiryBatches.length}</p>
+            <p className="text-3xl font-bold">{nearExpiryBatches.length}</p>
           </div>
 
-          <div className="rounded-xl border bg-white p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm">
             <div className="flex items-center gap-3 text-red-600 mb-2">
               <AlertTriangle size={20} />
-              <h3 className="text-sm font-medium text-gray-600">Críticos</h3>
+              <h3 className="text-sm font-medium 0">Críticos</h3>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold">
               {batches.filter(b => b.status === 'critical').length}
             </p>
           </div>
 
-          <div className="rounded-xl border bg-white p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm">
             <div className="flex items-center gap-3 text-red-600 mb-2">
               <XCircle size={20} />
-              <h3 className="text-sm font-medium text-gray-600">Vencidos</h3>
+              <h3 className="text-sm font-medium ">Vencidos</h3>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{expiredBatches.length}</p>
+            <p className="text-3xl font-bold">{expiredBatches.length}</p>
           </div>
         </div>
 
         {/* Card de Risco Financeiro */}
-        <div className="rounded-xl border bg-white p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="rounded-xl border bg-third p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <div className="flex items-center gap-3 text-gray-700 mb-2">
+            <div className="flex items-center gap-3 mb-2">
               <DollarSign size={20} />
-              <h3 className="text-sm font-medium text-gray-600">Risco Financeiro Total</h3>
+              <h3 className="text-sm font-medium ">Risco Financeiro Total</h3>
             </div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm ">
               Valor de produtos em alerta, críticos ou vencidos.
             </p>
           </div>
-          <p className="text-4xl font-bold text-gray-900">
+          <p className="text-4xl font-bold">
             {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(financialRisk)}
           </p>
         </div>
 
-        {/* Tabela de produtos */}
+        {/* Tabela de lotes */}
         <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
           <div className="border-b px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Listagem de produtos</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Listagem de Lotes</h2>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-gray-600">
-              <thead className="bg-gray-50 text-gray-900">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-gray-200">
                 <tr>
                   <th className="whitespace-nowrap px-6 py-4 font-medium">Produto</th>
                   <th className="whitespace-nowrap px-6 py-4 font-medium">SKU</th>
@@ -162,7 +162,7 @@ if (isLoading) {
               <tbody className="divide-y divide-gray-100">
                 {batches.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                    <td colSpan={6} className="px-6 py-8 text-center ">
                       Nenhum lote cadastrado no momento.
                     </td>
                   </tr>
@@ -170,11 +170,11 @@ if (isLoading) {
                   batches
                     .sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime())
                     .map((batch) => (
-                      <tr key={batch.id} className="transition-colors hover:bg-gray-50/50">
-                        <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                      <tr key={batch.id} className="transition-colors hover:bg-background">
+                        <td className="whitespace-nowrap px-6 py-4 font-medium ">
                           {getProductName(batch.productId)}
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-gray-600">
+                        <td className="whitespace-nowrap px-6 py-4">
                           {getProductSku(batch.productId)}
                         </td>
                         <td className="whitespace-nowrap px-6 py-4">{batch.batchCode}</td>
@@ -196,8 +196,8 @@ if (isLoading) {
          {/*Gráfico em pizza */}
        {batches.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="rounded-xl border bg-white p-6 shadow-sm h-[400px] flex flex-col">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Proporção de Lotes</h2>
+            <div className="rounded-xl border bg-third p-6 shadow-sm h-[400px] flex flex-col">
+              <h2 className="text-lg font-semibold mb-4">Proporção de Lotes</h2>
               <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -206,7 +206,7 @@ if (isLoading) {
                       cx="50%"
                       cy="50%"
                       labelLine={false}
-                      label={({ name, percent }) => percent > 0 ? `${name}: ${(percent * 100).toFixed(0)}%` : ''}
+                      label={({ name, percent }) => (percent && percent > 0 && name) ? `${name}: ${(percent * 100).toFixed(0)}%` : ''}
                       outerRadius={100}
                       dataKey="value"
                     >
@@ -222,8 +222,8 @@ if (isLoading) {
             </div>
 
             {/*Gráficos em barra */}
-            <div className="rounded-xl border bg-white p-6 shadow-sm h-[400px] flex flex-col">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Estoque por Produto</h2>
+            <div className="rounded-xl border bg-third p-6 shadow-sm h-[400px] flex flex-col">
+              <h2 className="text-lg font-semibold mb-4">Estoque por Produto</h2>
                <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={barData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
