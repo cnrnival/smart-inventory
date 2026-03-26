@@ -13,14 +13,15 @@ export default function CreateAccountPage() {
     confirmEmail: "",
     password: "",
     confirmPassword: "",
+    document: "",
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, email, confirmEmail, password, confirmPassword } = form;
+    const { name, email, confirmEmail, password, confirmPassword, document } = form;
 
     switch (true) {
-      case !name || !email || !confirmEmail || !password || !confirmPassword:
+      case !name || !email || !confirmEmail || !password || !confirmPassword || !document:
         toast.error("Preencha todos os campos.");
         return;
 
@@ -111,6 +112,21 @@ export default function CreateAccountPage() {
                   setForm({ ...form, confirmEmail: e.target.value })
                 }
                 placeholder="Confirme seu email"
+                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                required
+              />
+            </div>
+
+             <div>
+              <label htmlFor="document" className="mb-1 block text-sm font-medium">
+                CPF/CNPJ da Empresa *
+              </label>
+              <input
+                id="document"
+                type="text"
+                value={form.document}
+                onChange={(e) => setForm({ ...form, document: e.target.value })}
+                placeholder="Apenas números"
                 className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
