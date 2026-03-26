@@ -16,7 +16,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md h-[60px]">
+    <nav className="sticky top-0 z-50  bg-secondary h-[60px]">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 text-xl font-bold text-primary">
           <Package className="h-6 w-6" />
@@ -30,7 +30,7 @@ export function Navbar() {
               className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors
                 ${pathname === to
                   ? 'bg-primary text-white'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  : 'text-white hover:bg-primary/90'
                 }`}
             >
               <Icon className="h-4 w-4" />

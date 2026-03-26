@@ -21,9 +21,9 @@ const features = [
 
 export default function Home() {
   return (
-      <div className="container mx-auto px-4 w-screen h-calc(100vh - 60px) flex flex-col">
+      <div className="px-4 w-screen h-[calc(100vh - 60px)] flex flex-col bg-background text-white">
         <div className="mx-auto max-w-3xl text-center py-10">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-200 px-4 py-1.5 text-sm font-medium">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-third px-4 py-1.5 text-sm font-medium">
             <Leaf className="h-4 w-4" />
             Gestão Preventiva de Estoque
           </div>
@@ -41,7 +41,7 @@ export default function Home() {
           {features.map((f, index) => (
             <div
               key={index}
-              className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md
+              className="rounded-xl border border-details bg-third p-6 shadow-sm transition-shadow hover:shadow-md
               sm:w-[300px] sm:h-[220px]
               md:w-[350px] md:h-[250px]">
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
