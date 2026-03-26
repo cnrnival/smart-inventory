@@ -37,11 +37,13 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mx-auto flex flex-row space-between gap-6">
+        <div className="mx-auto flex space-between gap-6 flex-wrap justify-center items-center">
           {features.map((f, index) => (
             <div
               key={index}
-              className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md w-[350px] h-[250px]">
+              className="rounded-xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md
+              sm:w-[300px] sm:h-[220px]
+              md:w-[350px] md:h-[250px]">
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
                 <f.icon className="h-5 w-5 text-blue-600" />
               </div>

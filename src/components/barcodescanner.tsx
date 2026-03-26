@@ -36,15 +36,23 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
 
   return (
     <div 
-      className="absolute inset-0 flex items-center justify-center h-full w-full select-none" 
+      className="absolute inset-0 flex items-center justify-center h-full w-full select-none bg-red-200 md:p-10" 
       onClick={setOpenScanner}>
-        <div className="w-[450px] h-[759px] rounded-xl bg-primary shadow-sm flex flex-col items-center justify-center" onClick={e => e.stopPropagation()}>
-          <video ref={ref} className="w-80 h-80"/>
-          <p>
-            <span>Last result:</span>
-            <span>{result}</span>
-          </p>
-      </div>
+        <div 
+          className=" md:rounded-xl bg-primary shadow-sm flex flex-col items-center md:justify-center p-6
+          h-full w-[450px] md:py-10" 
+          onClick={e => e.stopPropagation()}>
+            <div className="w-full h-[60px] flex items-center justify-end" 
+            onClick={setOpenScanner}>
+              <button className="w-[60px] h-[30px] border rounded-lg border-white text-white">voltar</button>
+            </div>
+            <video ref={ref} className="size-60 object-cover"/>
+            <p className="mt-4 text-sm text-white">
+              <span>Último resultado: </span>
+              <span>{result}</span>
+            </p>
+        </div>
     </div>
+
   );
 };
