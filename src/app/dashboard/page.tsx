@@ -142,9 +142,9 @@ if (isLoading) {
         </div>
 
         {/* Tabela de lotes */}
-        <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
+        <div className="rounded-xl border bg-third shadow-sm overflow-hidden">
           <div className="border-b px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Listagem de Lotes</h2>
+            <h2 className="text-lg font-semibold">Listagem de Produtos</h2>
           </div>
 
           <div className="overflow-x-auto">
