@@ -93,7 +93,7 @@ if (isLoading) {
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <div className="flex items-center gap-3 text-green-600 mb-2">
               <Package size={20} />
-              <h3 className="text-sm font-medium text-gray-600">Lotes Válidos</h3>
+              <h3 className="text-sm font-medium text-gray-600">produtos Válidos</h3>
             </div>
             <p className="text-3xl font-bold text-gray-900">{validBatches.length}</p>
           </div>
@@ -141,10 +141,10 @@ if (isLoading) {
           </p>
         </div>
 
-        {/* Tabela de lotes */}
+        {/* Tabela de produtos */}
         <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
           <div className="border-b px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Listagem de Lotes</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Listagem de produtos</h2>
           </div>
 
           <div className="overflow-x-auto">
