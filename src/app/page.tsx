@@ -10,12 +10,12 @@ const features = [
   {
     icon: Leaf,
     title: 'Redução de Desperdício',
-    desc: 'Lógica FEFO garante saída dos lotes mais próximos do vencimento.',
+    desc: 'Lógica FEFO garante saída dos produtos mais próximos do vencimento.',
   },
   {
     icon: BarChart3,
     title: 'Visão Financeira',
-    desc: 'Estimativa de risco financeiro por lotes em perigo.',
+    desc: 'Estimativa de risco financeiro por produtos em perigo.',
   },
 ];
 
