@@ -21,11 +21,11 @@ const calculateBatchStatus = (expiryDate: string | Date): 'valid' | 'alert' | 'e
 
 //produtos mockados enquanto não tem dados de produtos registrados
 
-let mockProducts: Product[] =[
 
-{ id: 'p1', name: 'Dipirona 500mg', sku: 'MED-001', unitCost: 5.50, description: 'Analgésico', category: 'Medicamento', minThreshold: 50 },
-  { id: 'p2', name: 'Amoxicilina 500mg', sku: 'MED-002', unitCost: 15.90, description: 'Antibiótico', category: 'Medicamento', minThreshold: 30 },
-  { id: 'p3', name: 'Ibuprofeno 400mg', sku: 'MED-003', unitCost: 8.00, description: 'Anti-inflamatório', category: 'Medicamento', minThreshold: 40 },
+let mockProducts: Product[] = [
+  { id: 'p1', name: 'Dipirona 500mg', sku: 'MED-001', unitCost: 5.50, category: 'Medicamento', subcategory: 'Analgésico' },
+  { id: 'p2', name: 'Amoxicilina 500mg', sku: 'MED-002', unitCost: 15.90, category: 'Medicamento', subcategory: 'Antibiótico' },
+  { id: 'p3', name: 'Ibuprofeno 400mg', sku: 'MED-003', unitCost: 8.00, category: 'Medicamento', subcategory: 'Anti-inflamatório' },
 ];
 
 let mockBatches: Batch[] = [
