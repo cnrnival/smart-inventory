@@ -36,7 +36,7 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
 
   return (
     <div 
-      className="absolute inset-0 flex items-center justify-center h-full w-full select-none bg-red-200 md:p-10" 
+      className="absolute inset-0 flex items-center justify-center h-full w-full select-none md:p-10" 
       onClick={setOpenScanner}>
         <div 
           className=" md:rounded-xl bg-primary shadow-sm flex flex-col items-center md:justify-center p-6
@@ -44,7 +44,7 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
           onClick={e => e.stopPropagation()}>
             <div className="w-full h-[60px] flex items-center justify-end" 
             onClick={setOpenScanner}>
-              <button className="w-[60px] h-[30px] border rounded-lg border-white text-white">voltar</button>
+              <button className="w-[60px] h-[30px] border rounded-lg border-white text-white md:hidden">voltar</button>
             </div>
             <video ref={ref} className="size-60 object-cover"/>
             <p className="mt-4 text-sm text-white">
