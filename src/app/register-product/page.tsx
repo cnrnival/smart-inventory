@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ScanBarcodeIcon } from 'lucide-react';
 import { BarcodeScanner } from "@/components/barcodescanner";
 import { DatePickerComponent } from "@/components/datepicker";
+import { addProductToInventory } from "@/hooks/useNewInventory";
 
 export default function RegisterProductPage(){
 
@@ -30,8 +31,18 @@ export default function RegisterProductPage(){
         setProductName(productName);
     }
 
-    function handleSubmit() { // e: React.FormEvent<HTMLFormElement>
-        alert(expirationDate.toLocaleDateString('pt-BR'));
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('barcode', barCode);
+        formData.append('productName', productName);
+        formData.append('category', category);
+        formData.append('productPrice', productPrice);
+        formData.append('expirationDate', expirationDate.toISOString());
+        formData.append('quantity', quantity);
+
+        addProductToInventory(formData);
     }
 
     return (
@@ -66,10 +77,10 @@ export default function RegisterProductPage(){
 
 
                         <label htmlFor="productPrice" className="mb-1 block text-sm">Valor</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
+                        <input type="number" min='0' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
 
                         <label htmlFor="quantity" className="mb-1 block text-sm">Quantidade</label>
-                        <input type="number" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
+                        <input type="number" min='1' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
 
                         <button type="submit" className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 bg-blue-600">
                             Registrar Produto

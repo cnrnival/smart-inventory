@@ -1,7 +1,7 @@
 // npm i axios
 import axios from 'axios';
 
-const api = axios.create({
+export const axios_api = axios.create({
   baseURL: '', 
   headers: {
     'Content-Type': 'application/json',

@@ -62,7 +62,7 @@ export default function CreateAccountPage() {
       <main className="container mx-auto flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-md rounded-xl border border-secondary bg-third p-8 shadow-sm ">
           <h1 className="text-center text-3xl font-bold">Criar Conta</h1>
-          <p className="mt-2 text-center text-gray-600">
+          <p className="mt-2 text-center ">
             Cadastre-se no Smart Inventory
           </p>
 
@@ -77,7 +77,7 @@ export default function CreateAccountPage() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="Seu nome completo"
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-gray-300  px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -92,7 +92,7 @@ export default function CreateAccountPage() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="seu@email.com"
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-gray-300  px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -112,7 +112,7 @@ export default function CreateAccountPage() {
                   setForm({ ...form, confirmEmail: e.target.value })
                 }
                 placeholder="Confirme seu email"
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-gray-300  px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -127,7 +127,7 @@ export default function CreateAccountPage() {
                 value={form.document}
                 onChange={(e) => setForm({ ...form, document: e.target.value })}
                 placeholder="Apenas números"
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-gray-300  px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -145,7 +145,7 @@ export default function CreateAccountPage() {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 placeholder="Mínimo 4 caracteres"
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-gray-300  px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -165,7 +165,7 @@ export default function CreateAccountPage() {
                   setForm({ ...form, confirmPassword: e.target.value })
                 }
                 placeholder="Repita a senha"
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-gray-300  px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -178,7 +178,7 @@ export default function CreateAccountPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-600">
+          <p className="mt-6 text-center text-sm ">
             Já tem conta?{" "}
             <Link
               href="/login"
