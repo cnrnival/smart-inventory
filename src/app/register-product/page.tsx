@@ -46,39 +46,39 @@ export default function RegisterProductPage(){
     }
 
     return (
-        <div className="min-h-screen bg-background text-white">
+        <div className="min-h-screen bg-background text-white bg-[#262626]">
             <main className="container mx-auto flex items-center justify-center px-4 py-10 relative select-none">
-                <div className="w-[450px] rounded-xl bg-third p-8 shadow-sm">
+                <div className="w-[450px] rounded-xl bg-third p-8 shadow-sm bg-[#323232]">
                     <h1 className="text-center text-3xl font-bold">Registrar Produto</h1>
                     <p className="mt-2 text-center">Adicione um novo produto ao estoque</p>
 
                     <form onSubmit={handleSubmit} className="mt-5 space-y-5">
 
-                        <button type="button" className="w-full rounded-lg border border-primary px-4 py-2.5 shadow-sm transition-colors hover:bg-primary/90 flex flex-row items-center justify-center" onClick={() => setOpenScanner(true)}>
-                            <ScanBarcodeIcon className="inline-block h-5 w-5 mr-2 font-semibold text-primary" />
-                            <p className=" text-sm font-semibold text-primary">Ler código de barras</p>
+                        <button type="button" className="w-full rounded-lg border px-4 py-2.5 shadow-sm transition-colors hover:bg-primary/90 flex flex-row items-center justify-center text-primary hover:text-white border-[#6b9dff] text-[#6b9dff] hover:border-[#6b9dff] hover:bg-[#6b9dff]" onClick={() => setOpenScanner(true)}>
+                            <ScanBarcodeIcon className="inline-block h-5 w-5 mr-2 font-semibold" />
+                            <p className=" text-sm font-semibold ">Ler código de barras</p>
                         </button>
 
                         <label htmlFor="barcode" className="mb-1 block text-sm ">Código de barras</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setBarCode(e.target.value)} value={barCode} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setBarCode(e.target.value)} value={barCode} />
 
                         <label htmlFor="productName" className="mb-1 block text-sm">Nome do Produto</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductName(e.target.value)} value={productName} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setProductName(e.target.value)} value={productName} />
 
                          <label htmlFor="expirationDate" className="mb-1 block text-sm">Data de Validade</label>
                          <DatePickerComponent expirationDatePicker={expirationDatePicker} selectedDate={expirationDate}/>
 
                         <label htmlFor="category" className="mb-1 block text-sm">Categoria</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setCategory(e.target.value)} value={category} />
+                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20" onChange={(e)=> setCategory(e.target.value)} value={category} />
 
 
                         <label htmlFor="productPrice" className="mb-1 block text-sm">Valor</label>
-                        <input type="number" min='0' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
+                        <input type="number" min='0' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
 
                         <label htmlFor="quantity" className="mb-1 block text-sm">Quantidade</label>
-                        <input type="number" min='1' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
+                        <input type="number" min='1' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
 
-                        <button type="submit" className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 bg-blue-600">
+                        <button type="submit" className="w-full rounded-lg px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6b9dff]/70 bg-[#6b9dff]">
                             Registrar Produto
                         </button>
                     </form>

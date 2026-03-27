@@ -46,7 +46,7 @@ export default function DashboardPage() {
 
 if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background text-white">
+      <div className="flex min-h-screen items-center justify-center bg-background text-white bg-[#262626]">
         <p className="animate-pulse text-lg font-medium">Carregando dashboard...</p>
       </div>
     );
@@ -69,14 +69,14 @@ if (isLoading) {
   }).filter(data => data.validos > 0 || data.alerta > 0 || data.vencidos > 0);
   
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8 text-white">
+    <div className="min-h-screen bg-background p-4 md:p-8 text-white bg-[#262626]">
       <div className="mx-auto max-w-6xl space-y-8">
         {/* Cabeçalho */}
-        <header className="flex flex-col items-start justify-between gap-4 rounded-xl border bg-third p-6 shadow-sm sm:flex-row sm:items-center">
+        <header className="flex flex-col items-start justify-between gap-4 rounded-xl border bg-third p-6 shadow-sm sm:flex-row sm:items-center bg-[#323232]">
           <div>
             <h1 className="text-2xl font-bold">Dashboard de Risco</h1>
             <p className="text-sm">
-              Bem-vindo(a), <span className="font-semibold text-primary">{userName}</span>
+              Bem-vindo(a), <span className="font-semibold text-[#6b9dff]">{userName}</span>
             </p>
           </div>
           <button
@@ -90,15 +90,15 @@ if (isLoading) {
 
         {/* Cards de resumo */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border bg-third p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm bg-[#323232]">
             <div className="flex items-center gap-3 text-green-600 mb-2">
               <Package size={20} />
-              <h3 className="text-sm font-medium">Lotes Válidos</h3>
+              <h3 className="text-sm font-medium">Produtos Válidos</h3>
             </div>
             <p className="text-3xl font-bold">{validBatches.length}</p>
           </div>
 
-          <div className="rounded-xl border bg-third p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm bg-[#323232]">
             <div className="flex items-center gap-3 text-yellow-600 mb-2">
               <AlertTriangle size={20} />
               <h3 className="text-sm font-medium ">Em alerta</h3>
@@ -106,7 +106,7 @@ if (isLoading) {
             <p className="text-3xl font-bold">{nearExpiryBatches.length}</p>
           </div>
 
-          <div className="rounded-xl border bg-third p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm bg-[#323232]">
             <div className="flex items-center gap-3 text-red-600 mb-2">
               <AlertTriangle size={20} />
               <h3 className="text-sm font-medium 0">Críticos</h3>
@@ -116,7 +116,7 @@ if (isLoading) {
             </p>
           </div>
 
-          <div className="rounded-xl border bg-third p-6 shadow-sm">
+          <div className="rounded-xl border bg-third p-6 shadow-sm bg-[#323232]">
             <div className="flex items-center gap-3 text-red-600 mb-2">
               <XCircle size={20} />
               <h3 className="text-sm font-medium ">Vencidos</h3>
@@ -126,7 +126,7 @@ if (isLoading) {
         </div>
 
         {/* Card de Risco Financeiro */}
-        <div className="rounded-xl border bg-third p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="rounded-xl border bg-third p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[#323232]">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <DollarSign size={20} />
@@ -142,7 +142,7 @@ if (isLoading) {
         </div>
 
         {/* Tabela de lotes */}
-        <div className="rounded-xl border bg-third shadow-sm overflow-hidden">
+        <div className="rounded-xl border bg-third shadow-sm overflow-hidden bg-[#323232]">
           <div className="border-b px-6 py-4">
             <h2 className="text-lg font-semibold">Listagem de Produtos</h2>
           </div>
@@ -170,7 +170,7 @@ if (isLoading) {
                   batches
                     .sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime())
                     .map((batch) => (
-                      <tr key={batch.id} className="transition-colors hover:bg-background">
+                      <tr key={batch.id} className="transition-colors hover:bg-background hover:bg-[][#424242]">
                         <td className="whitespace-nowrap px-6 py-4 font-medium ">
                           {getProductName(batch.productId)}
                         </td>
@@ -196,7 +196,7 @@ if (isLoading) {
          {/*Gráfico em pizza */}
        {batches.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="rounded-xl border bg-third p-6 shadow-sm h-[400px] flex flex-col">
+            <div className="rounded-xl border bg-third p-6 shadow-sm h-[400px] flex flex-col bg-[#323232]">
               <h2 className="text-lg font-semibold mb-4">Proporção de Lotes</h2>
               <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
@@ -222,7 +222,7 @@ if (isLoading) {
             </div>
 
             {/*Gráficos em barra */}
-            <div className="rounded-xl border bg-third p-6 shadow-sm h-[400px] flex flex-col">
+            <div className="rounded-xl border bg-third p-6 shadow-sm h-[400px] flex flex-col bg-[#323232]">
               <h2 className="text-lg font-semibold mb-4">Estoque por Produto</h2>
                <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">

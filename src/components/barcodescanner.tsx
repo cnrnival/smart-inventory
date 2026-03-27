@@ -39,7 +39,7 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
       className="absolute inset-0 flex items-center justify-center h-full w-full select-none md:p-10" 
       onClick={setOpenScanner}>
         <div 
-          className=" md:rounded-xl bg-primary shadow-sm flex flex-col items-center md:justify-center p-6
+          className=" md:rounded-xl bg-primary shadow-sm flex flex-col items-center md:justify-center p-6 bg-[#6b9dff]
           h-full w-[450px] md:py-10" 
           onClick={e => e.stopPropagation()}>
             <div className="w-full h-[60px] flex items-center justify-end" 

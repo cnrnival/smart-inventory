@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ShieldCheck, Leaf, BarChart3 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { useInventory } from '@/hooks/useInventory';
+import { useState } from 'react';
 
 const features = [
   {
@@ -28,7 +29,7 @@ const features = [
 ];
 
 export default function Home() {
-
+  
   const products = [
      { id: 1, name: 'Produto 1', expiryDate: '2026-03-26' },
      { id: 2, name: 'Produto 2', expiryDate: '2023-03-26' },
@@ -40,62 +41,39 @@ export default function Home() {
      { id: 8, name: 'Produto 8', expiryDate: '2023-03-26' },
      { id: 9, name: 'Produto 9', expiryDate: '2023-03-26' }
     ];
-  
+
   return (
-      <div className="px-4 w-full md:h-[calc(100vh-60px)] sm:min-h-screen flex flex-col bg-background text-white">
-        <div className="mx-auto text-center py-10">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-medium">
-            <Leaf className="h-4 w-4" />
-            Gestão Preventiva de Estoque
-          </div>
-          <h1 className="text-4xl font-bold">
-            Smart Inventory
-          </h1>
-          <p className="mt-4 text-lg text-white/80 md:text-xl mb-10">
-            Plataforma IoT e Mobile para gestão preventiva de estoque com foco na
-            <span className="font-semibold"> redução de desperdício de itens
-              </span>.
-          </p>
+    <div className="w-full md:h-[calc(100vh-60px)] sm:min-h-screen flex flex-col text-white bg-[#262626]">
+      
+      <div className="container w-full flex justify-center py-10 mx-auto">
 
-            {/* <div className="sm:w-[400px] md:w-[950px] h-[250px] bg-third mx-auto rounded-xl flex flex-col mb-4">
-              <div className='w-full h-[40px] bg-primary rounded-t-xl flex flex-row items-center justify-between px-4'>
-                  <h2 className='text-md font-semibold text-center text-white/80'>Produtos próximos do vencimento</h2>
-                  <Link href="/products" className="hover:text-blue-700">
-                    Ver tudo
-                  </Link>
-              </div>
-              <div className='w-full h-full flex flex-row overflow-x-auto flex-nowrap items-stretch gap-4 p-3 hide-scrollbar'>
-                {products.map((product) => (
-                  <div 
-                  key={product.id} 
-                  className="min-w-[200px] h-full p-4 bg-fourth
-                  flex flex-col items-center justify-center rounded-lg shadow-md">
-                    <h3 className="text-xl font-semibold">{product.name}</h3>
-                    <span className="text-lg font-bold text-red">Vence em um dia</span>
-                 </div>
-                ))}
-              </div>
-            </div> */}
+  <div className="w-full bg-third rounded-xl flex flex-col mb-4 bg-[#323232]">
 
-          <div className="mx-auto flex space-between gap-6 flex-wrap justify-center items-center">
-            {features.map((f, index) => (
-            <div
-              key={index}
-              className="rounded-xl border border-secondary bg-third p-6 shadow-sm transition-shadow hover:shadow-md
-              sm:w-[300px] sm:h-[220px]
-              md:w-[300px] md:h-[200px]">
-              <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
-                <f.icon className="h-5 w-5 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold">{f.title}</h3>
-              <p className="mt-1 text-sm text-white/80">{f.desc}</p>
-            </div>
-        ))}
-      </div>
-      </div>
+    <div className="w-full h-[40px] bg-primary rounded-t-xl flex items-center justify-between px-4 bg-[#6b9dff]">
+      <h2 className="text-md font-semibold text-white/80">
+        Produtos próximos do vencimento
+      </h2>
+
+      <Link href="/products">Ver tudo</Link>
+    </div>
+
+    <div className="w-full flex overflow-x-auto gap-4 p-3 hide-scrollbar">
+      
+      {products.map((product) => (
+        <div
+          key={product.id}
+          className="w-[300px] h-[200px] flex-shrink-0 p-4 bg-fourth
+          flex flex-col items-center justify-center rounded-lg shadow-md bg-[#424242]">
+          <h3>{product.name}</h3>
+          <span className="text-red-400">Vence em um dia</span>
+        </div>
+      ))}
+
+    </div>
+  </div>
+
+</div>      
+
     </div>
   );
-
-
-
 }

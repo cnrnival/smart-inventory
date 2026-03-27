@@ -41,26 +41,28 @@ export default function CreateAccountPage() {
         break;
     }
 
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    
 
-    sessionStorage.setItem(
-      "temp_user",
-      JSON.stringify({ name, email, password }),
-    );
-    sessionStorage.setItem("verification_code", code);
+    // const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-    toast.success(
-      `Código de verificação enviado para ${email} (código: ${code})`,
-    );
+    // sessionStorage.setItem(
+    //   "temp_user",
+    //   JSON.stringify({ name, email, password }),
+    // );
+    // sessionStorage.setItem("verification_code", code);
 
-    // Atualizado para a nova rota em inglês
-    router.push("/verify-code");
+    // toast.success(
+    //   `Código de verificação enviado para ${email} (código: ${code})`,
+    // );
+
+    // // Atualizado para a nova rota em inglês
+    // router.push("/verify-code");
   };
 
   return (
-    <div className="min-h-screen bg-background text-white">
+    <div className="min-h-screen bg-background text-white bg-[#262626]">
       <main className="container mx-auto flex items-center justify-center px-4 py-10">
-        <div className="w-full max-w-md rounded-xl border border-secondary bg-third p-8 shadow-sm ">
+        <div className="w-full max-w-md rounded-xl p-8 shadow-sm bg-[#323232]">
           <h1 className="text-center text-3xl font-bold">Criar Conta</h1>
           <p className="mt-2 text-center ">
             Cadastre-se no Smart Inventory
@@ -172,7 +174,7 @@ export default function CreateAccountPage() {
 
             <button
               type="submit"
-              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90"
+              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 bg-[#6b9dff] hover:bg-[#6b9dff]/70"
             >
               Criar Conta
             </button>
@@ -182,7 +184,7 @@ export default function CreateAccountPage() {
             Já tem conta?{" "}
             <Link
               href="/login"
-              className="font-medium text-primary hover:underline"
+              className="font-medium hover:underline text-[#6b9dff] hover:text-[#6b9dff]/70"
             >
               Fazer login
             </Link>

@@ -13,12 +13,17 @@ const links = [
 ];
 
 export function Navbar() {
+  
   const pathname = usePathname();
 
+  if (pathname === '/welcome') {
+    return null;
+  }
+
   return (
-    <nav className="sticky top-0 z-50  bg-secondary h-[60px]">
+    <nav className="sticky top-0 z-50  bg-[#222222] h-[60px] text-white">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold text-primary">
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold text-[#6b9dff]">
           <Package className="h-6 w-6" />
           Smart Inventory
         </Link>
@@ -27,10 +32,10 @@ export function Navbar() {
             <Link
               key={index}
               href={to}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors'
                 ${pathname === to
-                  ? 'bg-primary text-white'
-                  : 'text-white hover:bg-primary/90'
+                  ? 'bg-[#6b9dff]' // Cor para o link ativo
+                  : 'text-white hover:bg-[#6b9dff]/90'
                 }`}
             >
               <Icon className="h-4 w-4" />
