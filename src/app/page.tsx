@@ -62,7 +62,7 @@ export default function Home() {
       {products.map((product) => (
         <div
           key={product.id}
-          className="w-[300px] h-[200px] flex-shrink-0 p-4 bg-fourth
+          className="w-[200px] h-[200px] flex-shrink-0 p-4 bg-fourth
           flex flex-col items-center justify-center rounded-lg shadow-md bg-[#424242]">
           <h3>{product.name}</h3>
           <span className="text-red-400">Vence em um dia</span>
