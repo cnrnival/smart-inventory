@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Package, LayoutDashboard, PlusCircle, Layers, User } from 'lucide-react';
+import { Package, LayoutDashboard, PlusCircle, Layers, User, Home, HandCoins } from 'lucide-react';
 
 const links = [
-  { to: '/', label: 'Início', icon: Package },
+  { to: '/', label: 'Início', icon: Home },
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/register-product', label: 'Novo Produto', icon: PlusCircle },
-  // { to: '/register-batch', label: 'Novo Lote', icon: Layers },
-  { to: '/create-account', label: 'Criar Conta/Entrar', icon: User },
+  { to: '/profile', label: 'Perfil', icon: User },
+  { to: '/inventory', label: 'Estoque', icon: Package }, //PlusCircle },
+  { to: '/new-sale', label: 'Vender', icon: HandCoins },
 ];
 
 export function Navbar() {
@@ -34,9 +34,12 @@ export function Navbar() {
               href={to}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors'
                 ${pathname === to
-                  ? 'bg-[#6b9dff]' // Cor para o link ativo
-                  : 'text-white hover:bg-[#6b9dff]/90'
-                }`}
+                  ? 'border-b-2 border-[#6b9dff] text-[#7faeff]' // Cor para o link ativo
+                  : 'text-white hover:border-b-2 border-[#6b9dff]'
+                }
+              ${to === '/new-sale' ? 
+                'bg-[#6b9dff] hover:bg-[#6b9dff]/70' : ''}
+                `}
             >
               <Icon className="h-4 w-4" />
               <span className="hidden sm:inline">{label}</span>

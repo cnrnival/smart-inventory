@@ -9,7 +9,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useInventory } from '@/hooks/useInventory';
-import { useAuth } from '@/hooks/useAuth';
+import { useTestAuth } from '@/hooks/test_auth';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Package, AlertTriangle, XCircle, DollarSign, LogOut } from 'lucide-react';
 // Placeholder para gráficos (serão implementados pela Pessoa B)
@@ -24,7 +24,7 @@ const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 export default function DashboardPage() {
   const router = useRouter();
   const { products, batches, expiredBatches, nearExpiryBatches, validBatches, financialRisk, isLoading } = useInventory();
-  const { findUserByEmail } = useAuth(); // será usado após implementar login real
+  // const { findUserByEmail } = useTestAuth(); // será usado após implementar login real
 
 
   
