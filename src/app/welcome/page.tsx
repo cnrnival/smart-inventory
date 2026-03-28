@@ -42,13 +42,10 @@ export default function Home() {
     ];
   
   return (
-      <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col bg-background text-white">
+      <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col bg-background text-white bg-[#262626]">
 
 
-
-
-
-        <div className="sticky top-0 z-50  bg-secondary h-[60px]">
+        <div className="sticky top-0 z-50 h-[60px] bg-[#1f1f1f]">
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold text-primary">
               <Package className="h-6 w-6" />
@@ -56,29 +53,19 @@ export default function Home() {
             </Link>
             <div className="flex items-center gap-1">
               <Link
-              href={'/'}
+              href={'/login'}
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors
                     bg-primary text-white
                     text-white hover:bg-primary/90">
                 <User className="h-4 w-4" />
-                <span className="hidden sm:inline">Criar Conta/Entrar</span>
+                <span className="hidden sm:inline">Entrar</span>
               </Link>
             </div>
           </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
         <div className="mx-auto text-center py-10">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-medium">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-medium bg-[#6b9dff]">
             <Leaf className="h-4 w-4" />
             Gestão Preventiva de Estoque
           </div>
@@ -91,25 +78,7 @@ export default function Home() {
               </span>.
           </p>
 
-            {/* <div className="sm:w-[400px] md:w-[950px] h-[250px] bg-third mx-auto rounded-xl flex flex-col mb-4">
-              <div className='w-full h-[40px] bg-primary rounded-t-xl flex flex-row items-center justify-between px-4'>
-                  <h2 className='text-md font-semibold text-center text-white/80'>Produtos próximos do vencimento</h2>
-                  <Link href="/products" className="hover:text-blue-700">
-                    Ver tudo
-                  </Link>
-              </div>
-              <div className='w-full h-full flex flex-row overflow-x-auto flex-nowrap items-stretch gap-4 p-3 hide-scrollbar'>
-                {products.map((product) => (
-                  <div 
-                  key={product.id} 
-                  className="min-w-[200px] h-full p-4 bg-fourth
-                  flex flex-col items-center justify-center rounded-lg shadow-md">
-                    <h3 className="text-xl font-semibold">{product.name}</h3>
-                    <span className="text-lg font-bold text-red">Vence em um dia</span>
-                 </div>
-                ))}
-              </div>
-            </div> */}
+        
 
           <div className="mx-auto flex space-between gap-6 flex-wrap justify-center items-center">
             {features.map((f, index) => (
@@ -117,7 +86,7 @@ export default function Home() {
               key={index}
               className="rounded-xl border border-secondary bg-third p-6 shadow-sm transition-shadow hover:shadow-md
               sm:w-[300px] sm:h-[220px]
-              md:w-[300px] md:h-[200px]">
+              md:w-[300px] md:h-[200px] bg-[#323232]">
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
                 <f.icon className="h-5 w-5 text-blue-600" />
               </div>

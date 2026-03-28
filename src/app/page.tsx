@@ -4,11 +4,12 @@
 import Link from 'next/link';
 
 
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 import { ShieldCheck, Leaf, BarChart3 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { useInventory } from '@/hooks/useInventory';
 import { useState } from 'react';
+import { useTestAuth } from '../hooks/test_auth';
 
 const features = [
   {
@@ -29,6 +30,13 @@ const features = [
 ];
 
 export default function Home() {
+
+const {isAuthenticated, logoff} = useTestAuth(); 
+
+  if (!isAuthenticated) {
+    redirect('/welcome'); 
+  }
+
   
   const products = [
      { id: 1, name: 'Produto 1', expiryDate: '2026-03-26' },

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
+import { Package, User } from "lucide-react";
 
 export default function CreateAccountPage() {
   const router = useRouter();
@@ -61,6 +62,16 @@ export default function CreateAccountPage() {
 
   return (
     <div className="min-h-screen bg-background text-white bg-[#262626]">
+
+      <div className="sticky top-0 z-50 h-[60px] bg-[#1f1f1f]">
+          <div className="container mx-auto flex h-16 items-center justify-between px-4">
+            <Link href="/" className="flex items-center gap-2 text-xl font-bold text-primary">
+              <Package className="h-6 w-6" />
+              Smart Inventory
+            </Link>
+          </div>
+        </div>
+
       <main className="container mx-auto flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-md rounded-xl p-8 shadow-sm bg-[#323232]">
           <h1 className="text-center text-3xl font-bold">Criar Conta</h1>
