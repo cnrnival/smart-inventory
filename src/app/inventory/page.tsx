@@ -1,97 +1,24 @@
 'use client'
+import { ProductForm } from "@/components/productform";
+import { useState } from "react";
 
-import { use, useState } from "react";
-// import { useRouter } from "next/navigation";
-// import { toast } from 'sonner';
-import Link from "next/link";
-import { ScanBarcodeIcon } from 'lucide-react';
-import { BarcodeScanner } from "@/components/barcodescanner";
-import { DatePickerComponent } from "@/components/datepicker";
-import { addProductToInventory } from "@/hooks/useNewInventory";
+export default function InventoryPage() {
 
-export default function RegisterProductPage(){
+    const [isProductFormOpen, setIsProductFormOpen] = useState(false);
 
-    const [barCode, setBarCode] = useState('');
-    const [productName, setProductName] = useState('');
-    // const [productSKU, setProductSKU] = useState('');
-    const [category, setCategory] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const  [expirationDate, setExpirationDate] = useState(new Date());
-    const [quantity, setQuantity] = useState('');
-
-    const [openScanner, setOpenScanner] = useState(false);
-
-    function expirationDatePicker(newDate: Date){
-        // (newDate).toLocaleDateString('pt-BR')
-        setExpirationDate(newDate);
+    function ShowProductForm(){
+        setIsProductFormOpen(!isProductFormOpen);
     }
-
-    function fillFormWithBarcodeData(barcode: string, productName: string){
-        setBarCode(barcode);
-        setProductName(productName);
-    }
-
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('barcode', barCode);
-        formData.append('productName', productName);
-        formData.append('category', category);
-        formData.append('productPrice', productPrice);
-        formData.append('expirationDate', expirationDate.toISOString());
-        formData.append('quantity', quantity);
-
-        addProductToInventory(formData);
-    }
-
     return (
-        <div className="min-h-screen bg-background text-white bg-[#262626]">
-            <main className="container mx-auto flex items-center justify-center px-4 py-10 relative select-none">
-                <div className="w-[450px] rounded-xl bg-third p-8 shadow-sm bg-[#323232]">
-                    <h1 className="text-center text-3xl font-bold">Registrar Produto</h1>
-                    <p className="mt-2 text-center">Adicione um novo produto ao estoque</p>
-
-                    <form onSubmit={handleSubmit} className="mt-5 space-y-5">
-
-                        <button type="button" className="w-full rounded-lg border px-4 py-2.5 shadow-sm transition-colors hover:bg-primary/90 flex flex-row items-center justify-center text-primary hover:text-white border-[#6b9dff] text-[#6b9dff] hover:border-[#6b9dff] hover:bg-[#6b9dff]" onClick={() => setOpenScanner(true)}>
-                            <ScanBarcodeIcon className="inline-block h-5 w-5 mr-2 font-semibold" />
-                            <p className=" text-sm font-semibold ">Ler código de barras</p>
-                        </button>
-
-                        <label htmlFor="barcode" className="mb-1 block text-sm ">Código de barras</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setBarCode(e.target.value)} value={barCode} />
-
-                        <label htmlFor="productName" className="mb-1 block text-sm">Nome do Produto</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setProductName(e.target.value)} value={productName} />
-
-                         <label htmlFor="expirationDate" className="mb-1 block text-sm">Data de Validade</label>
-                         <DatePickerComponent expirationDatePicker={expirationDatePicker} selectedDate={expirationDate}/>
-
-                        <label htmlFor="category" className="mb-1 block text-sm">Categoria</label>
-                        <input type="text" className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20" onChange={(e)=> setCategory(e.target.value)} value={category} />
-
-
-                        <label htmlFor="productPrice" className="mb-1 block text-sm">Valor</label>
-                        <input type="number" min='0' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setProductPrice(e.target.value)} value={productPrice} />
-
-                        <label htmlFor="quantity" className="mb-1 block text-sm">Quantidade</label>
-                        <input type="number" min='1' className="w-full rounded-lg border border-gray-300 bg-third px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#6b9dff]/20 bg-[#323232] text-white placeholder:text-gray-500" onChange={(e)=> setQuantity((e.target.value))} value={quantity} />
-
-                        <button type="submit" className="w-full rounded-lg px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6b9dff]/70 bg-[#6b9dff]">
-                            Registrar Produto
-                        </button>
-                    </form>
-                    </div>
-                    {
-                        openScanner && (
-                            <BarcodeScanner setOpenScanner={()=>setOpenScanner(false)} fillFormWithBarcodeData={(barcode: string, productName: string)=>fillFormWithBarcodeData(barcode, productName)} />
-                        )
-                    }
-            </main>
+        <div className="w-full h-[calc(100vh-60px)] flex flex-col bg-[#1a1a1a]">
+            <div className="w-full h-[60px] bg-green-200 flex flex-row items-center justify-between px-10">
+                <h2 className="text-2xl font-bold">Gerenciamento de Estoque</h2>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={ShowProductForm}>
+                    Adicionar Produto
+                </button>
+                {isProductFormOpen && <ProductForm showProductForm={ShowProductForm} />}
+            </div>
+            <div className="flex-1 bg-purple-400"></div>
         </div>
-    );
+    )
 }
-
-
-
