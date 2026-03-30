@@ -67,8 +67,13 @@ export default function NewSale(){
                         {products.map((product) => (
                             <div 
                             key={product.id} 
-                            className="bg-[#424242] aspect-square flex flex-col items-center justify-center rounded"
+                            className="bg-[#424242] aspect-square flex flex-col rounded"
                              onClick={() => addToCart(product)}>
+                                <div className="w-full h-[20px] bg-red-200">
+                                    {cart.some((item) => item.id === product.id) &&
+                                    <div className="bg-red-600 w-[20px] h-full flex items-center justify-center rounded-lg">
+                                    {cart.some((item) => item.id === product.id) ? `${cart.filter((item) => item.id === product.id).length}` : ''}</div>}
+                                </div>
                                 <span className="font-bold">{product.name}</span>
                                 <span className="text-sm">Vence em: {product.expiryDate}</span>
 
@@ -95,8 +100,15 @@ export default function NewSale(){
                             </div>
                         ))}
                     </div>
-                    <div className="w-full h-[15%] bg-pink-400 border-t"></div>
-                    <div className="w-full h-[10%] bg-black"></div>
+                    <div className="w-full h-[15%] border-t-2 border-[#555] flex flex-col justify-between items-end p-4">
+                        <span>Subtotal: R$ 0,00</span>
+                        <span className="text-xl font-bold">Total: R$ 0,00</span>
+                    </div>
+                    <div className="w-full h-[10%] flex items-center justify-end p-2">
+                        <button className="bg-[#6b9dff] hover:bg-[#6b9dff]/70 text-white font-bold py-2 px-4 rounded">
+                            Finalizar Compra
+                        </button>
+                    </div>
                 </div>
             </main>
 
