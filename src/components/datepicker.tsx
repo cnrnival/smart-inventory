@@ -7,18 +7,18 @@ import { useState } from "react";
 registerLocale('pt-BR', ptBR);
 
 type Prop = {
-    expirationDatePicker: (newDate: Date) => void;
+    expiryDatePicker: (newDate: Date) => void;
     selectedDate: Date;
 }
 
-export function DatePickerComponent({ expirationDatePicker, selectedDate }: Prop){
+export function DatePickerComponent({ expiryDatePicker, selectedDate }: Prop){
 
     return (
         <DatePicker 
             selected={selectedDate}
             onChange={(newDate: Date | null)=> {
                 if(newDate){
-                    expirationDatePicker(newDate);
+                    expiryDatePicker(newDate);
                 }
             }}
             locale={`pt-BR`}

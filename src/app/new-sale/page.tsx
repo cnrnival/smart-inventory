@@ -1,7 +1,18 @@
+'use client'
 import Link from "next/link";
-import {Package, SettingsIcon} from "lucide-react";
+import {Package, SettingsIcon, Trash} from "lucide-react";
+import { useState } from "react";
+import { Product } from "@/types/inventory";
+
+type ProductTest = {
+    id: number;
+    name: string;
+    expiryDate: string;
+}
 
 export default function NewSale(){
+
+    const [cart, setCart] = useState<ProductTest[]>([]);
 
     const products = [
      { id: 1, name: 'Produto 1', expiryDate: '2026-03-26' },
@@ -21,6 +32,10 @@ export default function NewSale(){
         { id: 15, name: 'Produto 15', expiryDate: '2023-03-26' },
     ];
 
+    function addToCart(product: ProductTest) {
+        setCart((prevCart) => [...prevCart, product]);
+    }
+
 
     return (
     
@@ -39,20 +54,24 @@ export default function NewSale(){
             </div>
 
             {/* MAIN */}
-            <main className="flex-1 bg-red-200 flex overflow-hidden">
-                <div className="bg-yellow-400 w-[70%] h-full p-4">
+            <main className="flex-1 flex overflow-hidden">
+                <div className=" w-[70%] h-full p-4">
 
-                    <div className="w-full h-[8%] bg-purple-200">
+                    {/* FILTROS */}
+                    <div className="w-full h-[8%] bg-[#323232]">
 
                     </div>
 
-                    <div className="w-full h-[92%] bg-blue-300 grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-6 p-6 overflow-auto hide-scrollbar">
+                    {/* CLICAR PRA ADICIONAR AO CARRINHO */}
+                    <div className="w-full h-[92%] grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-6 p-6 overflow-auto hide-scrollbar">
                         {products.map((product) => (
                             <div 
                             key={product.id} 
-                            className="bg-gray-300 aspect-square flex flex-col items-center justify-center rounded">
+                            className="bg-[#424242] aspect-square flex flex-col items-center justify-center rounded"
+                             onClick={() => addToCart(product)}>
                                 <span className="font-bold">{product.name}</span>
                                 <span className="text-sm">Vence em: {product.expiryDate}</span>
+
                             </div>
                         ))}
                     </div>
@@ -62,14 +81,17 @@ export default function NewSale(){
 
 
 
-                <div className="bg-green-400 w-[50%] h-full p-4 flex flex-col">
-                    <div className="w-full h-[75%] bg-orange-400 overflow-auto hide-scrollbar">
-                        {products.map((product) => (
+                <div className="bg-[#323232] w-[50%] h-full p-4 flex flex-col">
+                    <div className="w-full h-[75%] overflow-auto hide-scrollbar">
+                        {cart.map((product) => (
                             <div 
                             key={product.id}
-                            className="bg-gray-300 w-full h-[70px] border border-b flex flex-col items-center justify-center rounded">
+                            className="bg-[#424242] w-full h-[60px] border-b border-[#555] flex flex-row items-center justify-center rounded gap-4">
+                                <span className="size-10 bg-red-200"></span>
                                 <span className="font-bold">{product.name}</span>
                                 <span className="text-sm">Vence em: {product.expiryDate}</span>
+                                <span className="w-5 h-5 border border-white"></span>
+                                <Trash className="h-5 w-5 text-red-500 mt-2" />
                             </div>
                         ))}
                     </div>

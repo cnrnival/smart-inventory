@@ -12,14 +12,14 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
         // const [productSKU, setProductSKU] = useState('');
         const [category, setCategory] = useState('');
         const [productPrice, setProductPrice] = useState('');
-        const  [expirationDate, setExpirationDate] = useState(new Date());
+        const  [expiryDate, setExpiryDate] = useState(new Date());
         const [quantity, setQuantity] = useState('');
     
         const [openScanner, setOpenScanner] = useState(false);
     
-        function expirationDatePicker(newDate: Date){
+        function expiryDatePicker(newDate: Date){
             // (newDate).toLocaleDateString('pt-BR')
-            setExpirationDate(newDate);
+            setExpiryDate(newDate);
         }
     
         function fillFormWithBarcodeData(barcode: string, productName: string){
@@ -35,7 +35,7 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
             formData.append('productName', productName);
             formData.append('category', category);
             formData.append('productPrice', productPrice);
-            formData.append('expirationDate', expirationDate.toISOString());
+            formData.append('expiryDate', expiryDate.toISOString());
             formData.append('quantity', quantity);
     
             addProductToInventory(formData);
@@ -68,8 +68,8 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
                         </div>
 
                         <div>
-                            <label htmlFor="expirationDate" className="mb-1 block text-sm mr-5">Data de Validade</label>
-                            <DatePickerComponent expirationDatePicker={expirationDatePicker} selectedDate={expirationDate}/>
+                            <label htmlFor="expiryDate" className="mb-1 block text-sm mr-5">Data de Validade</label>
+                            <DatePickerComponent expiryDatePicker={expiryDatePicker} selectedDate={expiryDate}/>
                         </div>
                     
                         <div>

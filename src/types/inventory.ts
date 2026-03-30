@@ -9,11 +9,11 @@ export interface User {
 // Representa um produto
 export interface Product {
   id: string;
-  sku: string;
   name: string;
   category: string;
-  subcategory: string;
-  unitCost: number;
+  manufacturingDate: string;
+  expiryDate: string;
+  price: number;
 }
 
 // Representa um lote
