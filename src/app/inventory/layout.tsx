@@ -9,11 +9,11 @@ const linksInventoryPage = [
 
 export default function InventoryLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full h-screen flex flex-row bg-[#1a1a1a]">
+    <div className="fixed inset-0 flex flex-row bg-[#1a1a1a] overflow-hidden">
 
-      <nav className="top-0 left-0 w-[150px] h-full bg-[#1a1a1a] flex flex-col items-center p-4 border-r border-gray-700">
+      <nav className="top-0 left-0 w-[150px] h-full bg-[#222222] shrink-0 flex flex-col items-center p-4">
 
-        <Link href="/" className="flex items-center gap-2 text-md font-bold text-[#6b9dff] bg-red-200 h-[55px] border-b border-[#6b9dff] mb-4">
+        <Link href="/" className="flex items-center gap-2 text-md font-bold text-[#6b9dff]  h-[55px] border-b border-[#6b9dff] mb-4">
           <Package className="h-6 w-6" />
           Smart Inventory
         </Link>
@@ -30,7 +30,7 @@ export default function InventoryLayout({ children }: { children: React.ReactNod
       </nav>
 
       {/* Área onde as páginas específicas (Produtos, Categorias, etc) vão aparecer */}
-      <div className="flex-1 bg-purple-400">
+      <div className="flex-1 text-white flex flex-col overflow-hidden min-w-0 overflow-hidden">
         {children}
       </div>
     </div>
