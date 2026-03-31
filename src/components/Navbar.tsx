@@ -16,7 +16,7 @@ export function Navbar() {
   
   const pathname = usePathname();
 
-  if (pathname === '/welcome' || pathname === '/login' || pathname === '/create-account' || pathname ==='/new-sale') {
+  if (pathname === '/welcome' || pathname === '/login' || pathname === '/create-account' || pathname ==='/new-sale' || pathname === '/inventory') {
     return null;
   }
 

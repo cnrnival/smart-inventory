@@ -19,10 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
+      
+      <body className={`${inter.className} min-h-screen flex flex-col bg-[#1a1a1a]`}>
         <AuthProvider>
           <Navbar />
-          {children}
+          
+          <main className="flex-1 flex flex-col">
+            {children}
+          </main>
+          
           <Toaster richColors position="top-right" />
         </AuthProvider>
       </body>
