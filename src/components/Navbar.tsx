@@ -6,7 +6,6 @@ import { Package, LayoutDashboard, PlusCircle, Layers, User, Home, HandCoins } f
 
 const links = [
   { to: '/', label: 'Início', icon: Home },
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/profile', label: 'Perfil', icon: User },
   { to: '/inventory', label: 'Estoque', icon: Package }, //PlusCircle },
   { to: '/new-sale', label: 'Vender', icon: HandCoins },
