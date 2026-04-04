@@ -15,6 +15,11 @@ export default function NewSale(){
 
     const [cart, setCart] = useState<ProductTest[]>([]);
     const [paymentOpen, setPaymentOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    function showMenu() {
+        setMenuOpen(!menuOpen);
+    }
 
     const products = [
      { id: 1, name: 'Produto 1', expiryDate: '2026-03-26' },
@@ -53,8 +58,13 @@ export default function NewSale(){
                         <Package className="h-6 w-6" />
                         Smart Inventory
                     </div>
-                    <div className="h-4 w-4 text-white">
+                    <div className="h-4 w-4 text-white" onClick={showMenu}>
                         <SettingsIcon className="h-full w-full text-white" />
+                        {menuOpen && (
+                            <ul className="w-[150px] h-[30px] bg-white absolute top-10 right-7 mt-1 flex flex-col items-start justify-center rounded-md p-2 ">
+                                <Link href="/" className="text-black text-sm">Ir para o início</Link>
+                            </ul>
+                        )}
                     </div>
                 </div>
             </div>

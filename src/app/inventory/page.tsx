@@ -16,7 +16,7 @@ export default function InventoryPage() {
         <div className="flex-1 flex flex-col min-h-0 bg-[#262626]">
             <div className="w-full h-[70px] flex flex-row items-center justify-between p-4 shrink-0">
                 <h2 className="text-2xl font-bold">Produtos</h2>
-                <Link href="/dashboard" className="text-white font-bold py-2 px-4 flex flex-row items-center gap-2 hover:text-purple-300">
+                <Link href="/" className="text-white font-bold py-2 px-4 flex flex-row items-center gap-2 hover:text-purple-300">
                     <HomeIcon className="w-[20px] h-[20px]" />
                     <span>Início</span>
                 </Link>
