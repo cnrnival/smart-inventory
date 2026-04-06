@@ -36,9 +36,6 @@ export default function DashboardPage() {
   const getProductName = (productId: string) =>
     products.find(p => p.id === productId)?.name ?? 'Produto não encontrado';
 
-  // Função auxiliar para obter SKU do produto
-  const getProductSku = (productId: string) =>
-    products.find(p => p.id === productId)?.sku ?? '—';
 
   const handleLogout = () => {
     // Implementar logout (limpar token, redirecionar)
@@ -89,12 +86,12 @@ export default function DashboardPage() {
           </button>
         </header>
         {/*Gráfico em pizza */}
-        <div className='flex flex-row justify-between h-[500px]'>
+        <div className='flex flex-row justify-between h-[500px] gap-8 mb-8'>
           {batches.length > 0 && (
-            <div className="grid grid-cols-1 w-[1500px] lg:grid-cols-2 gap-8">
-              <div className="rounded-xl border bg-third p-7 shadow-sm h-[400px] flex flex-col bg-[#323232] w-[600px]">
-                <h2 className="text-lg font-semibold mb-4">Proporção de Lotes</h2>
-                <div className='flex-1 min-h-0 w-[600px]'>
+            <div className="grid grid-cols-1 w-[600px] lg:grid-cols-2 gap-8">
+              <div className="rounded-xl border bg-third p-7 shadow-sm h-[450px] flex flex-col bg-[#323232] w-[600px] h-full ">
+                <h2 className="text-lg font-semibold mb-4">Proporção de Produtos</h2>
+                <div className='flex-1 min-h-0 w-full'>
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
@@ -121,7 +118,7 @@ export default function DashboardPage() {
           )}
 
           {/* Cards de resumo */}
-          <div className="w-full lg:w-7/12 flex flex-col gap-4">
+          <div className="w-full lg:w-7/12 flex flex-col gap-4 flex-1 py-8">
             {/* Card: Produtos Válidos */}
             <div className="flex items-center rounded-xl border border-gray-700 bg-[#323232] p-5 shadow-sm">
               <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-green-600/20 text-green-500">
@@ -174,9 +171,9 @@ export default function DashboardPage() {
 
       {/* Card de Risco Financeiro */}
 
-      <div className="rounded-xl border bg-third p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[#323232] mb-8">
+      <div className="rounded-xl border bg-third p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[#323232] mb-8 w-[1150px] mx-auto">
         <div>
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-2 w-full">
             <DollarSign size={20} />
             <h3 className="text-sm font-medium ">Risco Financeiro Total</h3>
           </div>
@@ -190,9 +187,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Tabela de lotes */}
-      <div className="rounded-xl border bg-third shadow-sm overflow-hidden bg-[#323232]">
+      <div className="rounded-xl border bg-third shadow-sm overflow-hidden bg-[#323232] w-[1150px] mx-auto">
         <div className="border-b px-6 py-4 flex justify-between flex-row">
-          <h2 className="text-lg font-semibold">Listagem de Produtos</h2>
+          <h2 className="text-lg font-semibold">Produtos para se atentar</h2>
           <Link href="/inventory" className="flex items-center gap-2 text-xl font-bold text-primary text-[#6b9dff]">
            Ver estoque
           </Link>
@@ -227,7 +224,7 @@ export default function DashboardPage() {
                         {getProductName(batch.productId)}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {getProductSku(batch.productId)}
+                        
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">{batch.batchCode}</td>
                       <td className="whitespace-nowrap px-6 py-4">

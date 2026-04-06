@@ -1,13 +1,22 @@
 'use client'
 import { ProductForm } from "@/components/productform";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { HomeIcon } from "lucide-react";
+import { useProductsContext } from "@/hooks/useProductsContext";
+import { ProductType } from "@/types/ProductType";
 
 export default function InventoryPage() {
 
     const [isProductFormOpen, setIsProductFormOpen] = useState(false);
     const [findName, setFindName] = useState("");
+    const { products, getProducts } = useProductsContext();
+
+    useEffect(() => {
+        getProducts();
+    }, [])
+
+    console.log("DADOS QUE CHEGARAM NA TELA:", products);
 
     function ShowProductForm() {
         setIsProductFormOpen(!isProductFormOpen);
@@ -43,7 +52,11 @@ export default function InventoryPage() {
                 </div>
                 <div className="w-full flex flex-row h-[40px] justify-between bg-[#222222] flex items-center rounded-t-md p-4 shrink-0"></div>
                 <ul className="w-full flex-1 bg-[#222222] rounded-b-md overflow-y-auto min-h-0 hide-scrollbar">
-                    <li className="text-black h-[40px] w-full border-b border-[#6b9dff] text-white text-sm">Conteúdo da página de produtos</li>
+                    {products.map((product) => (
+                        <li key={product.id} className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-md p-4 shrink-0 text-white bg-red-200">
+                            <span>{product.name}</span>
+                        </li>
+                    ))}
 
                 </ul>
             </div>
