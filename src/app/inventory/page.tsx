@@ -50,11 +50,17 @@ export default function InventoryPage() {
                         <span>Total de produtos: 100</span>
 
                 </div>
-                <div className="w-full flex flex-row h-[40px] justify-between bg-[#222222] flex items-center rounded-t-md p-4 shrink-0"></div>
+                 <div className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-white border border-gray-600 flex flex-row items-center gap-4 space-between">
+                            <span>nome</span>
+                            <span>preço</span>
+                            <span>data de validade</span>
+                </div>
                 <ul className="w-full flex-1 bg-[#222222] rounded-b-md overflow-y-auto min-h-0 hide-scrollbar">
                     {products.map((product) => (
-                        <li key={product.id} className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-md p-4 shrink-0 text-white bg-red-200">
+                        <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-white border-b border-gray-600 flex flex-row items-center gap-4 space-between">
                             <span>{product.name}</span>
+                            <span>R$ {product.price.toFixed(2)}</span>
+                            <span>{product.expiryDate}</span>
                         </li>
                     ))}
 
