@@ -2,7 +2,7 @@
 import { ProductForm } from "@/components/productform";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, PlusCircle } from "lucide-react";
 import { useProductsContext } from "@/hooks/useProductsContext";
 import { ProductType } from "@/types/ProductType";
 
@@ -30,7 +30,7 @@ export default function InventoryPage() {
                     <span>Início</span>
                 </Link>
             </div>
-            <div className="flex-1 flex flex-col items-center p-4 overflow-hidden">
+            <div className="flex-1 flex flex-col items-center p-4 overflow-hidden md:h-[100vh] sm:min-h-screen rounded-md sm:text-sm md:text-base">
                 <div className="w-full flex flex-row h-[50px] justify-between bg-[#222222] flex items-center rounded-md p-4">
                     <input
                         type="text"
@@ -40,7 +40,8 @@ export default function InventoryPage() {
                         onChange={(e) => setFindName(e.target.value)}
                     />
 
-                    <button className=" bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[30px] w-[100px] rounded-md" onClick={ShowProductForm}>
+                    <button className=" bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[30px] w-[100px] rounded-md gap-1" onClick={ShowProductForm}>
+                        <PlusCircle className="w-[15px] h-[15px]" />
                         <span className="text-sm">Produto</span>
                     </button>
                     {isProductFormOpen && <ProductForm showProductForm={ShowProductForm} />}
@@ -58,9 +59,9 @@ export default function InventoryPage() {
                 <ul className="w-full flex-1 bg-[#222222] rounded-b-md overflow-y-auto min-h-0 hide-scrollbar">
                     {products.map((product) => (
                         <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-white border-b border-gray-600 flex flex-row items-center gap-4 space-between">
-                            <span>{product.name}</span>
-                            <span>R$ {product.price.toFixed(2)}</span>
-                            <span>{product.expiryDate}</span>
+                            <span className="w-[65%] truncate">{product.name}</span>
+                            <span className="w-[50%]">R$ {product.price.toFixed(2)}</span>
+                            <span className="w-[30%] flex justify-end">{product.expiryDate}</span>
                         </li>
                     ))}
 

@@ -1,9 +1,11 @@
 'use client'
 import Link from "next/link";
 import {Package, SettingsIcon, Trash} from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "@/types/inventory";
 import { PaymentComponent } from "@/components/paymentcomponent";
+import { ProductType } from "@/types/ProductType";
+import { useProductsContext } from "@/hooks/useProductsContext";
 
 type ProductTest = {
     id: number;
@@ -13,33 +15,20 @@ type ProductTest = {
 
 export default function NewSale(){
 
-    const [cart, setCart] = useState<ProductTest[]>([]);
+    const { products, getProducts } = useProductsContext();
+    const [cart, setCart] = useState<ProductType[]>([]);
     const [paymentOpen, setPaymentOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+            getProducts();
+        }, [])
 
     function showMenu() {
         setMenuOpen(!menuOpen);
     }
 
-    const products = [
-     { id: 1, name: 'Produto 1', expiryDate: '2026-03-26' },
-     { id: 2, name: 'Produto 2', expiryDate: '2023-03-26' },
-     { id: 3, name: 'Produto 3', expiryDate: '2023-03-26' },
-     { id: 4, name: 'Produto 4', expiryDate: '2023-03-26' },
-     { id: 5, name: 'Produto 5', expiryDate: '2023-03-26' },
-     { id: 6, name: 'Produto 6', expiryDate: '2023-03-26' },
-     { id: 7, name: 'Produto 7', expiryDate: '2023-03-26' },
-     { id: 8, name: 'Produto 8', expiryDate: '2023-03-26' },
-     { id: 9, name: 'Produto 9', expiryDate: '2023-03-26' },
-     { id: 10, name: 'Produto 10', expiryDate: '2023-03-26' },
-     { id: 11, name: 'Produto 11', expiryDate: '2023-03-26' },
-     { id: 12, name: 'Produto 12', expiryDate: '2023-03-26' },
-        { id: 13, name: 'Produto 13', expiryDate: '2023-03-26' },
-        { id: 14, name: 'Produto 14', expiryDate: '2023-03-26' },
-        { id: 15, name: 'Produto 15', expiryDate: '2023-03-26' },
-    ];
-
-    function addToCart(product: ProductTest) {
+    function addToCart(product: ProductType) {
         setCart((prevCart) => [...prevCart, product]);
     }
 
@@ -83,7 +72,7 @@ export default function NewSale(){
                         {products.map((product) => (
                             <div 
                             key={product.id} 
-                            className="bg-[#424242] aspect-square flex flex-col rounded-md items-center"
+                            className="bg-[#424242] aspect-square flex flex-col rounded-md items-center active:bg-[#555] cursor-pointer p-4"
                              onClick={() => addToCart(product)}>
                                 <div className="w-full h-[20px] flex items-center justify-end">
                                     {cart.some((item) => item.id === product.id) &&
@@ -91,7 +80,7 @@ export default function NewSale(){
                                     {cart.some((item) => item.id === product.id) ? `${cart.filter((item) => item.id === product.id).length}` : ''}</div>}
                                 </div>
                                 <span className="font-bold">{product.name}</span>
-                                <span className="text-sm">Vence em: {product.expiryDate}</span>
+                                <span className="text-lg font-bold">R$ {product.price.toFixed(2)}</span>
 
                             </div>
                         ))}
@@ -123,10 +112,10 @@ export default function NewSale(){
                     <div className="w-full h-[10%] flex items-center justify-end p-2">
                         <button className="bg-[#6b9dff] hover:bg-[#6b9dff]/70 text-white font-bold py-2 px-4 rounded" onClick={openPayment}>
                             <span>Finalizar Compra</span>
-                                {paymentOpen && (   
-                                <PaymentComponent openPayment={openPayment}/>
-                                )}
                         </button>
+                         {paymentOpen && (   
+                                <PaymentComponent openPayment={openPayment}/>
+                        )}
                     </div>
                 </div>
             </main>
