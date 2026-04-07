@@ -15,8 +15,8 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
 
     const [products, setProducts] = useState<ProductType[]>([]);
 
-    async function addProduct(product: ProductType) {
-        const response = await axios_api.post('/products', product);
+    async function addProduct(newProduct: Omit<ProductType, 'id'>) {
+        const response = await axios_api.post('/products', newProduct);
         setProducts([...products, response.data]);
 
     }

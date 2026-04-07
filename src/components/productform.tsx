@@ -2,14 +2,15 @@
 import { ScanBarcodeIcon } from 'lucide-react';
 import { BarcodeScanner } from "@/components/barcodescanner";
 import { DatePickerComponent } from "@/components/datepicker";
-import { addProductToInventory } from "@/hooks/useNewInventory";
 import { useState } from "react";
+import { useProductsContext } from '@/hooks/useProductsContext';
 
 export function ProductForm({ showProductForm }: { showProductForm: () => void }){
 
+
+    const {addProduct} = useProductsContext();
      const [barCode, setBarCode] = useState('');
         const [productName, setProductName] = useState('');
-        // const [productSKU, setProductSKU] = useState('');
         const [category, setCategory] = useState('');
         const [productPrice, setProductPrice] = useState('');
         const  [expiryDate, setExpiryDate] = useState(new Date());
@@ -18,7 +19,6 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
         const [openScanner, setOpenScanner] = useState(false);
     
         function expiryDatePicker(newDate: Date){
-            // (newDate).toLocaleDateString('pt-BR')
             setExpiryDate(newDate);
         }
     
@@ -29,16 +29,26 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
     
         function handleSubmit(e: React.FormEvent<HTMLFormElement>){
             e.preventDefault();
-    
-            const formData = new FormData();
-            formData.append('barcode', barCode);
-            formData.append('productName', productName);
-            formData.append('category', category);
-            formData.append('productPrice', productPrice);
-            formData.append('expiryDate', expiryDate.toISOString());
-            formData.append('quantity', quantity);
-    
-            addProductToInventory(formData);
+
+            const ano = expiryDate.getFullYear();
+            const mes = String(expiryDate.getMonth() + 1).padStart(2, '0'); // +1 porque janeiro é 0
+            const dia = String(expiryDate.getDate()).padStart(2, '0');
+            
+            // Monta a string no padrão yyyy-MM-dd
+            const dataFormatada = `${ano}-${mes}-${dia}`;
+
+            const productData = {
+                id: crypto.randomUUID(),
+                barcode: barCode,
+                name: productName,
+                category: category,
+                price: parseFloat(productPrice),
+                expiryDate: dataFormatada,
+                quantity: parseInt(quantity, 10)
+            };
+
+            addProduct(productData);
+            showProductForm();
         }
 
     return (
