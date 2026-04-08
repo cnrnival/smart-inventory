@@ -8,20 +8,22 @@
 // ==================================================
 
 import { useRouter } from 'next/navigation';
-import { useInventory } from '@/hooks/useInventory';
 import { Package, AlertTriangle, XCircle, DollarSign, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useProductsContext } from '@/hooks/useProductsContext';
 import { useEffect } from 'react';
+import { StatusBadge } from '@/components/StatusBadge';
 
 // Constante de cores para o gráfico de pizza
 const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 
 export default function DashboardPage() {
-  const { products, getProducts } = useProductsContext();
+
+  const { products, getProducts, isLoading, expiredProducts, nearExpiryProducts, validProducts } = useProductsContext();
   const router = useRouter();
-  const { batches, expiredBatches, nearExpiryBatches, validBatches, isLoading } = useInventory();
+  
+  const riskyProducts = [...expiredProducts, ...nearExpiryProducts];
 
   useEffect(() => {
     getProducts();
@@ -49,9 +51,9 @@ export default function DashboardPage() {
   }
 
   const pieData = [
-    { name: 'Válidos', value: validBatches.length },
-    { name: 'Em alerta', value: nearExpiryBatches.length },
-    { name: 'Vencidos', value: expiredBatches.length },
+    { name: 'Válidos', value: validProducts.length },
+    { name: 'Em alerta', value: nearExpiryProducts.length },
+    { name: 'Vencidos', value: expiredProducts.length },
   ];
 
   return (
@@ -80,7 +82,7 @@ export default function DashboardPage() {
         <div className='flex flex-col lg:flex-row gap-8 mb-8 lg:h-[450px]'>
           
           {/* Lado do Gráfico */}
-          {batches.length > 0 && (
+          {products.length > 0 && (
             <div className="w-full lg:w-[600px] h-[450px] lg:h-full">
               <div className="rounded-xl border border-gray-700 bg-[#323232] p-7 shadow-sm flex flex-col h-full w-full">
                 <h2 className="text-lg font-semibold mb-4">Proporção de Produtos</h2>
@@ -121,7 +123,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex flex-col">
                 <p className="text-sm font-medium text-gray-400">Produtos Válidos</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-white">{validBatches.length}</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-white">{validProducts.length}</p>
               </div>
             </div>
 
@@ -132,7 +134,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex flex-col">
                 <p className="text-sm font-medium text-gray-400">Em Alerta</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-white">{nearExpiryBatches.length}</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-white">{nearExpiryProducts.length}</p>
               </div>
             </div>
 
@@ -144,7 +146,7 @@ export default function DashboardPage() {
               <div className="flex flex-col">
                 <p className="text-sm font-medium text-gray-400">Críticos</p>
                 <p className="mt-1 text-3xl font-bold leading-none text-white">
-                  {batches.filter(b => b.status === 'critical').length}
+                  {products.filter(b => b.status === 'critical').length}
                 </p>
               </div>
             </div>
@@ -156,7 +158,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex flex-col">
                 <p className="text-sm font-medium text-gray-400">Vencidos</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-white">{expiredBatches.length}</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-white">{expiredProducts.length}</p>
               </div>
             </div>
 
@@ -201,14 +203,14 @@ export default function DashboardPage() {
 
             {/* Remova o overflow-y-auto e o max-h-[300px] daqui */}
             <tbody className="divide-y divide-gray-700 bg-[#323232]">
-              {products.length === 0 ? (
+              {riskyProducts.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-6 py-8 text-center text-gray-400">
                     Nenhum lote cadastrado no momento.
                   </td>
                 </tr>
               ) : (
-                products
+                riskyProducts
                   .sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime())
                   .map((product) => (
                     <tr key={product.id} className="transition-colors hover:bg-[#424242]">
@@ -219,12 +221,10 @@ export default function DashboardPage() {
                         {product.expiryDate ? new Date(product.expiryDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '-'}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right font-medium text-gray-300">
-                        <span>10</span>
+                        {product.quantity}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        <span className="inline-flex items-center gap-2 px-2 py-1 text-xs font-medium bg-red-500 text-white rounded-full">
-                          Em Alerta
-                        </span>
+                        <StatusBadge status={product.status} />
                       </td>
                     </tr>
                   ))

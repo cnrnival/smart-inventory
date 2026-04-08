@@ -4,4 +4,6 @@ export type ProductType = {
   category: string;
   expiryDate: string;
   price: number;
+  status: 'valid' | 'alert' | 'critical' | 'expired';
+  quantity: number;
 }
