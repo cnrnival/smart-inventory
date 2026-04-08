@@ -71,10 +71,10 @@ export function useInventory() {
   const nearExpiryBatches = batchesWithStatus.filter(b => b.status === 'alert' || b.status === 'critical');
   const validBatches = batchesWithStatus.filter(b => b.status === 'valid');
 
-  const financialRisk = [...nearExpiryBatches, ...expiredBatches].reduce((acc, batch) => {
-    const product = products.find(p => p.id === batch.productId);
-    return acc + (product ? product.unitCost * batch.quantity : 0);
-  }, 0);
+  //const financialRisk = [...nearExpiryBatches, ...expiredBatches].reduce((acc, batch) => {
+    //const product = products.find(p => p.id === batch.productId);
+    //return acc + (product ? product.unitCost * batch.quantity : 0);
+  //}, 0);
 
   const getFEFOBatches = useCallback(
     (productId: string) => {
@@ -91,7 +91,7 @@ export function useInventory() {
     expiredBatches,
     nearExpiryBatches,
     validBatches,
-    financialRisk,
+    //financialRisk,
     isLoading,
     addProduct,
     addBatch,
