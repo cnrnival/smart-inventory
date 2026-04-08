@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth'; // ← useAuth
 // import { useInventory } from '@/hooks/useInventory';
-
+//ijuedbiuwbnciwciwiucwicncinciownc
 export default function VerifyCodePage() {
   const router = useRouter();
   const { registerUser } = useAuth();
