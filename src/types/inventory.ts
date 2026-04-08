@@ -6,15 +6,15 @@ export interface User {
   password: string;
 }
 
-// Representa um produto
-export interface Product {
-  id: string;
-  name: string;
-  category: string;
-  manufacturingDate: string;
-  expiryDate: string;
-  price: number;
-}
+// // Representa um produto
+// export interface Product {
+//   id: string;
+//   name: string;
+//   category: string;
+//   manufacturingDate: string;
+//   expiryDate: string;
+//   price: number;
+// }
 
 // Representa um lote
 export interface Batch {
