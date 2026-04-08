@@ -21,7 +21,7 @@ const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 export default function DashboardPage() {
   const { products, getProducts } = useProductsContext();
   const router = useRouter();
-  const { batches, expiredBatches, nearExpiryBatches, validBatches, financialRisk, isLoading } = useInventory();
+  const { batches, expiredBatches, nearExpiryBatches, validBatches, isLoading } = useInventory();
 
   useEffect(() => {
     getProducts();
@@ -175,9 +175,6 @@ export default function DashboardPage() {
             Valor de produtos em alerta, críticos ou vencidos.
           </p>
         </div>
-        <p className="text-4xl font-bold text-white">
-          {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(financialRisk)}
-        </p>
       </div>
 
       {/* Tabela de Produtos */}
