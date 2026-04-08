@@ -5,7 +5,8 @@ const linksInventoryPage = [
   { name: "Produtos", href: "/inventory" },
   { name: "Histórico de Vendas", href: "/inventory/historic-sales" },
   { name: "Relatórios", href: "/inventory/reports" },
-  { name: "Fornecedores", href: "/inventory/suppliers" }
+  { name: "Fornecedores", href: "/inventory/suppliers" },
+  { name: "Usuários do Sistema", href: "/inventory/system-users" }
 ];
 
 export default function InventoryLayout({ children }: { children: React.ReactNode }) {

@@ -105,6 +105,33 @@
       "price": 100,
       "expiryDate": "2026-04-08",
       "quantity": 1
+    },
+    {
+      "id": "DW15AbgFcME",
+      "barcode": "1234567891111",
+      "name": "Cefalexina",
+      "category": "",
+      "price": 30,
+      "expiryDate": "2026-04-17",
+      "quantity": 10
+    },
+    {
+      "id": "ivblwSSR-JQ",
+      "barcode": "1122331122331",
+      "name": "Petit Suisse - Danoninho",
+      "category": "",
+      "price": 10,
+      "expiryDate": "2026-04-08",
+      "quantity": 10
+    },
+    {
+      "id": "J_AbnsP34Lg",
+      "barcode": "2222221111333",
+      "name": "nao sei",
+      "category": "",
+      "price": 1,
+      "expiryDate": "2026-04-08",
+      "quantity": 1
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
