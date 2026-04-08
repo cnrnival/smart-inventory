@@ -85,7 +85,7 @@ export function useInventory() {
 
   const financialRisk = [...nearExpiryBatches, ...expiredBatches].reduce((acc, batch) => {
     const product = products.find(p => p.id === batch.productId);
-    return acc + (product ? product.unitCost * batch.quantity : 0);
+    return acc + (product ? product.price * batch.quantity : 0);
   }, 0);
 
   const getFEFOBatches = useCallback(
