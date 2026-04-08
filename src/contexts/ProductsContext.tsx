@@ -21,6 +21,7 @@ type ProductsContextType = {
     nearExpiryProducts: ProductType[];
     validProducts: ProductType[];
     statusConfig: typeof statusConfig;
+    financialRisk: number;
 };
 
 export const ProductsContext = createContext({} as ProductsContextType);
@@ -73,6 +74,10 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
     const nearExpiryProducts = productsWithStatus.filter(p => p.status === 'alert' || p.status === 'critical');
     const validProducts = productsWithStatus.filter(p => p.status === 'valid');
 
+    const financialRisk = [...nearExpiryProducts, ...expiredProducts].reduce((acc, product) => {
+    return acc + (product ? product.price * product.quantity : 0);
+  }, 0);
+
     return (
         <ProductsContext.Provider value={{
             products: productsWithStatus,
@@ -82,7 +87,8 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
             expiredProducts,
             nearExpiryProducts,
             validProducts,
-            statusConfig
+            statusConfig,
+            financialRisk,
         }}>
             {children}
         </ProductsContext.Provider>
