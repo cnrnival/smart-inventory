@@ -1,7 +1,8 @@
 'use client';
-import { api } from '@/services/api'; 
+//import { api } from '@/services/api'; 
 import { useState, useEffect, useCallback } from 'react';
 import { Product, Batch, calculateBatchStatus } from '@/types/inventory';
+import { axios_api } from '@/services/axios_api';
 
 const PRODUCTS_KEY = 'smart_inventory_products';
 const BATCHES_KEY = 'smart_inventory_batches';
@@ -26,8 +27,8 @@ export function useInventory() {
       try {
         // Busca produtos e lotes ao mesmo tempo da nossa API mock
         const [fetchedProducts, fetchedBatches] = await Promise.all([
-          api.getProducts(),
-          api.getBatches()
+          axios_api.getProducts(),
+          //api.getBatches()
         ]);
         setProducts(fetchedProducts);
         setBatches(fetchedBatches);
