@@ -89,11 +89,20 @@
       "quantity": 1
     },
     {
-      "id": "kZGUbRHbzsU",
+      "id": "3yMXoWThI7k",
       "barcode": "1234567891234",
-      "name": "gaystavo",
+      "name": "Dorflex",
       "category": "",
-      "price": 1,
+      "price": 19,
+      "expiryDate": "2026-04-08",
+      "quantity": 2
+    },
+    {
+      "id": "LQK00SVU5Xc",
+      "barcode": "1234567891234",
+      "name": "ahaha",
+      "category": "aaa",
+      "price": 100,
       "expiryDate": "2026-04-08",
       "quantity": 1
     }

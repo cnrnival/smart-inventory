@@ -3,7 +3,8 @@ import { Package } from "lucide-react";
 
 const linksInventoryPage = [
   { name: "Produtos", href: "/inventory" },
-  { name: "Categorias", href: "/inventory/categories" },
+  { name: "Histórico de Vendas", href: "/inventory/historic-sales" },
+  { name: "Relatórios", href: "/inventory/reports" },
   { name: "Fornecedores", href: "/inventory/suppliers" }
 ];
 

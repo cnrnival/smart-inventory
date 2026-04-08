@@ -12,7 +12,7 @@ import { Package, AlertTriangle, XCircle, DollarSign, LogOut } from 'lucide-reac
 import Link from 'next/link';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useProductsContext } from '@/hooks/useProductsContext';
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { StatusBadge } from '@/components/StatusBadge';
 
 // Constante de cores para o gráfico de pizza
@@ -20,7 +20,7 @@ const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 
 export default function DashboardPage() {
 
-  const { products, getProducts, isLoading, expiredProducts, nearExpiryProducts, validProducts, financialRisk } = useProductsContext();
+  const { products, getProducts, isLoading, expiredProducts, nearExpiryProducts, validProducts, financialRisk, isAuthenticated } = useProductsContext();
   const router = useRouter();
   
   const riskyProducts = [...expiredProducts, ...nearExpiryProducts];
@@ -31,8 +31,7 @@ export default function DashboardPage() {
   }, []);
 
   // Obter nome do usuário logado (mock enquanto não há autenticação real)
-  const userName = 'Usuário'; 
-
+  // s
   // Função auxiliar para obter nome do produto pelo ID
   const getProductName = (productId: string) =>
     products.find(p => p.id === productId)?.name ?? 'Produto não encontrado';
@@ -41,6 +40,8 @@ export default function DashboardPage() {
     // Implementar logout (limpar token, redirecionar)
     router.push('/login');
   };
+
+  
 
   if (isLoading) {
     return (
@@ -65,7 +66,7 @@ export default function DashboardPage() {
           <div>
             <h1 className="text-2xl font-bold">Dashboard de Risco</h1>
             <p className="text-sm">
-              Bem-vindo(a), <span className="font-semibold text-[#6b9dff]">{userName}</span>
+              Bem-vindo(a), <span className="font-semibold text-[#6b9dff]">Usuário</span>
             </p>
           </div>
           <button
