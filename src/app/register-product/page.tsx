@@ -5,18 +5,21 @@ import { toast } from "sonner";
 import { ScanBarcodeIcon } from 'lucide-react';
 import { BarcodeScanner } from "@/components/barcodescanner";
 import { DatePickerComponent } from "@/components/datepicker";
+import { useProductsContext } from "@/hooks/useProductsContext";
 
 export default function RegisterProductPage() {
+  const [showProductForm,setShowProductForm] = useState (false)
+  const {addProduct} = useProductsContext()
   const [barCode, setBarCode] = useState('');
   const [productName, setProductName] = useState('');
   const [category, setCategory] = useState('');
   const [productPrice, setProductPrice] = useState('');
-  const [expirationDate, setExpirationDate] = useState(new Date());
+  const [expiryDate, setExpiryDate] = useState(new Date());
   const [quantity, setQuantity] = useState('');
   const [openScanner, setOpenScanner] = useState(false);
 
   function expirationDatePicker(newDate: Date) {
-    setExpirationDate(newDate);
+    setExpiryDate(newDate);
   }
 
   function fillFormWithBarcodeData(barcode: string, productName: string) {
@@ -27,8 +30,29 @@ export default function RegisterProductPage() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    toast.info(`Data selecionada: ${expirationDate.toLocaleDateString('pt-BR')}`);
-    // Aqui futuramente virá a lógica de salvar o produto
+   
+   
+
+            const ano = expiryDate.getFullYear();
+            const mes = String(expiryDate.getMonth() + 1).padStart(2, '0'); // +1 porque janeiro é 0
+            const dia = String(expiryDate.getDate()).padStart(2, '0');
+            
+            // Monta a string no padrão yyyy-MM-dd
+            const dataFormatada = `${ano}-${mes}-${dia}`;
+
+            const productData = {
+                id: crypto.randomUUID(),
+                barcode: barCode,
+                name: productName,
+                category: category,
+                price: parseFloat(productPrice),
+                expiryDate: dataFormatada,
+                quantity: parseInt(quantity, 10)
+            };
+
+            addProduct(productData);
+            showProductForm();
+    
   }
 
   return (
