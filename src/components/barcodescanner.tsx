@@ -16,7 +16,6 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
   });
 
   useEffect(() => {
-    // ✅ guarda para evitar chamada com string vazia
     if (!result) return;
 
     async function request() {
@@ -27,17 +26,15 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
           fillFormWithBarcodeData(data.code, data.product.product_name);
           setOpenScanner();
         } else {
-          // ✅ substituído alert
           toast.warning("Produto não encontrado. Preencha manualmente.");
         }
       } catch (error) {
         console.error("Erro ao buscar dados do produto:", error);
-        // ✅ substituído alert
         toast.error("Erro ao buscar dados do produto. Verifique o código de barras.");
       }
     }
     request();
-  }, [result]); // ✅ dependência apenas [result]
+  }, [result, fillFormWithBarcodeData, setOpenScanner]); 
 
   return (
     <div

@@ -1,5 +1,4 @@
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from 'react-datepicker';
 import { ptBR } from 'date-fns/locale'
 

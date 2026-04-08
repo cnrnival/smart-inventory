@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../app/globals.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import { Toaster } from 'sonner';
 import { Navbar } from '@/components/Navbar';
 import { AuthProvider } from '@/contexts/AuthContext';
