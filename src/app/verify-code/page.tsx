@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useAuth } from '@/hooks/useAuth'; // ← useAuth
-// import { useInventory } from '@/hooks/useInventory';
-//ijuedbiuwbnciwciwiucwicncinciownc
+import { useAuth } from '@/hooks/useAuth';
+
 export default function VerifyCodePage() {
   const router = useRouter();
   const { registerUser } = useAuth();
@@ -25,6 +24,7 @@ export default function VerifyCodePage() {
 
     if (code === storedCode) {
       const user = JSON.parse(tempUser);
+      // ✅ chamada restaurada
       registerUser({ name: user.name, email: user.email, password: user.password });
 
       sessionStorage.removeItem('temp_user');
@@ -63,7 +63,7 @@ export default function VerifyCodePage() {
 
             <button
               type="submit"
-              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 bg-blue-600"
+              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90"
             >
               Validar Código
             </button>
