@@ -1,14 +1,16 @@
 'use client';
 
 import { useState } from "react";
-import { toast } from "sonner";
 import { ScanBarcodeIcon } from 'lucide-react';
 import { BarcodeScanner } from "@/components/barcodescanner";
 import { DatePickerComponent } from "@/components/datepicker";
 import { useProductsContext } from "@/hooks/useProductsContext";
 
-export default function RegisterProductPage() {
-  const [showProductForm,setShowProductForm] = useState (false)
+type props = {
+    showProductForm: () => void;
+}
+
+export default function RegisterProductPage({ showProductForm }: props) {
   const {addProduct} = useProductsContext()
   const [barCode, setBarCode] = useState('');
   const [productName, setProductName] = useState('');
@@ -75,7 +77,7 @@ export default function RegisterProductPage() {
             <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e) => setProductName(e.target.value)} value={productName} />
 
             <label htmlFor="expirationDate" className="mb-1 block text-sm">Data de Validade</label>
-            <DatePickerComponent expiryDatePicker={expirationDatePicker} selectedDate={expirationDate} />
+            <DatePickerComponent expiryDatePicker={expirationDatePicker} selectedDate={expiryDate} />
 
             <label htmlFor="category" className="mb-1 block text-sm">Categoria</label>
             <input type="text" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" onChange={(e) => setCategory(e.target.value)} value={category} />

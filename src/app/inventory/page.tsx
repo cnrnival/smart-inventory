@@ -21,6 +21,7 @@ export default function InventoryPage() {
     function ShowProductForm() {
         setIsProductFormOpen(!isProductFormOpen);
     }
+    
     return (
         <div className="flex-1 flex flex-col min-h-0 bg-[#262626]">
             <div className="w-full h-[70px] flex flex-row items-center justify-between p-4 shrink-0">
