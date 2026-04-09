@@ -11,14 +11,9 @@ const linksInventoryPage = [
 
 export default function InventoryLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="fixed inset-0 flex flex-row bg-[#1a1a1a] overflow-hidden">
+    <div className="flex flex-row w-full h-[calc(100vh-60px)] bg-[#1a1a1a] overflow-hidden">
 
       <nav className="top-0 left-0 w-[150px] h-full bg-[#222222] shrink-0 flex flex-col items-center p-4">
-
-        <Link href="/" className="flex items-center gap-2 text-md font-bold text-[#6b9dff]  h-[55px] border-b border-[#6b9dff] mb-4">
-          <Package className="h-6 w-6" />
-          Smart Inventory
-        </Link>
 
         {linksInventoryPage.map((link) => (
           <Link 
