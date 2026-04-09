@@ -8,7 +8,10 @@ import { Navbar } from '@/components/Navbar';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ProductsContextProvider } from '@/contexts/ProductsContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter', // Define o nome da variável CSS
+});
 
 export const metadata: Metadata = {
   title: 'Smart Inventory',
@@ -23,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       
-      <body className={`${inter.className} min-h-screen flex flex-col bg-[#1a1a1a]`}>
+      <body className={`${inter.variable} min-h-screen flex flex-col bg-[#E8E9E8] font-sans `}>
         <AuthProvider>
           <ProductsContextProvider>
             <Navbar />
