@@ -23,16 +23,22 @@ export default function InventoryPage() {
     }
     
     return (
-        <div className="flex-1 flex flex-col min-h-0 bg-[#262626]">
-            <div className="w-full h-[70px] flex flex-row items-center justify-between p-4 shrink-0">
-                <h2 className="text-2xl font-bold">Produtos</h2>
-                <Link href="/" className="text-white font-bold py-2 px-4 flex flex-row items-center gap-2 hover:text-purple-300">
-                    <HomeIcon className="w-[20px] h-[20px]" />
-                    <span>Início</span>
-                </Link>
+        <div className="flex-1 flex flex-col bg-[#E8E9E8] h-full">
+            <div className="flex ml-4 mt-4 mr-4 flex-row justify-between items-center">
+                 <h2 className="text-2xl font-bold">Produtos</h2>
+                 <button className=" bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[30px] w-[100px] rounded-md gap-1" onClick={ShowProductForm}>
+                        <PlusCircle className="w-[15px] h-[15px]" />
+                        <span className="text-sm">Produto</span>
+                    </button>
+                    {isProductFormOpen && <ProductForm showProductForm={ShowProductForm} />}
             </div>
             <div className="flex-1 flex flex-col items-center p-4 overflow-hidden md:h-[100vh] sm:min-h-screen rounded-md sm:text-sm md:text-base">
-                <div className="w-full flex flex-row h-[50px] justify-between bg-[#222222] flex items-center rounded-md p-4">
+                <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-md px-4 shrink-0">
+                        <span>Total do estoque: R$ 1.000,00</span>
+                        <span>Total de produtos: 100</span>
+
+                </div>
+                <div className="w-full flex flex-row h-[50px] justify-between bg-[#222222] flex items-center rounded-md p-4 mb-3">
                     <input
                         type="text"
                         placeholder="Buscar produto..."
@@ -40,17 +46,6 @@ export default function InventoryPage() {
                         value={findName}
                         onChange={(e) => setFindName(e.target.value)}
                     />
-
-                    <button className=" bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[30px] w-[100px] rounded-md gap-1" onClick={ShowProductForm}>
-                        <PlusCircle className="w-[15px] h-[15px]" />
-                        <span className="text-sm">Produto</span>
-                    </button>
-                    {isProductFormOpen && <ProductForm showProductForm={ShowProductForm} />}
-                </div>
-                <div className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0">
-                        <span>Total do estoque: R$ 1.000,00</span>
-                        <span>Total de produtos: 100</span>
-
                 </div>
                  <div className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-white border border-gray-600 flex flex-row items-center gap-4 space-between">
                             <span>nome</span>
