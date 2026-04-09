@@ -3,19 +3,18 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useTestAuth } from '@/hooks/test_auth';
+import { useAuthContext } from '@/hooks/useAuthContext';
 import { FakeNavBar } from '@/components/FakeNavBar';
 
 export default function LoginPage() {
+
+  const {findUser}= useAuthContext();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); // ✅ renomeado de 'senha'
-const {login}= useTestAuth();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    login()
-  }
+   const handleSubmit = (e: React.FormEvent) => {
+//     e.preventDefault();
+   }
 
   return (
     <div className="min-h-screen bg-gray-50">

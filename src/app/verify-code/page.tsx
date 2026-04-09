@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useAuth } from '@/hooks/useAuth';
 
 export default function VerifyCodePage() {
   const router = useRouter();
-  const { registerUser } = useAuth();
+  // const { registerUser } = useAuth();
   const [code, setCode] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +24,7 @@ export default function VerifyCodePage() {
     if (code === storedCode) {
       const user = JSON.parse(tempUser);
       // ✅ chamada restaurada
-      registerUser({ name: user.name, email: user.email, password: user.password });
+      // registerUser({ name: user.name, email: user.email, password: user.password });
 
       sessionStorage.removeItem('temp_user');
       sessionStorage.removeItem('verification_code');

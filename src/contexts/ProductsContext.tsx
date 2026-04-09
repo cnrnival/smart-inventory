@@ -2,8 +2,6 @@
 import { createContext, useContext, useState } from "react";
 import { ProductType } from "../types/ProductType";
 import { axios_api } from "@/services/axios_api";
-import { AuthContext } from "./AuthContext";
-import { useTestAuth } from "@/hooks/test_auth";
 
 export type ProductStatus = 'valid' | 'alert' | 'critical' | 'expired';
 
@@ -24,7 +22,6 @@ type ProductsContextType = {
     validProducts: ProductType[];
     statusConfig: typeof statusConfig;
     financialRisk: number;
-    isAuthenticated: boolean;
 };
 
 export const ProductsContext = createContext({} as ProductsContextType);
@@ -32,9 +29,8 @@ export const ProductsContext = createContext({} as ProductsContextType);
 export const ProductsContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { isAuthenticated } = useTestAuth();
 
-    async function addProduct(newProduct: Omit<ProductType, 'id'>) {
+    async function addProduct(newProduct: Omit<ProductType, 'status'>) {
         const response = await axios_api.post('/products', newProduct);
         setProducts([...products, response.data]);
     }
@@ -93,7 +89,6 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
             validProducts,
             statusConfig,
             financialRisk,
-            isAuthenticated
         }}>
             {children}
         </ProductsContext.Provider>

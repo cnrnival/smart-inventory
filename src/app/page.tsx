@@ -14,16 +14,23 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recha
 import { useProductsContext } from '@/hooks/useProductsContext';
 import { use, useEffect } from 'react';
 import { StatusBadge } from '@/components/StatusBadge';
+import { useAuthContext } from '@/hooks/useAuthContext';
 
 // Constante de cores para o gráfico de pizza
 const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 
 export default function DashboardPage() {
 
-  const { products, getProducts, isLoading, expiredProducts, nearExpiryProducts, validProducts, financialRisk, isAuthenticated } = useProductsContext();
+  const {user} = useAuthContext();
+  const { products, getProducts, isLoading, expiredProducts, nearExpiryProducts, validProducts, financialRisk } = useProductsContext();
   const router = useRouter();
-  
   const riskyProducts = [...expiredProducts, ...nearExpiryProducts];
+
+  useEffect(()=>{
+    if(!user){
+    router.push('/welcome')
+  }
+  }, [])
 
   useEffect(() => {
     getProducts();

@@ -134,5 +134,14 @@
       "quantity": 1
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json"
+  "users": [
+    {
+      "name": "admin1",
+      "email": "admin@admin.com",
+      "password": "admin1",
+      "document": "12312312312",
+      "isAdmin": true,
+      "id": "A9JWwIdFtR0"
+    }
+  ]
 }

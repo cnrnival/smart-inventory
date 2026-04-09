@@ -2,12 +2,7 @@
 
 
 import Link from 'next/link';
-
-
-import { useRouter } from 'next/navigation';
 import { ShieldCheck, Leaf, BarChart3, Package, User } from 'lucide-react';
-import { StatusBadge } from '@/components/StatusBadge';
-import { useInventory } from '@/hooks/useInventory';
 
 const features = [
   {
