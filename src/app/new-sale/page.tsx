@@ -2,7 +2,6 @@
 import Link from "next/link";
 import {Package, SettingsIcon, Trash} from "lucide-react";
 import { useEffect, useState } from "react";
-import { Product } from "@/types/inventory";
 import { PaymentComponent } from "@/components/paymentcomponent";
 import { ProductType } from "@/types/ProductType";
 import { useProductsContext } from "@/hooks/useProductsContext";
@@ -39,7 +38,7 @@ export default function NewSale(){
 
     return (
     
-        <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col bg-background text-white bg-[#262626]">
+        <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col text-black bg-[#E8E9E8]">
 
             <div className="sticky top-0 z-50 h-[60px] bg-[#1f1f1f]">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -47,8 +46,8 @@ export default function NewSale(){
                         <Package className="h-6 w-6" />
                         Smart Inventory
                     </div>
-                    <div className="h-4 w-4 text-white" onClick={showMenu}>
-                        <SettingsIcon className="h-full w-full text-white" />
+                    <div className="h-4 w-4 text-black" onClick={showMenu}>
+                        <SettingsIcon className="h-full w-full text-[#6b9dff]" />
                         {menuOpen && (
                             <ul className="w-[150px] h-[30px] bg-white absolute top-10 right-7 mt-1 flex flex-col items-start justify-center rounded-md p-2 ">
                                 <Link href="/" className="text-black text-sm">Ir para o início</Link>
@@ -59,11 +58,11 @@ export default function NewSale(){
             </div>
 
             {/* MAIN */}
-            <main className="flex-1 flex overflow-hidden">
+            <main className="flex-1 flex overflow-hidden ">
                 <div className=" w-[70%] h-full p-4">
 
                     {/* FILTROS */}
-                    <div className="w-full h-[8%] bg-[#323232]">
+                    <div className="w-full h-[8%] bg-[#c9c9c9]">
 
                     </div>
 
@@ -72,7 +71,7 @@ export default function NewSale(){
                         {products.map((product) => (
                             <div 
                             key={product.id} 
-                            className="bg-[#424242] aspect-square flex flex-col rounded-md items-center active:bg-[#555] cursor-pointer p-4"
+                            className="bg-[#c9c9c9] aspect-square flex flex-col rounded-md items-center active:bg-[#555] cursor-pointer p-4 shadow-sm shadow-black/50"
                              onClick={() => addToCart(product)}>
                                 <div className="w-full h-[20px] flex items-center justify-end">
                                     {cart.some((item) => item.id === product.id) &&
@@ -91,12 +90,12 @@ export default function NewSale(){
 
 
 
-                <div className="bg-[#323232] w-[50%] h-full p-4 flex flex-col">
+                <div className="bg-[#c9c9c9] w-[50%] h-full p-4 flex flex-col">
                     <div className="w-full h-[75%] overflow-auto hide-scrollbar">
                         {cart.map((product, index) => (
                             <div 
                             key={index}
-                            className="bg-[#424242] w-full h-[60px] border-b border-[#555] flex flex-row items-center justify-center rounded gap-4">
+                            className="bg-[#E8E9E8] w-full h-[60px] border-b border-[#555] flex flex-row items-center justify-center rounded gap-4">
                                 <span className="size-10 bg-red-200"></span>
                                 <span className="font-bold">{product.name}</span>
                                 <span className="text-sm">Vence em: {product.expiryDate}</span>
@@ -110,7 +109,7 @@ export default function NewSale(){
                         <span className="text-xl font-bold">Total: R$ 0,00</span>
                     </div>
                     <div className="w-full h-[10%] flex items-center justify-end p-2">
-                        <button className="bg-[#6b9dff] hover:bg-[#6b9dff]/70 text-white font-bold py-2 px-4 rounded" onClick={openPayment}>
+                        <button className="bg-[#6b9dff] hover:bg-[#6b9dff]/70 text-black font-bold py-2 px-4 rounded" onClick={openPayment}>
                             <span>Finalizar Compra</span>
                         </button>
                          {paymentOpen && (   
@@ -129,6 +128,6 @@ export default function NewSale(){
 {/* //  <Link
 //               href={'/login'}
 //                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors
-//                     bg-primary text-white
+//                     bg-primary text-black
 //                     text-white hover:bg-primary/90">
 //               </Link> */}

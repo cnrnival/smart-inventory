@@ -65,7 +65,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-8 text-white bg-[#262626]">
+    <div className="min-h-screen p-4 md:p-8 text-white bg-[#E8E9E8]">
       <div className="mx-auto max-w-6xl space-y-8">
         
         {/* Cabeçalho */}
@@ -73,7 +73,7 @@ export default function DashboardPage() {
           <div>
             <h1 className="text-2xl font-bold">Dashboard de Risco</h1>
             <p className="text-sm">
-              Bem-vindo(a), <span className="font-semibold text-[#6b9dff]">Usuário</span>
+              Bem-vindo(a), <span className="font-semibold text-[#6b9dff]">{user?.name}</span>
             </p>
           </div>
           <button

@@ -37,7 +37,7 @@ export default function Home() {
     ];
   
   return (
-      <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col bg-background text-white bg-[#262626]">
+      <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col bg-background text-black bg-[#262626]">
 
 
         <div className="sticky top-0 z-50 h-[60px] bg-[#1f1f1f]">
@@ -59,7 +59,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mx-auto text-center py-10">
+        <div className="text-center py-10 bg-[#E8E9E8] flex-1">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-medium bg-[#6b9dff]">
             <Leaf className="h-4 w-4" />
             Gestão Preventiva de Estoque
@@ -67,7 +67,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold">
             Smart Inventory
           </h1>
-          <p className="mt-4 text-lg text-white/80 md:text-xl mb-10">
+          <p className="mt-4 text-lg text-black/80 md:text-xl mb-10">
             Plataforma IoT e Mobile para gestão preventiva de estoque com foco na
             <span className="font-semibold"> redução de desperdício de itens
               </span>.
@@ -79,14 +79,14 @@ export default function Home() {
             {features.map((f, index) => (
             <div
               key={index}
-              className="rounded-xl border border-secondary bg-third p-6 shadow-sm transition-shadow hover:shadow-md
+              className="rounded-xl shadow-sm shadow-black/50 bg-[#c9c9c9] p-6 shadow-sm
               sm:w-[300px] sm:h-[220px]
-              md:w-[300px] md:h-[200px] bg-[#323232]">
+              md:w-[300px] md:h-[200px]">
               <div className="mb-3 inline-flex rounded-lg bg-gray-100 p-2.5">
                 <f.icon className="h-5 w-5 text-blue-600" />
               </div>
               <h3 className="text-lg font-semibold">{f.title}</h3>
-              <p className="mt-1 text-sm text-white/80">{f.desc}</p>
+              <p className="mt-1 text-sm text-black/80">{f.desc}</p>
             </div>
         ))}
       </div>
