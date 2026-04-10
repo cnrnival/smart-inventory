@@ -8,7 +8,7 @@
 // ==================================================
 
 import { useRouter } from 'next/navigation';
-import { Package, AlertTriangle, XCircle, DollarSign, LogOut } from 'lucide-react';
+import { Package, AlertTriangle, XCircle, DollarSign, LogOut, Check } from 'lucide-react';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useProductsContext } from '@/hooks/useProductsContext';
@@ -127,7 +127,7 @@ export default function DashboardPage() {
             {/* Card: Produtos Válidos */}
             <div className="flex-1 flex items-center rounded-xl  shadow-md shadow-black/70 bg-[#c9c9c9] p-5 shadow-sm">
               <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-green-600/20 text-green-500">
-                <Package size={28} />
+                <Check size={28} />
               </div>
               <div className="flex flex-col">
                 <p className="text-sm font-medium text-black/50">Produtos Válidos</p>
