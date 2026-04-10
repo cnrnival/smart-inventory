@@ -4,14 +4,15 @@ import { useAuthContext } from "@/hooks/useAuthContext"
 
 export default function Profile() {
 
-    const {user} = useAuthContext();
+    const { user } = useAuthContext();
 
     return (
-        <div className="h-[calc(100vh-60px)] text-white bg-[#262626] flex flex-col ">
-            <h1 className="text-3xl font-bold">Perfil do Usuário</h1>
-            <span>{user?.name}</span>
-            <span>{user?.email}</span>
-            <span>{user?.document}</span>
+        <div className="h-[calc(100vh-60px)] w-screen ">
+            <div className="w-6xl h-full mx-auto flex flex-col">
+                <h2 className="text-black">{user?.name}</h2>
+                <span>{user?.email}</span>
+
+            </div>
         </div>
     )
 }

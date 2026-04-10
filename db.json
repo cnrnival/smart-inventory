@@ -135,14 +135,5 @@
     }
   ],
   "users": [
-    {
-      "id": "6nsian_UMFk",
-      "name": "kaka",
-      "email": "kaka@kaka.com",
-      "password": "kaka@kaka.com",
-      "document": "kaka@kaka.com",
-      "isAdmin": true
-    }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
