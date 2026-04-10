@@ -1,3 +1,4 @@
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useZxing } from "react-zxing";
 import { toast } from "sonner"; // ✅ import adicionado
@@ -34,25 +35,29 @@ export const BarcodeScanner = ({ setOpenScanner, fillFormWithBarcodeData }: Prop
       }
     }
     request();
-  }, [result, fillFormWithBarcodeData, setOpenScanner]); 
+  }, [result, fillFormWithBarcodeData, setOpenScanner]);
 
   return (
     <div
-      className="absolute inset-0 flex items-center justify-center h-full w-full select-none md:p-10"
-      onClick={setOpenScanner}
-    >
+      className="absolute inset-0 flex items-center justify-center h-full w-full select-none md:p-10">
       <div
-        className="md:rounded-xl bg-primary shadow-sm flex flex-col items-center md:justify-center p-6 h-full w-[450px] md:py-10"
+        className="  md:w-[700px] h-[550px] sm:w-[450px] rounded-xl flex flex-col justify-between bg-[#6b9dff] "
+        // md:w-[700px] h-[550px] sm:w-[450px] h-full rounded-xl p-8 shadow-sm bg-[#6b9dff] shadow-sm flex flex-col items-center md:justify-center md:py-10
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-full h-[60px] flex items-center justify-end" onClick={setOpenScanner}>
-          <button className="w-[60px] h-[30px] border rounded-lg border-white text-white">voltar</button>
+        <div className="w-full h-[40px] flex items-center justify-start" onClick={setOpenScanner}>
+          <button className="w-[65px] h-[30px] rounded-lg text-white ml-2 flex flex-row items-center gap-1">
+            <ArrowLeft  className="text-white size-6"/>
+            <span className="text-sm uppercase">voltar</span>
+          </button>
         </div>
-        <video ref={ref} className="size-60 object-cover" />
-        <p className="mt-4 text-sm text-white">
-          <span>Último resultado: </span>
-          <span>{result}</span>
-        </p>
+        <div className="flex-1 flex flex-col items-center rounded-md">
+          <video ref={ref} className="size-50 object-cover  rounded-md" />
+          <p className="mt-4 text-sm text-white">
+            <span>Último resultado: </span>
+            <span>{result}</span>
+          </p>
+        </div>
       </div>
     </div>
   );
