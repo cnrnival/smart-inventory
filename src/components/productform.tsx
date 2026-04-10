@@ -2,7 +2,7 @@
 import { ScanBarcodeIcon } from 'lucide-react';
 import { BarcodeScanner } from "@/components/barcodescanner";
 import { DatePickerComponent } from "@/components/datepicker";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useProductsContext } from '@/hooks/useProductsContext';
 
 export function ProductForm({ showProductForm }: { showProductForm: () => void }){
@@ -27,7 +27,7 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
             setProductName(productName);
         }
     
-        function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+        function handleSubmit(e: FormEvent<HTMLFormElement>){
             e.preventDefault();
 
             const ano = expiryDate.getFullYear();
@@ -44,7 +44,8 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
                 category: category,
                 price: parseFloat(productPrice),
                 expiryDate: dataFormatada,
-                quantity: parseInt(quantity, 10)
+                quantity: parseInt(quantity),
+                
             };
 
             addProduct(productData);
@@ -53,7 +54,7 @@ export function ProductForm({ showProductForm }: { showProductForm: () => void }
 
     return (
         <main className=" w-full h-full mx-auto flex items-center justify-center  py-10 select-none text-white bg-black/50 absolute inset-0 rounded-xl" onClick={showProductForm}>
-                <div className="md:w-[700px] h-[550px] sm:w-[450px] rounded-xl bg-third p-8 shadow-sm bg-[#323232]"  onClick={e => e.stopPropagation()}>
+                <div className="md:w-[700px] h-[550px] sm:w-[450px] rounded-xl p-8 shadow-sm bg-[#E8E9E8]"  onClick={e => e.stopPropagation()}>
                    
                    <div className='flex-col items-center justify-center'>
                         <h1 className="text-center text-3xl font-bold">Registrar Produto</h1>
