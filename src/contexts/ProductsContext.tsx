@@ -14,7 +14,7 @@ const statusConfig: Record<ProductStatus, { label: string; className: string }> 
 
 type ProductsContextType = {
     products: ProductType[];
-    addProduct: (product: ProductType) => Promise<void>;
+    addProduct: (product: Omit<ProductType, 'status'>) => Promise<void>;
     getProducts: () => Promise<void>;
     isLoading: boolean;
     expiredProducts: ProductType[];
