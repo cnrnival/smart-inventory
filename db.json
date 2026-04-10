@@ -136,11 +136,11 @@
   ],
   "users": [
     {
-      "id": "IX48j5y9IkE",
-      "name": "admin",
-      "email": "admin@admin.com",
-      "password": "admin@admin.com",
-      "document": "admin@admin.com",
+      "id": "OP_jKRs-y_c",
+      "name": "admin1@admin.com",
+      "email": "admin1@admin.com",
+      "password": "admin1@admin.com",
+      "document": "admin1@admin.com",
       "isAdmin": true
     }
   ],

@@ -13,7 +13,7 @@ export default function InventoryLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex flex-row w-full h-[calc(100vh-60px)] bg-[#1a1a1a] overflow-hidden">
 
-      <nav className="top-0 left-0 w-[150px] h-full bg-[#222222] shrink-0 flex flex-col items-center p-4">
+      <nav className="top-0 left-0 w-[200px] h-full bg-[#222222] shrink-0 flex flex-col items-center p-4">
 
         {linksInventoryPage.map((link) => (
           <Link 
