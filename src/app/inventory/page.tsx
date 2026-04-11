@@ -47,12 +47,12 @@ export default function InventoryPage() {
                         onChange={(e) => setFindName(e.target.value)}
                     />
                 </div>
-                 <div className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
+                 <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
                             <span>nome</span>
                             <span>preço</span>
                             <span>data de validade</span>
                 </div>
-                <ul className="w-full flex-1 bg-[#c9c9c9] rounded-b-md overflow-y-auto min-h-0 hide-scrollbar shadow-md shadow-black/70">
+                <ul className="w-full flex-1 bg-[#c9c9c9] rounded-b-md overflow-y-auto max-h-[440px] hide-scrollbar shadow-md shadow-black/70">
                     {products.map((product) => (
                         <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between">
                             <span className="w-[65%] truncate">{product.name}</span>
