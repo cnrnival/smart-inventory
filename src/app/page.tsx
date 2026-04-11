@@ -26,11 +26,6 @@ export default function DashboardPage() {
   const router = useRouter();
   const riskyProducts = [...expiredProducts, ...nearExpiryProducts];
 
-  useEffect(()=>{
-    if(!user){
-    router.push('/welcome')
-  }
-  }, [])
 
   useEffect(() => {
     getProducts();
