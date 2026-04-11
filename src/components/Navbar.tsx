@@ -65,7 +65,7 @@ export function Navbar() {
               ${to === '/new-sale' ?
                   'bg-[#6b9dff] hover:bg-[#6b9dff]/70' : ''}
                  ${to === '/new-sale' // seleciona componente que vai para new sale e verifica se o componente atual é o de inventory 
-                  ? pathname === '/inventory'
+                  ? pathname.includes('/inventory')
                     ? 'bg-[#222222] text-white hover:bg-[#6b9dff]/70'
                     : 'bg-[#6b9dff] hover:bg-[#6b9dff]/70'
                   : ''}
