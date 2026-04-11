@@ -20,7 +20,7 @@ export function DatePickerComponent({ expiryDatePicker, selectedDate }: Prop){
                 }
             }}
             locale={`pt-BR`}
-            className={`w-[300px] h-full border border-gray-300 rounded-md mb-3 text-white text-md p-2`}
+            className={`w-[310px] h-full border border-gray-300 rounded-md text-black/70 text-md p-2 bg-[#E8E9E8] `}
             dateFormat={`dd-MM-yyyy`}
             minDate={new Date()}
         />
