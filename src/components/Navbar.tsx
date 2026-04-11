@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Package, User, Home, HandCoins } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useAuthContext } from '@/hooks/useAuthContext';
 
 const links = [
   { to: '/', label: 'Início', icon: Home },
@@ -14,8 +15,11 @@ const links = [
 
 export function Navbar() {
 
+  const {user} = useAuthContext();
+    const router = useRouter();
+
   const pathname = usePathname();
-  const [isInventory, setIsInventory] = useState(false)
+  const [isInventory, setIsInventory] = useState(false);
 
 
   useEffect(() => {
@@ -26,7 +30,13 @@ export function Navbar() {
     }
   }, [pathname]);
 
-  if (
+  useEffect(()=>{
+    if(!user){
+    router.push('/login')
+  }
+  }, [])
+
+   if (
     pathname === '/welcome' ||
     pathname === '/login' ||
     pathname === '/create-account' ||
