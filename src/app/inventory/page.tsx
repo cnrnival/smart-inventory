@@ -33,7 +33,7 @@ export default function InventoryPage() {
                     {isProductFormOpen && <ProductForm showProductForm={ShowProductForm} />}
             </div>
             <div className="flex-1 flex flex-col items-center p-4 overflow-hidden md:h-[100vh] sm:min-h-screen rounded-md sm:text-sm md:text-base">
-                <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-md px-4 shrink-0 text-black">
+                <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-md shrink-0 text-black">
                         <span>Total do estoque: R$ 1.000,00</span>
                         <span>Total de produtos: 100</span>
 
