@@ -5,15 +5,25 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthContext } from '@/hooks/useAuthContext';
 import { FakeNavBar } from '@/components/FakeNavBar';
+import { toast } from 'sonner';
 
 export default function LoginPage() {
 
-  const {findUser}= useAuthContext();
+  const {findUserByEmailAndPassword, setUser }= useAuthContext();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); // ✅ renomeado de 'senha'
-   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const userExists = await findUserByEmailAndPassword(email, password)
+    if(userExists){
+      toast.success('Usuário encontrado.')
+      setUser(userExists)
+      router.push('/')
+    } else {
+      toast.error('Usuário não encontrado')
+    }
    }
 
   return (

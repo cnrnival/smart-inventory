@@ -10,7 +10,7 @@ import { axios_api } from "@/app/api/axios_api";
 
 export default function CreateAccountPage() {
 
-  const { registerUser, findUser } = useAuthContext();
+  const { registerUser} = useAuthContext();
   const router = useRouter();
   const [form, setForm] = useState({
     name: "",

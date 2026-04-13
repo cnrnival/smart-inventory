@@ -15,9 +15,9 @@ export type User = {
 
 type AuthContextType = {
     user: User | null;
+    setUser: (user: User | null) => void;
     registerUser: (newUser: User) => Promise<void>;
-    findUser: (id: string) => Promise<boolean>;
-    // findUserByEmailAndPassword: (email: string, password: string) => Promise<boolean>
+    findUserByEmailAndPassword: (email: string, password: string) => Promise<User>
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -31,23 +31,33 @@ export function AuthProvider({children}: {children:  ReactNode}){
         setUser(response.data);
 
     }
-     
-    async function findUser(id: string){
+
+    async function findUserByEmailAndPassword(email: string, password: string){
         try {
-            const response = await axios_api.get(`/users/${id}`);
-            return !!response.data; // Retorna true se tiver dados
+            const response = await axios_api.get(`/users?name=${email}&password=${password}`);
+           return response.data[0];
         } catch (error) {
-            // Se o Axios jogar um erro 404, capturamos aqui e retornamos false
-            return false;
+            console.log(error)
+            return;
         }
     }
+     
+    // async function findUser(id: string){
+    //     try {
+    //         const response = await axios_api.get(`/users/${id}`);
+    //         return !!response.data; // Retorna true se tiver dados
+    //     } catch (error) {
+    //         // Se o Axios jogar um erro 404, capturamos aqui e retornamos false
+    //         return false;
+    //     }
+    // }
 
     return(
         <AuthContext.Provider value={{
             registerUser,
             user,
-            findUser
-            // findUserByEmailAndPassword
+            setUser,
+            findUserByEmailAndPassword
         }}>
             {children}
         </AuthContext.Provider>
