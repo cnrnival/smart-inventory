@@ -6,7 +6,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { Package } from "lucide-react";
 import { useAuthContext } from "@/hooks/useAuthContext";
-import { axios_api } from "@/services/axios_api";
+import { axios_api } from "@/app/api/axios_api";
 
 export default function CreateAccountPage() {
 

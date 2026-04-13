@@ -1,5 +1,5 @@
 'use client'
-import { axios_api } from "@/services/axios_api";
+import { axios_api } from "@/app/api/axios_api";
 import { createContext } from "react";
 import { ReactNode } from "react";
 import { useState } from "react";

@@ -1,7 +1,9 @@
 'use client';
-import { createContext, useContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 import { ProductType } from "../types/ProductType";
-import { axios_api } from "@/services/axios_api";
+import { axios_api } from "@/app/api/axios_api";
+
+import { DashBoardService } from '@/services/dashboard-service'
 
 export type ProductStatus = 'valid' | 'alert' | 'critical' | 'expired';
 
@@ -22,14 +24,25 @@ type ProductsContextType = {
     validProducts: ProductType[];
     statusConfig: typeof statusConfig;
     financialRisk: number;
+    findProductByName: (name: string) => Promise<ProductType[]>;
 };
 
 export const ProductsContext = createContext({} as ProductsContextType);
 
-export const ProductsContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const ProductsContextProvider = ({ children }: { children: React.ReactNode }, ) => {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const { 
+        productsWithStatus, 
+        expiredProducts, 
+        nearExpiryProducts, 
+        validProducts, 
+        financialRisk 
+    } = useMemo(() => DashBoardService(products), [products]);
+
+
+//   funcoes api
     async function addProduct(newProduct: Omit<ProductType, 'status'>) {
         const response = await axios_api.post('/products', newProduct);
         setProducts([...products, response.data]);
@@ -42,41 +55,10 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
         setIsLoading(false);
     }
 
-    function calculateProductStatus(expiryDate: string): ProductStatus {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        // Forçar parse local: separar ano, mês, dia
-        const [year, month, day] = expiryDate.split('-').map(Number);
-        const expiry = new Date(year, month - 1, day); // mês começa em 0
-
-        if (isNaN(expiry.getTime())) {
-            console.warn('Data inválida recebida:', expiryDate);
-            return 'expired';
-        }
-
-        const diffDays = Math.ceil((expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-
-        if (diffDays < 0) return 'expired';
-        if (diffDays < 7) return 'critical';
-        if (diffDays < 30) return 'alert';
-        return 'valid';
+    async function findProductByName(name: string){
+        const response = await axios_api.get(`/products?name=${name}`)
+        return response.data;
     }
-
-
-
-    const productsWithStatus = products.map(p => ({
-        ...p,
-        status: calculateProductStatus(p.expiryDate),
-    }));
-
-    const expiredProducts = productsWithStatus.filter(p => p.status === 'expired');
-    const nearExpiryProducts = productsWithStatus.filter(p => p.status === 'alert' || p.status === 'critical');
-    const validProducts = productsWithStatus.filter(p => p.status === 'valid');
-
-    const financialRisk = [...nearExpiryProducts, ...expiredProducts].reduce((acc, product) => {
-    return acc + (product ? product.price * product.quantity : 0);
-  }, 0);
 
     return (
         <ProductsContext.Provider value={{
@@ -89,6 +71,7 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
             validProducts,
             statusConfig,
             financialRisk,
+            findProductByName
         }}>
             {children}
         </ProductsContext.Provider>
