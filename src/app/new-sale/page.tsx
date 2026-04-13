@@ -62,7 +62,7 @@ export default function NewSale(){
                 <div className=" w-[70%] h-full p-4">
 
                     {/* FILTROS */}
-                    <div className="w-full h-[8%] bg-[#c9c9c9]">
+                    <div className="w-full h-[5%] bg-[#c9c9c9]">
 
                     </div>
 

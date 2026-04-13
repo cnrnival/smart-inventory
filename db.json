@@ -135,14 +135,5 @@
     }
   ],
   "users": [
-    {
-      "id": "231sx1GAzzg",
-      "name": "admin@a",
-      "email": "admin@a",
-      "password": "admin@a",
-      "document": "admin@a",
-      "isAdmin": true
-    }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
