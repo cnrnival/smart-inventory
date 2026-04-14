@@ -1,4 +1,5 @@
 'use client'
+import { UserForm } from "@/components/userform";
 import { PlusCircle } from "lucide-react"
 import { useState } from "react";
 
@@ -28,7 +29,7 @@ export default function CollaboratorsPage(){
                         <PlusCircle className="w-[15px] h-[15px] " />
                         <span className="text-sm">Colab...</span>
                     </button>
-                    {/* {isCollaboratorFormOpen && <CollaboratorForm showProductForm={ShowCollaboratorForm} />} */}
+                    {isCollaboratorFormOpen && <UserForm isAdmin={false} isInInventoryPage={true} ShowCollaboratorForm={ShowCollaboratorForm}/>}
             </div>
             <div className="mx-4 flex flex-row h-[50px] justify-between  flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70 mt-4">
                 <span>nome</span>

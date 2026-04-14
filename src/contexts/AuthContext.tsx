@@ -1,8 +1,6 @@
 'use client'
 import { axios_api } from "@/app/api/axios_api";
-import { createContext } from "react";
-import { ReactNode } from "react";
-import { useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 export type User = {
     id: string;
@@ -23,7 +21,7 @@ type AuthContextType = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({children}: {children:  ReactNode}){
-
+''
     const [user, setUser] = useState<User | null>(null);
 
     async function registerUser(newUser: User) {
