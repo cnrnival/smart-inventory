@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { Package } from "lucide-react";
+import { Rows4, Package2, Users, ReceiptText } from "lucide-react";
 
 const linksInventoryPage = [
-  { name: "Produtos", href: "/inventory" },
-  { name: "Histórico de Vendas", href: "/inventory/sales" },
-  { name: "Relatórios", href: "/inventory/reports" },
-  { name: "Fornecedores", href: "/inventory/suppliers" },
-  { name: "Colaboradores", href: "/inventory/collaborators" }
+  { name: "Produtos", href: "/inventory",  icon: <Package2 className="size-4"/>},
+  { name: "Histórico de Vendas", href: "/inventory/sales", icon: <ReceiptText className="size-4 "/> },
+  { name: "Relatórios", href: "/inventory/reports", icon: <Rows4 className="size-4"/> },
+  { name: "Colaboradores", href: "/inventory/collaborators", icon: <Users className="size-4" /> }
 ];
 
 export default function InventoryLayout({ children }: { children: React.ReactNode }) {
@@ -19,8 +18,9 @@ export default function InventoryLayout({ children }: { children: React.ReactNod
           <Link 
             key={link.name} 
             href={link.href} 
-            className="text-white/80 hover:text-purple-300 py-2 px-2 w-full text-start"
+            className="text-white/80 hover:text-[#6b9dff] py-2 px-2 w-full text-start flex justify-start items-center gap-2"
           >
+            {link.icon}
             {link.name}
           </Link>
         ))}
