@@ -1,8 +1,7 @@
 'use client'
 import { ProductForm } from "@/components/productform";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Search, PlusCircle } from "lucide-react";
+import { Search, PlusCircle, Edit, Trash } from "lucide-react";
 import { useProductsContext } from "@/hooks/useProductsContext";
 import { ProductType } from "@/types/ProductType";
 
@@ -28,6 +27,7 @@ export default function InventoryPage() {
     async function handleFindByName() {
         const findByName = await findProductByName(inputFindByName);
         setProductsByName(findByName);
+        setShowByNameList(true)
     }
 
     return (
@@ -56,7 +56,6 @@ export default function InventoryPage() {
                             placeholder="Buscar produto..."
                             className="bg-[#c9c9c9] text-black placeholder:text-gray-500 border border-black/50 focus:outline-none focus:ring-2 focus:ring-[#6b9dff] rounded-md h-[30px] w-[90%] p-4"
                             value={inputFindByName}
-                            onFocus={() => setShowByNameList(true)}
                             onChange={(e) => {
                                 const value = e.target.value;
                                 setInputFindByName(value);
@@ -93,16 +92,27 @@ export default function InventoryPage() {
 
                 </div>
                 <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
-                    <span>nome</span>
-                    <span>preço</span>
-                    <span>data de validade</span>
+                    <span className="w-[80%] truncate  items-start">nome</span>
+                    <span className="w-[10%]  items-start">preço</span>
+                    <span className="w-[10%] flex justify-end  items-start">quantidade</span>
+                    <span className="w-[10%] flex justify-end  items-start">vencimento</span>
+                    <span className="w-[10%] flex justify-end  items-start">ações</span>
                 </div>
                 <ul className="w-full flex-1 bg-[#c9c9c9] rounded-b-md overflow-y-auto max-h-[440px] hide-scrollbar shadow-md shadow-black/70">
                     {products.map((product) => (
                         <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between">
-                            <span className="w-[65%] truncate">{product.name}</span>
-                            <span className="w-[50%]">R$ {product.price}</span>
-                            <span className="w-[30%] flex justify-end">{product.expiryDate}</span>
+                            <span className="w-[80%] truncate items-start">{product.name}</span>
+                            <span className="w-[10%] items-start">R$ {product.price}</span>
+                            <span className="w-[10%] flex justify-end  items-start">{product.quantity}</span>
+                            <span className="w-[10%] flex justify-end  items-start">{product.expiryDate}</span>
+                            <div className="w-[10%] flex justify-end items-center gap-4">
+                                <button className="size-5">
+                                    <Edit className="w-full h-full text-[#222222]" />
+                                </button>
+                                <button className="size-5">
+                                    <Trash className="w-full h-full text-red-700" />
+                                </button>
+                            </div>
                         </li>
                     ))}
 
