@@ -19,15 +19,13 @@ export function UserForm({isAdmin, isInInventoryPage, ShowCollaboratorForm}: Pro
   const [form, setForm] = useState({
     name: "",
     email: "",
-    confirmEmail: "",
     password: "",
-    confirmPassword: "",
     document: "",
   });
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, email, confirmEmail, password, confirmPassword, document } = form;
+    const { name, email, password, document } = form;
 
     const newUserData = {
       id: crypto.randomUUID(),
@@ -39,14 +37,14 @@ export function UserForm({isAdmin, isInInventoryPage, ShowCollaboratorForm}: Pro
     };
 
     // Validações
-    if (!name || !email || !confirmEmail || !password || !confirmPassword || !document) {
+    if (!name || !email || !password || !document) {
       toast.error("Preencha todos os campos.");
       return;
-    } else if (email !== confirmEmail) {
-      toast.error("Os emails não coincidem.");
+    } else if (email == '') {
+      toast.error("e-mail não preenchido.");
       return;
-    } else if (password !== confirmPassword) {
-      toast.error("As senhas não coincidem.");
+    } else if (password == '') {
+      toast.error("Senha não preenchida.");
       return;
     } else if (password.length < 4) {
       toast.error("A senha deve ter no mínimo 4 caracteres.");
@@ -55,9 +53,16 @@ export function UserForm({isAdmin, isInInventoryPage, ShowCollaboratorForm}: Pro
 
 
     try {
-      await registerUser(newUserData);
-        toast.success("Conta criada com sucesso!");
-        router.push('/')
+      await registerUser(newUserData, isAdmin);
+
+        if(isInInventoryPage == false){  
+           toast.success("Conta criada com sucesso!");
+          router.push('/')
+        } else {
+          if(ShowCollaboratorForm){
+            ShowCollaboratorForm();
+          }
+        }
     } catch (error) {
       console.error("Erro ao criar conta:", error);
       toast.error("Ocorreu um erro ao criar sua conta. Tente novamente.");
@@ -69,7 +74,8 @@ return (
     <main className={isInInventoryPage === false ? `container mx-auto flex items-center justify-center px-4 py-10`
       :  `w-full h-full mx-auto flex items-center justify-center  py-10 select-none text-black bg-black/50 absolute inset-0 rounded-xl`
     } onClick={ShowCollaboratorForm}>
-      <div className="w-full max-w-md rounded-xl p-8 shadow-sm bg-[#b2b2b2] shadow-sm shadow-black/50 text-black/70">
+
+      <div className="w-full max-w-md rounded-xl p-8 shadow-sm bg-[#b2b2b2] shadow-sm shadow-black/50 text-black/70" onClick={e => e.stopPropagation()}>
         <h1 className="text-center text-3xl font-bold text-[#6b9dff]">Smart Inventory</h1>
         <p className="mt-2 text-center">Crie sua conta</p>
 
@@ -101,19 +107,6 @@ return (
           </div>
 
           <div>
-            <label htmlFor="confirmEmail" className="mb-1 block text-sm font-medium text-black/70">Confirmar Email *</label>
-            <input
-              id="confirmEmail"
-              type="email"
-              value={form.confirmEmail}
-              onChange={(e) => setForm({ ...form, confirmEmail: e.target.value })}
-              placeholder="Confirme seu email"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
-              required
-            />
-          </div>
-
-          <div>
             <label htmlFor="document" className="mb-1 block text-sm font-medium text-black/70">CPF/CNPJ da Empresa *</label>
             <input
               id="document"
@@ -134,19 +127,6 @@ return (
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               placeholder="Mínimo 4 caracteres"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="confirmPassword" className="mb-1 block text-sm font-medium text-black/70 ">Confirmar Senha *</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={form.confirmPassword}
-              onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-              placeholder="Repita a senha"
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
               required
             />
