@@ -1,7 +1,7 @@
 'use client';
 import { createContext, useState, useMemo } from "react";
 import { ProductType } from "../types/ProductType";
-import { axios_api } from "@/app/api/axios_api";
+import { axios_api } from "@/api/axios_api";
 
 import { DashBoardService } from '@/services/dashboard-service'
 
