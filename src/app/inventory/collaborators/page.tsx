@@ -1,20 +1,17 @@
 'use client'
 import { UserForm } from "@/components/userform";
-import { PlusCircle } from "lucide-react"
-import { useState } from "react";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import { PlusCircle, Trash, Edit } from "lucide-react"
+import { useEffect, useState } from "react";
 
 export default function CollaboratorsPage(){
 
+    const {usersList, getUsers} = useAuthContext();
     const [isCollaboratorFormOpen, setIsCollaboratorFormOpen] = useState(false);
 
-    const collaborators = [
-        {id: 1, name: 'lara'},
-        {id: 2, name: 'kelso'},
-        {id: 3, name: 'torugo'},
-        {id: 4, name: 'gus'},
-        {id: 5, name: 'jonathas'},
-        {id: 6, name: 'william'}
-    ]
+    useEffect(()=>{
+        getUsers()
+    }, [])
 
       function ShowCollaboratorForm() {
         setIsCollaboratorFormOpen(!isCollaboratorFormOpen);
@@ -31,15 +28,26 @@ export default function CollaboratorsPage(){
                     </button>
                     {isCollaboratorFormOpen && <UserForm isAdmin={false} isInInventoryPage={true} ShowCollaboratorForm={ShowCollaboratorForm}/>}
             </div>
-            <div className="mx-4 flex flex-row h-[50px] justify-between  flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70 mt-4">
-                <span>nome</span>
-                <span>email</span>
-                <span>tipo de acesso</span>
+            <div className="mx-4 flex flex-row h-[40px] justify-between  flex items-center rounded-t-md mt-5 p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
+                <span className="w-[40%] flex justify-start  items-start ">nome</span>
+                <span className="w-[30%] flex justify-start items-start ">email</span>
+                <span className="w-[30%] flex justify-start  items-start ">tipo de acesso</span>
+                <span className="w-[10%] flex justify-center  items-start ">ações</span>
             </div>
             <ul className="mx-4 flex flex-1 flex-col bg-[#c9c9c9] rounded-b-md overflow-y-auto max-h-[530px] hide-scrollbar shadow-md shadow-black/70">
-                    {collaborators.map((collaborator) => (
-                        <li key={collaborator.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between">
-                            <span className="w-[65%] truncate">{collaborator.name}</span>
+                    {usersList.map((user) => (
+                        <li key={user.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between">
+                            <span className="w-[40%] flex justify-start  items-start ">{user.name}</span>
+                            <span className="w-[30%] flex justify-start  items-start ">{user.email}</span>
+                            <span className="w-[30%] flex justify-start  items-start ">{user.isAdmin ? 'admin': 'colaborador'}</span>
+                            <div className="w-[10%] flex justify-center items-center gap-4 ">
+                                <button className="size-5">
+                                    <Edit className="w-full h-full text-[#222222]" />
+                                </button>
+                                <button className="size-5">
+                                    <Trash className="w-full h-full text-red-700" />
+                                </button>
+                            </div>
                             
                         </li>
                     ))}

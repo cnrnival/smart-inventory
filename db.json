@@ -142,6 +142,55 @@
       "password": "admin@a",
       "document": "admin@a",
       "isAdmin": true
+    },
+    {
+      "id": "hGhmLam2CbY",
+      "name": "lara maria",
+      "email": "lara@maria",
+      "password": "lara",
+      "document": "00100100101",
+      "isAdmin": false
+    },
+    {
+      "id": "UZ4FxfLiZwI",
+      "name": "torugo",
+      "email": "torugo@torugo",
+      "password": "torugo",
+      "document": "01101101101",
+      "isAdmin": false
+    },
+    {
+      "id": "HGLULo0AM3k",
+      "name": "gustav",
+      "email": "gus@gus",
+      "password": "gusta",
+      "document": "01101101101",
+      "isAdmin": false
+    },
+    {
+      "id": "uBuknM0DjU4",
+      "name": "kel",
+      "email": "kel@kel",
+      "password": "kell",
+      "document": "12345612312",
+      "isAdmin": false
+    },
+    {
+      "id": "mC7LYoz57vc",
+      "name": "jonathas",
+      "email": "jon@thas",
+      "password": "jonat",
+      "document": "12345612312",
+      "isAdmin": false
+    },
+    {
+      "id": "X9oqSMW7q5k",
+      "name": "william kauam",
+      "email": "willi@m",
+      "password": "will",
+      "document": "12345612312",
+      "isAdmin": false
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

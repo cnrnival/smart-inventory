@@ -1,6 +1,7 @@
 'use client'
-import { axios_api } from "@/app/api/axios_api";
+import { axios_api } from "@/api/axios_api";
 import { createContext, ReactNode, useState } from "react";
+import { toast } from "sonner";
 
 export type User = {
     id: string;
@@ -14,22 +15,32 @@ export type User = {
 type AuthContextType = {
     user: User | null;
     setUser: (user: User | null) => void;
-    registerUser: (newUser: User) => Promise<void>;
+    usersList: User[];
+    registerUser: (newUser: User, isAdmin: boolean) => Promise<void>;
     findUserByEmailAndPassword: (email: string, password: string) => Promise<User>
+    getUsers: () => Promise<void>
 }
 
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({children}: {children:  ReactNode}){
-''
-    const [user, setUser] = useState<User | null>(null);
 
-    async function registerUser(newUser: User) {
+    const [user, setUser] = useState<User | null>(null);
+    const [usersList, setUsersList] = useState<User[]>([]);
+
+    async function registerUser(newUser: User, isAdmin: boolean) {
         const response = await axios_api.post('/users', newUser)
-        setUser(response.data);
+        const createdUser = response.data
+
+        if(isAdmin == true){
+            setUser(createdUser);
+        } else {
+            setUsersList((prevList) => [...prevList, createdUser]);
+            toast.success('Colaborador registrado!')
+        }
+
 
     }
-
     async function findUserByEmailAndPassword(email: string, password: string){
         try {
             const response = await axios_api.get(`/users?name=${email}&password=${password}`);
@@ -40,22 +51,23 @@ export function AuthProvider({children}: {children:  ReactNode}){
         }
     }
      
-    // async function findUser(id: string){
-    //     try {
-    //         const response = await axios_api.get(`/users/${id}`);
-    //         return !!response.data; // Retorna true se tiver dados
-    //     } catch (error) {
-    //         // Se o Axios jogar um erro 404, capturamos aqui e retornamos false
-    //         return false;
-    //     }
-    // }
+    async function getUsers(){
+        try {
+            const response = await axios_api.get(`/users`);
+           setUsersList(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return(
         <AuthContext.Provider value={{
             registerUser,
             user,
             setUser,
-            findUserByEmailAndPassword
+            findUserByEmailAndPassword,
+            usersList,
+            getUsers
         }}>
             {children}
         </AuthContext.Provider>
