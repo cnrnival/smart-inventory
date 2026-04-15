@@ -1,13 +1,6 @@
 {
   "products": [
     {
-      "id": "1",
-      "name": "Produto A",
-      "quantity": 10,
-      "price": 19.99,
-      "expiryDate": "2026-12-31"
-    },
-    {
       "id": "2",
       "name": "Produto B",
       "quantity": 5,

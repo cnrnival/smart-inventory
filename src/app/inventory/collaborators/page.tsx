@@ -36,7 +36,7 @@ export default function CollaboratorsPage(){
             </div>
             <ul className="mx-4 flex flex-1 flex-col bg-[#c9c9c9] rounded-b-md overflow-y-auto max-h-[530px] hide-scrollbar shadow-md shadow-black/70">
                     {usersList.map((user) => (
-                        <li key={user.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between">
+                        <li key={user.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between hover:bg-[#b9b9b9]">
                             <span className="w-[40%] flex justify-start  items-start ">{user.name}</span>
                             <span className="w-[30%] flex justify-start  items-start ">{user.email}</span>
                             <span className="w-[30%] flex justify-start  items-start ">{user.isAdmin ? 'admin': 'colaborador'}</span>

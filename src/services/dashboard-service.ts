@@ -1,7 +1,6 @@
 'use client'
 
 import { ProductStatus } from "@/contexts/ProductsContext";
-import { useProductsContext } from "@/hooks/useProductsContext";
 import { ProductType } from "@/types/ProductType";
 
 export function DashBoardService(products: ProductType[] ){
