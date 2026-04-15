@@ -15,8 +15,8 @@ const links = [
 
 export function Navbar() {
 
-  const {user} = useAuthContext();
-    const router = useRouter();
+  const { user } = useAuthContext();
+  const router = useRouter();
 
   const pathname = usePathname();
   const [isInventory, setIsInventory] = useState(false);
@@ -30,13 +30,28 @@ export function Navbar() {
     }
   }, [pathname]);
 
-  useEffect(()=>{
-    if(!user){
-    router.push('/login')
-  }
-  }, [])
+  useEffect(() => {
 
-   if (
+  if (pathname === '/' && !user) {
+    router.push('/welcome');
+    return
+  }
+  const protectedRoutes = ['/inventory', '/profile', '/new-sale'];
+  const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route));
+
+  if (isProtectedRoute && !user) {
+    router.push('/login');
+    return;
+  }
+
+  if (user && (pathname === '/welcome' || pathname === '/login')) {
+    router.push('/');
+  }
+}, [pathname, user, router]);
+
+
+
+  if (
     pathname === '/welcome' ||
     pathname === '/login' ||
     pathname === '/create-account' ||
