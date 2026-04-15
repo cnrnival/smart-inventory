@@ -91,15 +91,6 @@
       "quantity": 2
     },
     {
-      "id": "LQK00SVU5Xc",
-      "barcode": "1234567891234",
-      "name": "ahaha",
-      "category": "aaa",
-      "price": 100,
-      "expiryDate": "2026-04-08",
-      "quantity": 1
-    },
-    {
       "id": "DW15AbgFcME",
       "barcode": "1234567891111",
       "name": "Cefalexina",
@@ -184,6 +175,5 @@
       "document": "12345612312",
       "isAdmin": false
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

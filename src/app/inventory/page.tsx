@@ -1,127 +1,72 @@
 'use client'
-import { ProductForm } from "@/components/productform";
+import { UserForm } from "@/components/userform";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import { PlusCircle, Trash, Edit } from "lucide-react"
 import { useEffect, useState } from "react";
-import { Search, PlusCircle, Edit, Trash, User } from "lucide-react";
-import { useProductsContext } from "@/hooks/useProductsContext";
-import { ProductType } from "@/types/ProductType";
 
-export default function InventoryPage() {
+export default function CollaboratorsPage(){
 
-    const [isProductFormOpen, setIsProductFormOpen] = useState(false);
-    const [inputFindByName, setInputFindByName] = useState("");
-    const { products, getProducts, findProductByName, deleteProduct } = useProductsContext();
+    const {usersList, getUsers} = useAuthContext();
+    const [isCollaboratorFormOpen, setIsCollaboratorFormOpen] = useState(false);
 
-    const [productsByName, setProductsByName] = useState<ProductType[]>([]);
-    const [showByNameList, setShowByNameList] = useState(false);
-
-    useEffect(() => {
-        getProducts();
+    useEffect(()=>{
+        getUsers()
     }, [])
 
-    console.log("DADOS QUE CHEGARAM NA TELA:", products);
-
-    function ShowProductForm() {
-        setIsProductFormOpen(!isProductFormOpen);
-    }
-
-    async function handleFindByName() {
-        const findByName = await findProductByName(inputFindByName);
-        setProductsByName(findByName);
-        setShowByNameList(true)
+    function ShowCollaboratorForm() {
+        setIsCollaboratorFormOpen(!isCollaboratorFormOpen);
     }
 
     return (
-        <div className="flex-1 flex flex-col bg-[#E8E9E8] h-full">
-            <div className="flex ml-4 mt-4 mr-4 flex-row justify-between items-center">
-                <h2 className="text-2xl font-bold text-black">Produtos</h2>
-                <button className=" bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[30px] w-[100px] rounded-md gap-1  shadow-sm shadow-black/70" onClick={ShowProductForm}>
-                    <PlusCircle className="w-[15px] h-[15px] " />
-                    <span className="text-sm ">Produto</span>
+        <div className="flex-1 flex flex-col bg-[#E8E9E8] h-full overflow-hidden w-full">
+            <div className="flex px-4 pt-4 flex-row justify-between items-center shrink-0">
+                <h2 className="text-xl md:text-2xl font-bold text-black">Colaboradores</h2>
+                <button 
+                    className="bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[36px] px-3 gap-2 shadow-sm shadow-black/70 hover:bg-[#6b9dff]/80 transition-colors" 
+                    onClick={ShowCollaboratorForm}
+                >
+                    <PlusCircle className="w-4 h-4" />
+                    <span className="text-sm">Colab...</span>
                 </button>
-                {isProductFormOpen && <ProductForm showProductForm={ShowProductForm} />}
+                {isCollaboratorFormOpen && <UserForm isAdmin={false} isInInventoryPage={true} ShowCollaboratorForm={ShowCollaboratorForm}/>}
             </div>
-            <div className="flex-1 flex flex-col items-center p-4 overflow-hidden md:h-[100vh] sm:min-h-screen rounded-md sm:text-sm md:text-base">
-                <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-md shrink-0 text-black ">
-                    <span>Total do estoque: R$ 1.000,00</span>
-                    <span>Total de produtos: 100</span>
 
-                </div>
-
-                <div className="w-full flex h-[50px] justify-between bg-[#c9c9c9] flex items-center rounded-md p-4 mb-3 shadow-sm shadow-black/70">
-
-                    {/* BUSCAR POR NOME */}
-                    <div className=" w-[300px] flex justify-between items-center relative gap-2">
-                        <input
-                            type="text"
-                            placeholder="Buscar produto..."
-                            className="bg-[#c9c9c9] text-black placeholder:text-gray-500 border border-black/50 focus:outline-none focus:ring-2 focus:ring-[#6b9dff] rounded-md h-[30px] w-[90%] p-4"
-                            value={inputFindByName}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                setInputFindByName(value);
-                                if (value === "") {
-                                    setProductsByName([]);
-                                }
-                            }}
-                        />
-                        <button onClick={handleFindByName} className="w-[10%] h-[30px] bg-[#6b9dff] flex items-center justify-center rounded-md z-50">
-                            <Search className="text-white" />
-                        </button>
-
-                        {showByNameList &&(
-                            <>
-                                <div
-                                    className="fixed inset-0 z-40"
-                                    onClick={() => setShowByNameList(false)}
-                                />
-                                <ul className="w-[300px] bg-[#E8E9E8] absolute min-h-[50px] max-h-[300px] top-full rounded-md overflow-y-auto hide-scrollbar shadow-sm shadow-black/50 text-black">
-                                    {
-                                        productsByName.map((p, index) => (
-                                            <li className="w-full p-2 flex justify-between items-center" key={index}>
-                                                <span>{p.name}</span>
-                                                <span>{p.price}</span>
-                                                <span>{p.expiryDate}</span>
-                                                <span>{p.quantity}</span>
-                                                <span>{p.status}</span>
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
-                            </>)}
+            <div className="flex-1 flex flex-col p-4 overflow-hidden w-full mt-2">
+                <div className="w-full flex flex-col flex-1 overflow-hidden bg-[#c9c9c9] rounded-md shadow-md shadow-black/70">
+                    
+                    {/* Cabeçalho da Lista */}
+                    <div className="w-full flex flex-row items-center p-3 shrink-0 text-black border-b border-black/50 font-bold text-xs sm:text-sm gap-2">
+                        <span className="w-[50%] sm:w-[40%] truncate">Nome</span>
+                        <span className="hidden sm:flex sm:w-[35%] truncate">E-mail</span>
+                        <span className="w-[30%] sm:w-[15%]">Acesso</span>
+                        <span className="w-[20%] sm:w-[10%] flex justify-end pr-2">Ações</span>
                     </div>
 
-                </div>
-                <div className="w-full flex flex-row h-[40px] justify-between flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
-                    <span className="w-[80%] truncate items-start">nome</span>
-                    <span className="w-[10%]  items-start">preço</span>
-                    <span className="w-[10%] flex justify-end  items-start">quantidade</span>
-                    <span className="w-[10%] flex justify-end  items-start">vencimento</span>
-                    <span className="w-[10%] flex justify-end  items-start">ações</span>
-                </div>
-                <ul className="w-full flex-1 bg-[#c9c9c9] rounded-b-md overflow-y-auto max-h-[440px] hide-scrollbar shadow-md shadow-black/70">
-                    {products.map((product) => (
-                        <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between hover:bg-[#b9b9b9]">
-                            <div className="w-[5%] truncate items-start">
-                                <button className="size-9 bg-[#6b9dff] rounded-full p-1 flex justify-center items-center">
-                                    <User className="w-full h-full text-[#222222]" />
-                                </button>
-                            </div>
-                            <span className="w-[80%] truncate items-start">{product.name}</span>
-                            <span className="w-[10%] items-start">R$ {product.price}</span>
-                            <span className="w-[10%] flex justify-end  items-start">{product.quantity}</span>
-                            <span className="w-[10%] flex justify-end  items-start">{product.expiryDate}</span>
-                            <div className="w-[10%] flex justify-end items-center gap-4">
-                                <button className="size-5">
-                                    <Edit className="w-full h-full text-[#222222]" />
-                                </button>
-                                <button className="size-5 cursor-pointer" onClick={async () => deleteProduct(product.id)}>
-                                    <Trash className="w-full h-full text-red-700 hover:text-red-300" />
-                                </button>
-                            </div>
-                        </li>
-                    ))}
+                    {/* Corpo da Lista */}
+                    <ul className="w-full flex-1 overflow-y-auto hide-scrollbar">
+                        {usersList.map((user) => (
+                            <li key={user.id} className="w-full flex flex-row min-h-[56px] items-center p-3 text-black border-b border-black/20 hover:bg-[#b9b9b9] transition-colors text-xs sm:text-sm gap-2">
+                                <span className="w-[50%] sm:w-[40%] truncate font-medium">{user.name}</span>
+                                <span className="hidden sm:flex sm:w-[35%] truncate">{user.email}</span>
+                                <span className="w-[30%] sm:w-[15%] truncate capitalize">{user.isAdmin ? 'Admin' : 'Colaborador'}</span>
+                                <div className="w-[20%] sm:w-[10%] flex justify-end items-center gap-2 sm:gap-4 pr-2">
+                                    <button className="size-4 sm:size-5 shrink-0 hover:scale-110 transition-transform">
+                                        <Edit className="w-full h-full text-[#222222]" />
+                                    </button>
+                                    <button className="size-4 sm:size-5 cursor-pointer shrink-0 hover:scale-110 transition-transform">
+                                        <Trash className="w-full h-full text-red-700 hover:text-red-500" />
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                        {usersList.length === 0 && (
+                            <li className="p-4 text-center text-sm text-gray-600">
+                                Nenhum colaborador encontrado.
+                            </li>
+                        )}
+                    </ul>
 
-                </ul>
+                </div>
             </div>
         </div>
     )

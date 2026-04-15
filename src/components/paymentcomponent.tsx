@@ -1,6 +1,6 @@
 'use client'
 
-import { BarcodeIcon, CreditCardIcon, QrCodeIcon, Banknote } from "lucide-react";
+import { CreditCardIcon, QrCodeIcon, Banknote } from "lucide-react";
 
 type Props = {
     openPayment: () => void;
@@ -9,28 +9,43 @@ type Props = {
 export function PaymentComponent({openPayment}: Props){
     
     const methods = [
-        { name: "Cartão de Crédito", icon: <CreditCardIcon /> },
-        { name: "Pix", icon: <QrCodeIcon /> },
-        { name: "Dinheiro", icon: <Banknote /> }
+        { name: "Cartão", icon: <CreditCardIcon className="size-8 md:size-10 text-[#6b9dff]" /> },
+        { name: "Pix", icon: <QrCodeIcon className="size-8 md:size-10 text-[#6b9dff]" /> },
+        { name: "Dinheiro", icon: <Banknote className="size-8 md:size-10 text-[#6b9dff]" /> }
     ];
 
     return (
-        <div className="w-screen h-screen bg-black/80 absolute top-0 left-0 flex items-center justify-center" onClick={e=>  e.stopPropagation()}>
-            <div className="w-[600px] h-[300px] rounded-lg  bg-[#1f1f1f] flex flex-col">
-                <div className="bg-[#6b9dff] h-[40px] flex items-center justify-between p-2 rounded-tl-lg rounded-tr-lg">
-                    <h2 className="">Selecione o método de pagamento</h2>
-                    <button onClick={openPayment} className=" text-sm w-[70px] h-[30px] flex items-center justify-center p-2 rounded-md border border-white">voltar</button>
+        <div 
+            className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm" 
+            onClick={openPayment}
+        >
+            <div 
+                className="w-full max-w-[600px] bg-[#1f1f1f] rounded-lg flex flex-col shadow-2xl overflow-hidden" 
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="bg-[#6b9dff] min-h-[50px] flex items-center justify-between p-3 md:p-4">
+                    <h2 className="text-black font-bold text-sm md:text-base">Método de pagamento</h2>
+                    <button 
+                        onClick={openPayment} 
+                        className="text-black text-xs md:text-sm font-semibold px-3 py-1.5 rounded-md border border-black hover:bg-black/10 transition-colors"
+                    >
+                        Voltar
+                    </button>
                 </div>
 
-                <div className="flex-1 h-full flex flex-wrap items-center justify-center p-2 rounded-b-md gap-10">
-                    {methods.map((method, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-[#323232] rounded-md w-[150px] h-[150px]">
-                            {method.icon}
-                            <span>{method.name}</span>
-                        </div>
-                    ))}
+                <div className="flex-1 p-4 md:p-8 flex items-center justify-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-6 w-full text-white">
+                        {methods.map((method, index) => (
+                            <button 
+                                key={index} 
+                                className="flex flex-col items-center justify-center p-4 bg-[#323232] hover:bg-[#444444] active:scale-95 transition-all rounded-md aspect-square w-full"
+                            >
+                                {method.icon}
+                                <span className="mt-3 text-sm md:text-base font-medium">{method.name}</span>
+                            </button>
+                        ))}
+                    </div>
                 </div>
-
             </div>
         </div>
     )

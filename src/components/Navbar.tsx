@@ -62,17 +62,19 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50  bg-[#222222] h-[60px] text-white">
-      <div className="w-full flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold text-[#6b9dff]">
-          <Package className="h-6 w-6" />
-          Smart Inventory
+      <div className="w-full flex h-16 items-center justify-between px-2 sm:px-4">
+        {/* Alteração na linha abaixo: text-base md:text-xl e tamanhos do ícone */}
+        <Link href="/" className="flex items-center gap-1.5 sm:gap-2 text-base md:text-xl font-bold text-[#6b9dff]">
+          <Package className="h-5 w-5 md:h-6 md:w-6 shrink-0" />
+          <span className="truncate">Smart Inventory</span>
         </Link>
+        
         <div className="flex items-center gap-1">
           {links.map(({ to, label, icon: Icon }, index) => (
             <Link
               key={index}
               href={to}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors
+              className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-3 py-2 text-sm font-medium transition-colors
                 ${pathname === to
                   ? 'border-b-2 border-[#6b9dff] text-[#7faeff]' // Cor para o link ativo
                   : 'text-white hover:border-b-2 border-[#6b9dff]'
