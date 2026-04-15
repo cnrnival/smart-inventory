@@ -1,7 +1,7 @@
 'use client'
 import { ProductForm } from "@/components/productform";
 import { useEffect, useState } from "react";
-import { Search, PlusCircle, Edit, Trash } from "lucide-react";
+import { Search, PlusCircle, Edit, Trash, User } from "lucide-react";
 import { useProductsContext } from "@/hooks/useProductsContext";
 import { ProductType } from "@/types/ProductType";
 
@@ -9,7 +9,7 @@ export default function InventoryPage() {
 
     const [isProductFormOpen, setIsProductFormOpen] = useState(false);
     const [inputFindByName, setInputFindByName] = useState("");
-    const { products, getProducts, findProductByName } = useProductsContext();
+    const { products, getProducts, findProductByName, deleteProduct } = useProductsContext();
 
     const [productsByName, setProductsByName] = useState<ProductType[]>([]);
     const [showByNameList, setShowByNameList] = useState(false);
@@ -91,8 +91,8 @@ export default function InventoryPage() {
                     </div>
 
                 </div>
-                <div className="w-full flex flex-row h-[40px] justify-between  flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
-                    <span className="w-[80%] truncate  items-start">nome</span>
+                <div className="w-full flex flex-row h-[40px] justify-between flex items-center rounded-t-md  p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between bg-[#c9c9c9] shadow-md shadow-black/70">
+                    <span className="w-[80%] truncate items-start">nome</span>
                     <span className="w-[10%]  items-start">preço</span>
                     <span className="w-[10%] flex justify-end  items-start">quantidade</span>
                     <span className="w-[10%] flex justify-end  items-start">vencimento</span>
@@ -100,7 +100,12 @@ export default function InventoryPage() {
                 </div>
                 <ul className="w-full flex-1 bg-[#c9c9c9] rounded-b-md overflow-y-auto max-h-[440px] hide-scrollbar shadow-md shadow-black/70">
                     {products.map((product) => (
-                        <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between">
+                        <li key={product.id} className="w-full flex flex-row h-[50px] justify-between  flex items-center rounded-md p-4 shrink-0 text-black border-b border-black/50 flex flex-row items-center gap-4 space-between hover:bg-[#b9b9b9]">
+                            <div className="w-[5%] truncate items-start">
+                                <button className="size-9 bg-[#6b9dff] rounded-full p-1 flex justify-center items-center">
+                                    <User className="w-full h-full text-[#222222]" />
+                                </button>
+                            </div>
                             <span className="w-[80%] truncate items-start">{product.name}</span>
                             <span className="w-[10%] items-start">R$ {product.price}</span>
                             <span className="w-[10%] flex justify-end  items-start">{product.quantity}</span>
@@ -109,8 +114,8 @@ export default function InventoryPage() {
                                 <button className="size-5">
                                     <Edit className="w-full h-full text-[#222222]" />
                                 </button>
-                                <button className="size-5">
-                                    <Trash className="w-full h-full text-red-700" />
+                                <button className="size-5 cursor-pointer" onClick={async () => deleteProduct(product.id)}>
+                                    <Trash className="w-full h-full text-red-700 hover:text-red-300" />
                                 </button>
                             </div>
                         </li>
