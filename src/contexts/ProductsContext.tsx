@@ -4,6 +4,7 @@ import { ProductType } from "../types/ProductType";
 import { axios_api } from "@/api/axios_api";
 
 import { DashBoardService } from '@/services/dashboard-service'
+import { toast } from "sonner";
 
 export type ProductStatus = 'valid' | 'alert' | 'critical' | 'expired';
 
@@ -25,6 +26,7 @@ type ProductsContextType = {
     statusConfig: typeof statusConfig;
     financialRisk: number;
     findProductByName: (name: string) => Promise<ProductType[]>;
+    deleteProduct: (id: string) => Promise<void>;
 };
 
 export const ProductsContext = createContext({} as ProductsContextType);
@@ -60,6 +62,19 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
         return response.data;
     }
 
+   async function deleteProduct(id: string) {
+    try {
+        await axios_api.delete(`/products/${id}`);
+        setProducts(currentProducts => 
+            currentProducts.filter(product => product.id !== id)
+        );
+        toast.success('Produto excluído');
+    } catch (error) {
+        console.error("Erro ao deletar produto:", error);
+    }
+}
+
+
     return (
         <ProductsContext.Provider value={{
             products: productsWithStatus,
@@ -71,7 +86,8 @@ export const ProductsContextProvider = ({ children }: { children: React.ReactNod
             validProducts,
             statusConfig,
             financialRisk,
-            findProductByName
+            findProductByName,
+            deleteProduct
         }}>
             {children}
         </ProductsContext.Provider>
