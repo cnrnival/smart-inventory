@@ -219,7 +219,7 @@ export default function DashboardPage() {
                 riskyProducts
                   .sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime())
                   .map((product) => (
-                    <tr key={product.id} className="transition-colors hover:bg-[#424242]">
+                    <tr key={product.id} className="transition-colors hover:bg-[#b1b1b1]">
                       <td className="whitespace-nowrap px-6 py-4 font-medium text-black">
                         {product.name || getProductName(product.id)}
                       </td>
