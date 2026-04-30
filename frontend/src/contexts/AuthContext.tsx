@@ -43,7 +43,7 @@ export function AuthProvider({children}: {children:  ReactNode}){
     }
     async function findUserByEmailAndPassword(email: string, password: string){
         try {
-            const response = await axios_api.get(`/users?name=${email}&password=${password}`);
+            const response = await axios_api.get(`/users?email=${email}&password=${password}`);
            return response.data[0];
         } catch (error) {
             console.log(error)
