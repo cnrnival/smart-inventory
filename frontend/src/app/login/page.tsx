@@ -1,42 +1,53 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { useAuthContext } from '@/hooks/useAuthContext';
-import { FakeNavBar } from '@/components/FakeNavBar';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import { FakeNavBar } from "@/components/FakeNavBar";
+import { toast } from "sonner";
 
 export default function LoginPage() {
-
-  const {findUserByEmailAndPassword, setUser }= useAuthContext();
+  const { findUserByEmailAndPassword, setUser } = useAuthContext();
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); // ✅ renomeado de 'senha'
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); // ✅ renomeado de 'senha'
+
+  // frontend/src/app/login/page.tsx
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const userExists = await findUserByEmailAndPassword(email, password)
-    if(userExists){
-      toast.success('Usuário encontrado.')
-      setUser(userExists)
-      router.push('/')
+
+    const userExists = await findUserByEmailAndPassword(email, password);
+
+    if (userExists) {
+      toast.success("Login aprovado! Entrando...");
+      setUser(userExists);
+      router.push("/");
     } else {
-      toast.error('Usuário não encontrado')
+      // Feedback mais claro indicando que verificou a API mas não bateu
+      toast.error("Email ou senha incorretos. Verifique suas credenciais.");
     }
-   }
+  };
 
   return (
     <div className="min-h-screen bg-[#E8E9E8]">
       <FakeNavBar />
       <main className="container mx-auto flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-md rounded-xl bg-[#b2b2b2] p-8 shadow-sm shadow-black/50">
-          <h1 className="text-center text-3xl font-bold text-[#6b9dff]">Smart Inventory</h1>
+          <h1 className="text-center text-3xl font-bold text-[#6b9dff]">
+            Smart Inventory
+          </h1>
           <p className="mt-2 text-center text-gray-600">Entre na sua conta</p>
 
           <form onSubmit={handleSubmit} className="mt-5 space-y-5">
             <div>
-              <label htmlFor="email" className="mb-1 block text-sm font-medium text-black/70">Email</label>
+              <label
+                htmlFor="email"
+                className="mb-1 block text-sm font-medium text-black/70"
+              >
+                Email
+              </label>
               <input
                 id="email"
                 type="email"
@@ -49,7 +60,12 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-1 block text-sm font-medium text-black/70">Senha</label>
+              <label
+                htmlFor="password"
+                className="mb-1 block text-sm font-medium text-black/70"
+              >
+                Senha
+              </label>
               <input
                 id="password"
                 type="password"
@@ -70,8 +86,11 @@ export default function LoginPage() {
           </form>
 
           <p className="mt-6 text-center text-sm text-gray-600">
-            Não tem conta?{' '}
-            <Link href="/create-account" className="font-medium hover:underline text-[#6b9dff]">
+            Não tem conta?{" "}
+            <Link
+              href="/create-account"
+              className="font-medium hover:underline text-[#6b9dff]"
+            >
               Cadastre-se
             </Link>
           </p>
