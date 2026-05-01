@@ -8,7 +8,8 @@ import { FakeNavBar } from "@/components/FakeNavBar";
 import { toast } from "sonner";
 
 export default function LoginPage() {
-  const { findUserByEmailAndPassword, setUser } = useAuthContext();
+
+  const {findUserByEmailAndPassword, setUser }= useAuthContext();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); // ✅ renomeado de 'senha'
@@ -17,18 +18,15 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const userExists = await findUserByEmailAndPassword(email, password);
-
-    if (userExists) {
-      toast.success("Login aprovado! Entrando...");
-      setUser(userExists);
-      router.push("/");
+    const userExists = await findUserByEmailAndPassword(email, password)
+    if(userExists){
+      toast.success('Usuário encontrado.')
+      setUser(userExists)
+      router.push('/')
     } else {
-      // Feedback mais claro indicando que verificou a API mas não bateu
-      toast.error("Email ou senha incorretos. Verifique suas credenciais.");
+      toast.error('Usuário não encontrado')
     }
-  };
+   }
 
   return (
     <div className="min-h-screen bg-[#E8E9E8]">
