@@ -1,0 +1,121 @@
+{
+  "products": [
+    {
+      "id": "2",
+      "name": "Produto B",
+      "quantity": 5,
+      "price": 29.99,
+      "expiryDate": "2026-06-30"
+    },
+    {
+      "id": "3",
+      "name": "Produto C",
+      "quantity": 20,
+      "price": 9.99,
+      "expiryDate": "2027-01-15"
+    },
+    {
+      "id": "4",
+      "name": "Produto D",
+      "quantity": 15,
+      "price": 14.99,
+      "expiryDate": "2026-09-30"
+    },
+    {
+      "id": "5",
+      "name": "Produto E",
+      "quantity": 8,
+      "price": 24.99,
+      "expiryDate": "2026-11-30"
+    },
+    {
+      "id": "6",
+      "name": "Produto F",
+      "quantity": 12,
+      "price": 12.99,
+      "expiryDate": "2027-02-28"
+    },
+    {
+      "id": "7",
+      "name": "Produto G",
+      "quantity": 18,
+      "price": 17.99,
+      "expiryDate": "2026-10-31"
+    },
+    {
+      "id": "8",
+      "name": "Produto H",
+      "quantity": 25,
+      "price": 7.99,
+      "expiryDate": "2026-12-15"
+    },
+    {
+      "id": "9",
+      "name": "Produto I",
+      "quantity": 30,
+      "price": 4.99,
+      "expiryDate": "2027-03-31"
+    },
+    {
+      "id": "10",
+      "name": "Produto J",
+      "quantity": 5,
+      "price": 34.99,
+      "expiryDate": "2026-08-31"
+    },
+    {
+      "id": "gw17EA6ZJaU",
+      "barcode": "1122334455667",
+      "name": "iBUPROFENO",
+      "category": "",
+      "price": 19,
+      "expiryDate": "2026-04-07",
+      "quantity": 2
+    },
+    {
+      "id": "0q22NYPipvU",
+      "barcode": "2112211223333",
+      "name": "5ttgtrgtg",
+      "category": "",
+      "price": 12,
+      "expiryDate": "2026-04-07",
+      "quantity": 1
+    },
+    {
+      "id": "3yMXoWThI7k",
+      "barcode": "1234567891234",
+      "name": "Dorflex",
+      "category": "",
+      "price": 19,
+      "expiryDate": "2026-04-08",
+      "quantity": 2
+    },
+    {
+      "id": "DW15AbgFcME",
+      "barcode": "1234567891111",
+      "name": "Cefalexina",
+      "category": "",
+      "price": 30,
+      "expiryDate": "2026-04-17",
+      "quantity": 10
+    },
+    {
+      "id": "ivblwSSR-JQ",
+      "barcode": "1122331122331",
+      "name": "Petit Suisse - Danoninho",
+      "category": "",
+      "price": 10,
+      "expiryDate": "2026-04-08",
+      "quantity": 10
+    },
+    {
+      "id": "J_AbnsP34Lg",
+      "barcode": "2222221111333",
+      "name": "nao sei",
+      "category": "",
+      "price": 1,
+      "expiryDate": "2026-04-08",
+      "quantity": 1
+    }
+  ]
+}
