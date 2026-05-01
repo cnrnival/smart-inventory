@@ -8,24 +8,31 @@ import { FakeNavBar } from '@/components/FakeNavBar';
 import { toast } from 'sonner';
 
 export default function LoginPage() {
-
+  const [isLoading, setIsLoading] = useState(false);
   const {findUserByEmailAndPassword, setUser }= useAuthContext();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); // ✅ renomeado de 'senha'
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const userExists = await findUserByEmailAndPassword(email, password)
-    if(userExists){
-      toast.success('Usuário encontrado.')
-      setUser(userExists)
-      router.push('/')
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+  try {
+    const userExists = await findUserByEmailAndPassword(email, password);
+    if (userExists) {
+      toast.success('Login realizado com sucesso!');
+      setUser(userExists);
+      router.push('/');
     } else {
-      toast.error('Usuário não encontrado')
+      toast.error('Email ou senha incorretos.');
     }
-   }
-
+  } catch (error) {
+    toast.error('Erro ao conectar com o servidor. Tente novamente.');
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
   return (
     <div className="min-h-screen bg-[#E8E9E8]">
       <FakeNavBar />
