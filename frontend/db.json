@@ -119,12 +119,12 @@
     }
   ],
   "users": [
-    {
-      "id": "U9EA3YBhIRI",
-      "name": "admin@a",
+     {
+      "id": "admin-123",
+      "name": "Admin do Sistema",
       "email": "admin@a",
-      "password": "admin@a",
-      "document": "admin@a",
+      "password": "admin",
+      "document": "00000000000",
       "isAdmin": true
     },
     {
