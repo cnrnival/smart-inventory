@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "server": "node server.js",
+    "server": "node server.js"
   },
   "dependencies": {
     "@zxing/library": "^0.21.3",
