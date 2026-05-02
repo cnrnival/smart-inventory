@@ -5,17 +5,25 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3333;
 
-// Caminhos dos seus arquivos
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
 
-// Lê os dados uma vez (para não ler a cada requisição – mas pode ser melhorado depois)
 const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
-// Endpoints
+// Rota raiz (mensagem informativa)
 app.get('/', (req, res) => {
   res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
+});
+
+// Rota para produtos
+app.get('/products', (req, res) => {
+  res.json(products);
+});
+
+// Rota para usuários
+app.get('/users', (req, res) => {
+  res.json(users);
 });
 
 app.listen(PORT, () => {
