@@ -1,17 +1,19 @@
-const jsonServer = require('json-server');
+
+
+
+ const jsonServer = require('json-server');
 const fs = require('fs');
 const path = require('path');
 
-const productsPath = path.join(__dirname, 'products.json');
-const usersPath = path.join(__dirname, 'users.json');
-const dbPath = path.join(__dirname, 'db.json');
+const productsPath = path.join(dirname, 'products.json');
+const usersPath = path.join(dirname, 'users.json');
 
-// Merge files into a temporary db.json for json-server to use
+// Lê os arquivos separados
 const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
+// Combina em um único objeto
 const db = { ...products, ...users };
-fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
 
 const server = jsonServer.create();
 const router = jsonServer.router(db);
@@ -20,6 +22,8 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(router);
 
-server.listen(3333, () => {
-  console.log('JSON Server is running on port 3333');
+// Usa a porta do ambiente (Render) ou 3333 localmente
+const PORT = process.env.PORT || 3333;
+server.listen(PORT, () => {
+ // console.log('JSON Server is running on port' ${PORT});
 });
