@@ -16,16 +16,14 @@ app.get('/', (req, res) => {
   res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
 });
 
-// Rota para produtos
+// Rota 
 app.get('/products', (req, res) => {
   res.json(products);
 });
 
-// Rota para usuários
 app.get('/users', (req, res) => {
   res.json(users);
 });
-
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
   console.log(`📦 Endpoints: /products , /users`);
