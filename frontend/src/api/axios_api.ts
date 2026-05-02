@@ -2,6 +2,11 @@
 import axios from 'axios';
 
 export const axios_api = axios.create({
-  baseURL: 'https://smart-inventory-5zwz.onrender.com', // ❌ CORRETO? Sim, mas falta /api? Não, json-server não usa /api
-  headers: { 'Content-Type': 'application/json' },
+  // A MUDANÇA É AQUI: substitua a URL antiga pela nova URL do Render
+  baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'https://smart-inventory-api-xiul.onrender.com',
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
+
+console.log('API URL:', axios_api.defaults.baseURL); // Adiciona um log para verificar a URL
