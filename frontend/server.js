@@ -14,12 +14,8 @@ const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
 // Endpoints
-app.get('/products', (req, res) => {
-  res.json(products);
-});
-
-app.get('/users', (req, res) => {
-  res.json(users);
+app.get('/', (req, res) => {
+  res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
 });
 
 app.listen(PORT, () => {
