@@ -1,29 +1,28 @@
-
-
-
- const jsonServer = require('json-server');
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
 
-const productsPath = path.join(dirname, 'products.json');
-const usersPath = path.join(dirname, 'users.json');
+const app = express();
+const PORT = process.env.PORT || 3333;
 
-// Lê os arquivos separados
+// Caminhos dos seus arquivos
+const productsPath = path.join(__dirname, 'products.json');
+const usersPath = path.join(__dirname, 'users.json');
+
+// Lê os dados uma vez (para não ler a cada requisição – mas pode ser melhorado depois)
 const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
-// Combina em um único objeto
-const db = { ...products, ...users };
+// Endpoints
+app.get('/products', (req, res) => {
+  res.json(products);
+});
 
-const server = jsonServer.create();
-const router = jsonServer.router(db);
-const middlewares = jsonServer.defaults();
+app.get('/users', (req, res) => {
+  res.json(users);
+});
 
-server.use(middlewares);
-server.use(router);
-
-// Usa a porta do ambiente (Render) ou 3333 localmente
-const PORT = process.env.PORT || 3333;
-server.listen(PORT, () => {
- // console.log('JSON Server is running on port' ${PORT});
+app.listen(PORT, () => {
+  console.log(`✅ API rodando na porta ${PORT}`);
+  console.log(`📦 Endpoints: /products , /users`);
 });
