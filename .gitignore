@@ -1,15 +1,85 @@
-# Node modules
+# ======================
+# Dependências (Node.js)
+# ======================
 node_modules/
 frontend/node_modules/
-backend/venv/
-
-# Arquivos de dependência
+backend/node_modules/
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# Banco de dados
+# ======================
+# Next.js build output
+# ======================
+.next/
+out/
+build/
+dist/
+
+# ======================
+# Backend Python
+# ======================
+backend/venv/
+backend/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
 *.db
 *.sqlite
+backend/inventory.db
 
+# ======================
+# Arquivos de dados da API (seus JSONs são mantidos)
+# Não ignore products.json e users.json – eles são seus dados!
+# ======================
+# db.json (caso tenha, mas você não usa mais)
+db.json
+
+# ======================
 # Variáveis de ambiente
+# ======================
+.env
 .env.local
 .env.production
+.env.development
+
+# ======================
+# Logs e debug
+# ======================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# ======================
+# IDEs e editores
+# ======================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ======================
+# Arquivos de deploy/temp
+# ======================
+.vercel
+.render
+*.cache
+.tmp
+
+# ======================
+# Relatórios de cobertura
+# ======================
+coverage/
+.nyc_output/
+
+# ======================
+# Outros
+# ======================
+*.pid
+*.seed
+*.pid.lock
