@@ -38,10 +38,10 @@ export default function DashboardPage() {
   const getProductName = (productId: string) =>
     products.find(p => p.id === productId)?.name ?? 'Produto não encontrado';
 
-  const handleLogout = () => {
-    // Implementar logout (limpar token, redirecionar)
-    router.push('/login');
-  };
+45const handleLogout = () => {
+46     auth?.logoff();
+47     router.push('/login');
+48   };
 
   
 
