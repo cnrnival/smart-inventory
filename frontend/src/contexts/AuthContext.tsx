@@ -121,3 +121,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     </AuthContext.Provider>
   );
 }
+
+// Dentro do AuthProvider
+function logout() {
+  setUser(null); // Limpa o estado global
+  localStorage.removeItem('smart_inventory_user'); // Remove do navegador
+  toast.success("Sessão encerrada com sucesso!");
+}
