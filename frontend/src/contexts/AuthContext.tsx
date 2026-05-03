@@ -24,7 +24,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const savedUser = localStorage.getItem('smart_inventory_user');
         if (savedUser) {
-            setUser(JSON.parse(savedUser));
+            try {
+                setUser(JSON.parse(savedUser));
+            } catch (e) {
+                console.error("Erro ao carregar usuário do storage", e);
+            }
         }
     }, []);
 
