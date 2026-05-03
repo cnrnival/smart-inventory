@@ -4,7 +4,7 @@
       "id": "admin-123",
       "name": "Admin do Sistema",
       "email": "admin@a",
-      "password": "admin",
+      "password": "admin123",
       "document": "00000000000",
       "isAdmin": true
     },
