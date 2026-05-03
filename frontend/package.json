@@ -7,14 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "server": "node server.js"
+    "server": "json-server db.json -p 3333"
   },
   "dependencies": {
     "@zxing/library": "^0.21.3",
     "axios": "^1.14.0",
     "date-fns": "^4.1.0",
-    "express": "^5.2.1",
-    "json-server": "^1.0.0-beta.15",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "react": "19.2.3",
