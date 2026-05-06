@@ -3,7 +3,6 @@
 import { createContext, useState, ReactNode } from "react";
 import { axios_api } from "@/api/axios_api";
 
-// Interface para o usuário
 interface User {
   id: string;
   name: string;
@@ -11,35 +10,39 @@ interface User {
   isAdmin: boolean;
 }
 
-// Interface para o que o contexto fornece
 interface AuthContextType {
   user: User | null;
-  login: (user: User) => void;
+  usersList: User[]; // ✅ Adicionado para a página de colaboradores
+  login: (userData: User) => void;
   logout: () => void;
-  getUsers: () => Promise<User[]>;
+  getUsers: () => Promise<void>; // ✅ Adicionado para buscar a lista
 }
 
-// Exportando o contexto (Isso resolve o erro no hook)
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [usersList, setUsersList] = useState<User[]>([]); // ✅ Estado da lista
 
-  const login = (userData: User) => {
-    setUser(userData);
-  };
-
+  const login = (userData: User) => setUser(userData);
   const logout = () => {
     setUser(null);
+    setUsersList([]);
   };
 
   const getUsers = async () => {
-    const response = await axios_api.get('/users');
-    return response.data;
+    try {
+      const response = await axios_api.get('/users');
+      // Ajuste conforme o retorno da sua API (se é array direto ou tem .users)
+      const data = Array.isArray(response.data) ? response.data : response.data.users ?? [];
+      setUsersList(data);
+    } catch (error) {
+      console.error("Erro ao buscar usuários:", error);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, getUsers }}>
+    <AuthContext.Provider value={{ user, usersList, login, logout, getUsers }}>
       {children}
     </AuthContext.Provider>
   );
