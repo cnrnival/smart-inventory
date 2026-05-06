@@ -1,85 +1,63 @@
-# ======================
-# Dependências (Node.js)
-# ======================
+# ==============================================================================
+# SMART INVENTORY - GESTÃO DE VALIDADE (FEFO)
+# ==============================================================================
+
+# 📦 Dependências e Pacotes
+# Não ignoramos o package-lock.json para garantir consistência no Vercel
 node_modules/
-frontend/node_modules/
-backend/node_modules/
-package-lock.json
+**/node_modules/
 yarn.lock
 pnpm-lock.yaml
 
-# ======================
-# Next.js build output
-# ======================
+# 🏗️ Next.js (Frontend)
+# Protege contra o erro da pasta .next fora do lugar
 .next/
+**/ .next/
 out/
 build/
 dist/
+.vercel
 
-# ======================
-# Backend Python
-# ======================
+# 🐍 Python & Backend
+# Protege o ambiente virtual e arquivos de cache
 backend/venv/
-backend/__pycache__/
-*.pyc
-*.pyo
-*.pyd
+venv/
+ENV/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
 .Python
+
+# 🗄️ Bancos de Dados e Dados Sensíveis
+# Ignora o banco local para não sobrescrever dados de produção
 *.db
 *.sqlite
 backend/inventory.db
+# Se houver arquivos de dados que NÃO devem subir:
+# backend/products.json
+# backend/users.json
 
-# ======================
-# Arquivos de dados da API (seus JSONs são mantidos)
-# Não ignore products.json e users.json – eles são seus dados!
-# ======================
-# db.json (caso tenha, mas você não usa mais)
-db.json
-
-# ======================
-# Variáveis de ambiente
-# ======================
+# 🔐 Variáveis de Ambiente
 .env
 .env.local
 .env.production
 .env.development
+.env.*.local
 
-# ======================
-# Logs e debug
-# ======================
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log
-
-# ======================
-# IDEs e editores
-# ======================
+# 💻 IDEs e Sistema Operacional
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# ======================
-# Arquivos de deploy/temp
-# ======================
-.vercel
-.render
-*.cache
-.tmp
-
-# ======================
-# Relatórios de cobertura
-# ======================
-coverage/
-.nyc_output/
-
-# ======================
-# Outros
-# ======================
-*.pid
-*.seed
-*.pid.lock
+# 📝 Logs e Debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
