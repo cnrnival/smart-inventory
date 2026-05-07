@@ -1,11 +1,8 @@
-// frontend/server.mjs
-import express from 'express';
-import fs from 'fs/promises';
-import path from 'path';
-import cors from 'cors';
-import { fileURLToPath } from 'url';
+const express = require('express');
+const fs = require('fs').promises;
+const path = require('path');
+const cors = require('cors');
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -15,7 +12,6 @@ const PORT = process.env.PORT || 3333;
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
 
-// Funções assíncronas de leitura/escrita
 async function readProducts() {
   const data = await fs.readFile(productsPath, 'utf8');
   return JSON.parse(data);
@@ -34,7 +30,7 @@ async function writeUsers(data) {
   await fs.writeFile(usersPath, JSON.stringify(data, null, 2));
 }
 
-// Rota raiz: HTML moderno com links diretos para /users e /products
+// Rota raiz com HTML moderno
 app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -51,10 +47,7 @@ app.get('/', (req, res) => {
           min-height: 100vh;
           padding: 2rem 1rem;
         }
-        .container {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
+        .container { max-width: 1000px; margin: 0 auto; }
         .card {
           background: rgba(255,255,255,0.9);
           backdrop-filter: blur(2px);
@@ -72,18 +65,8 @@ app.get('/', (req, res) => {
           color: transparent;
           margin-bottom: 0.5rem;
         }
-        .sub {
-          color: #4b5563;
-          margin-bottom: 2rem;
-          border-left: 3px solid #6b9dff;
-          padding-left: 1rem;
-        }
-        .endpoints {
-          display: flex;
-          gap: 1.5rem;
-          flex-wrap: wrap;
-          margin: 2rem 0;
-        }
+        .sub { color: #4b5563; margin-bottom: 2rem; border-left: 3px solid #6b9dff; padding-left: 1rem; }
+        .endpoints { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 2rem 0; }
         .endpoint-card {
           background: white;
           border-radius: 1.5rem;
@@ -108,13 +91,6 @@ app.get('/', (req, res) => {
           align-items: center;
           gap: 0.5rem;
         }
-        .endpoint-card a span {
-          background: #6b9dff10;
-          padding: 0.2rem 0.6rem;
-          border-radius: 40px;
-          font-size: 0.8rem;
-          color: #6b9dff;
-        }
         .method {
           display: inline-block;
           background: #6b9dff20;
@@ -123,7 +99,6 @@ app.get('/', (req, res) => {
           font-weight: 600;
           padding: 0.2rem 0.5rem;
           border-radius: 20px;
-          margin-left: 0.5rem;
         }
         pre {
           background: #0f172a;
@@ -141,29 +116,21 @@ app.get('/', (req, res) => {
         <div class="card">
           <h1>📦 Smart Inventory API</h1>
           <div class="sub">Interface moderna para acessar seus dados de estoque e usuários</div>
-
           <div class="endpoints">
             <div class="endpoint-card">
-              <a href="/users">
-                👥 /users
-                <span class="method">GET</span>
-              </a>
+              <a href="/users">👥 /users <span class="method">GET</span></a>
               <div style="font-size:0.85rem; color:#475569; margin-top:0.4rem;">Lista de colaboradores</div>
             </div>
             <div class="endpoint-card">
-              <a href="/products">
-                📦 /products
-                <span class="method">GET</span>
-              </a>
+              <a href="/products">📦 /products <span class="method">GET</span></a>
               <div style="font-size:0.85rem; color:#475569; margin-top:0.4rem;">Todos os produtos (FEFO)</div>
             </div>
           </div>
-
           <div style="margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1.5rem;">
-            <p style="color:#334155; font-weight:500;">💡 Clique em qualquer link acima para ver o JSON cru — ideal para testes ou consumo direto.</p>
+            <p style="color:#334155; font-weight:500;">💡 Clique em qualquer link acima para ver o JSON cru.</p>
             <pre style="background:#f1f5f9; color:#1e293b;">// Exemplo de requisição com fetch
 fetch('/users')
-  .then(res =&gt; res.json())
+  .then(res => res.json())
   .then(console.log);</pre>
           </div>
         </div>
@@ -173,7 +140,7 @@ fetch('/users')
   `);
 });
 
-// Rotas da API (todas com async/await moderno)
+// Rotas
 app.get('/users', async (req, res) => {
   try {
     const { email, password } = req.query;
@@ -189,7 +156,7 @@ app.get('/users', async (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const data = await readUsers();
-    const newUser = { id: Math.random().toString(36).substring(2, 11), ...req.body };
+    const newUser = { id: Math.random().toString(36).substr(2, 9), ...req.body };
     data.users.push(newUser);
     await writeUsers(data);
     res.status(201).json(newUser);
@@ -221,7 +188,7 @@ app.get('/products', async (req, res) => {
 app.post('/products', async (req, res) => {
   try {
     const data = await readProducts();
-    const newProduct = { id: Math.random().toString(36).substring(2, 11), ...req.body };
+    const newProduct = { id: Math.random().toString(36).substr(2, 9), ...req.body };
     data.products.push(newProduct);
     await writeProducts(data);
     res.status(201).json(newProduct);
@@ -242,5 +209,5 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✨ API Smart Inventory (moderna) rodando na porta ${PORT}`);
+  console.log(`✨ API Smart Inventory rodando na porta ${PORT}`);
 });
