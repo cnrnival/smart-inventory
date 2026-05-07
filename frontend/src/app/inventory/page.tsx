@@ -1,93 +1,104 @@
-    'use client'
-    import { ProductForm } from "@/components/productform";
-    import { useProductsContext } from "@/hooks/useProductsContext";
-    import { PlusCircle, Trash, Edit } from "lucide-react"
-    import { useEffect, useState } from "react";
-    import { StatusBadge } from '@/components/StatusBadge';
+'use client';
 
-    export default function InventoryPage(){
+import { useState, useEffect } from 'react';
+import { Package, Plus, Search, Filter } from 'lucide-react';
+import { useProductsContext } from '@/hooks/useProductsContext';
+import { ProductForm } from '@/components/productform';
 
-        const {products, getProducts, isLoading, deleteProduct} = useProductsContext();
-        const [isProductFormOpen, setIsProductFormOpen] = useState(false);
+export default function InventoryPage() {
+  const { products, getProducts } = useProductsContext();
+  const [isProductFormOpen, setIsProductFormOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
-        useEffect(()=>{
-            getProducts()
-        }, [])
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
-        function toggleProductForm() {
-            setIsProductFormOpen(!isProductFormOpen);
-        }
+  const toggleProductForm = () => {
+    setIsProductFormOpen(!isProductFormOpen);
+  };
 
-        if (isLoading) {
-            return (
-                <div className="flex min-h-screen items-center justify-center text-black bg-[#E8E9E8]">
-                    <p className="animate-pulse text-lg font-medium">Carregando estoque...</p>
-                </div>
-            );
-        }
+  const filteredProducts = products.filter(p => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-        return (
-            <div className="flex-1 flex flex-col bg-[#E8E9E8] h-full overflow-hidden w-full">
-                <div className="flex px-4 pt-4 flex-row justify-between items-center shrink-0">
-                    <h2 className="text-xl md:text-2xl font-bold text-black">Estoque de Produtos</h2>
-                    <button 
-                        className="bg-[#6b9dff] flex items-center justify-center text-white font-bold rounded-md h-[36px] px-3 gap-2 shadow-sm shadow-black/70 hover:bg-[#6b9dff]/80 transition-colors" 
-                        onClick={toggleProductForm}
-                    >
-                        <PlusCircle className="w-4 h-4" />
-                        <span className="text-sm">Novo Produto</span>
-                    </button>
-                    {isProductFormOpen && <ProductForm showProductForm={toggleProductForm}/>}
-                </div>
+  return (
+    <div className="min-h-screen bg-[#262626] p-4 md:p-8 text-white">
+      <div className="mx-auto max-w-6xl space-y-6">
+        
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h1 className="text-2xl font-bold flex items-center gap-2">
+              <Package className="text-[#6b9dff]" />
+              Estoque Completo
+            </h1>
+            <p className="text-sm text-gray-400">Gerenciamento por ordem de vencimento (FEFO)</p>
+          </div>
 
-                <div className="flex-1 flex flex-col p-4 overflow-hidden w-full mt-2">
-                    <div className="w-full flex flex-col flex-1 overflow-hidden bg-[#c9c9c9] rounded-md shadow-md shadow-black/70">
-                        
-                        {/* Cabeçalho da Lista */}
-                        <div className="w-full flex flex-row items-center p-3 shrink-0 text-black border-b border-black/50 font-bold text-xs sm:text-sm gap-2">
-                            <span className="w-[30%] sm:w-[25%] truncate">Produto</span>
-                            <span className="hidden sm:flex sm:w-[20%] truncate">Cód. Barras</span>
-                            <span className="w-[20%] sm:w-[15%]">Validade</span>
-                            <span className="w-[15%] sm:w-[10%]">Qtd</span>
-                            <span className="w-[15%] sm:w-[15%]">Status</span>
-                            <span className="w-[10%] sm:w-[10%] flex justify-end pr-2">Ações</span>
-                        </div>
+          <button
+            onClick={toggleProductForm}
+            className="flex items-center gap-2 bg-[#6b9dff] hover:bg-[#5a8dec] px-4 py-2 rounded-lg font-bold transition-all"
+          >
+            <Plus size={20} />
+            {isProductFormOpen ? "Fechar" : "Novo Produto"}
+          </button>
+        </header>
 
-                        {/* Corpo da Lista */}
-                        <ul className="w-full flex-1 overflow-y-auto hide-scrollbar">
-                            {products.map((product) => (
-                                <li key={product.id} className="w-full flex flex-row min-h-[56px] items-center p-3 text-black border-b border-black/20 hover:bg-[#b9b9b9] transition-colors text-xs sm:text-sm gap-2">
-                                    <span className="w-[30%] sm:w-[25%] truncate font-medium">{product.name}</span>
-                                    <span className="hidden sm:flex sm:w-[20%] truncate">{product.barcode || 'N/A'}</span>
-                                    <span className="w-[20%] sm:w-[15%] truncate">
-                                        {product.expiryDate ? new Date(product.expiryDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '-'}
-                                    </span>
-                                    <span className="w-[15%] sm:w-[10%] truncate">{product.quantity}</span>
-                                    <span className="w-[15%] sm:w-[15%]">
-                                        <StatusBadge status={product.status} />
-                                    </span>
-                                    <div className="w-[10%] sm:w-[10%] flex justify-end items-center gap-2 sm:gap-4 pr-2">
-                                        <button className="size-4 sm:size-5 shrink-0 hover:scale-110 transition-transform">
-                                            <Edit className="w-full h-full text-[#222222]" />
-                                        </button>
-                                        <button 
-                                            className="size-4 sm:size-5 cursor-pointer shrink-0 hover:scale-110 transition-transform"
-                                            onClick={() => deleteProduct(product.id)}
-                                        >
-                                            <Trash className="w-full h-full text-red-700 hover:text-red-500" />
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
-                            {products.length === 0 && (
-                                <li className="p-4 text-center text-sm text-gray-600">
-                                    Nenhum produto encontrado no estoque.
-                                </li>
-                            )}
-                        </ul>
+        {/* Exibição do Formulário */}
+        {isProductFormOpen && (
+          <div className="flex justify-center animate-in fade-in slide-in-from-top-4">
+            <ProductForm showProductForm={toggleProductForm} />
+          </div>
+        )}
 
-                    </div>
-                </div>
-            </div>
-        )
-    }
+        {/* Filtros e Busca */}
+        <div className="flex gap-4 bg-[#323232] p-4 rounded-xl border border-gray-700">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-2.5 text-gray-500" size={18} />
+            <input 
+              type="text"
+              placeholder="Buscar produto..."
+              className="w-full bg-[#262626] border border-gray-600 rounded-lg py-2 pl-10 pr-4 text-sm outline-none focus:border-[#6b9dff]"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <button className="flex items-center gap-2 bg-[#262626] border border-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-700">
+            <Filter size={18} />
+            Filtros
+          </button>
+        </div>
+
+        {/* Tabela de Produtos */}
+        <div className="rounded-xl border border-gray-700 bg-[#323232] overflow-hidden">
+          <table className="w-full text-left">
+            <thead className="bg-[#222222] text-gray-400 text-sm">
+              <tr>
+                <th className="px-6 py-4">Produto</th>
+                <th className="px-6 py-4">Categoria</th>
+                <th className="px-6 py-4 text-center">Qtd.</th>
+                <th className="px-6 py-4">Validade</th>
+                <th className="px-6 py-4">Preço</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-700">
+              {filteredProducts.map((product) => (
+                <tr key={product.id} className="hover:bg-white/5 transition-colors">
+                  <td className="px-6 py-4 font-medium">{product.name}</td>
+                  <td className="px-6 py-4 text-sm text-gray-400">{product.category || 'Geral'}</td>
+                  <td className="px-6 py-4 text-center">{product.quantity}</td>
+                  <td className="px-6 py-4">
+                    {new Date(product.expiryDate).toLocaleDateString('pt-BR')}
+                  </td>
+                  <td className="px-6 py-4">
+                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
