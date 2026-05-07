@@ -1,60 +1,73 @@
-'use client'
+'use client';
 
-import { useState } from 'react';
-import { useProductsContext } from "@/hooks/useProductsContext";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { LogOut, ShoppingCart, Package } from 'lucide-react';
+import { useProductsContext } from '@/hooks/useProductsContext';
 
-export default function NewSalePage() {
-  const { products } = useProductsContext();
+export default function SalesPage() {
+  const router = useRouter();
+  const { products, getProducts } = useProductsContext();
   const [cart, setCart] = useState<any[]>([]);
 
-  // ✅ Cálculo do total baseado no array do carrinho
-  const totalSale = cart.reduce((acc, item) => acc + (item.price || 0), 0);
+  // Carrega os produtos da API ao montar a tela
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
+
+  // Lógica de Finalizar Venda: Redireciona direto sem alert/pop-up
+  const handleFinalizeSale = () => {
+    // Redirecionamento automático para a Dashboard após a ação
+    router.push('/'); 
+  };
 
   return (
     <div className="min-h-screen bg-[#262626] p-8 text-white">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-[#6b9dff]">Frente de Caixa (PDV)</h1>
+      <div className="mx-auto max-w-6xl">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Lado Esquerdo: Seleção */}
-          <div className="bg-[#323232] p-6 rounded-2xl border border-gray-700">
-            <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Produtos em Estoque</h2>
-            <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2">
-              {products.map(product => (
-                <button
-                  key={product.id}
-                  onClick={() => setCart([...cart, product])}
-                  className="w-full flex justify-between p-3 bg-[#262626] rounded-lg hover:border-[#6b9dff] border border-transparent transition-all"
-                >
-                  <span>{product.name}</span>
-                  <span className="text-green-400 font-bold">R$ {Number(product.price).toFixed(2)}</span>
-                </button>
+        {/* Cabeçalho com o novo botão de Sair */}
+        <div className="mb-8 flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-[#6b9dff]">Frente de Caixa</h1>
+          <button 
+            onClick={() => router.push('/')} 
+            className="flex items-center gap-2 rounded-lg bg-red-500/10 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-500/20 transition-all"
+          >
+            <LogOut size={18} />
+            Sair da Venda
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {/* Listagem de Produtos em Estoque */}
+          <div className="rounded-xl border border-gray-700 bg-[#323232] p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-gray-200">Produtos em Estoque</h2>
+            <div className="space-y-3 overflow-y-auto max-h-[500px] pr-2 scrollbar-hide">
+              {products.map((product) => (
+                <div key={product.id} className="flex items-center justify-between rounded-lg bg-[#262626] p-4 border border-gray-700">
+                  <span className="font-medium">{product.name}</span>
+                  <span className="font-bold text-green-500">R$ {product.price?.toFixed(2) || '0.00'}</span>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Lado Direito: Carrinho */}
-          <div className="bg-[#323232] p-6 rounded-2xl border border-gray-700 flex flex-col justify-between">
-            <div>
-              <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Carrinho</h2>
-              <ul className="space-y-2">
-                {cart.map((item, index) => (
-                  <li key={index} className="text-sm flex justify-between text-gray-300">
-                    <span>{item.name}</span>
-                    <span>R$ {Number(item.price).toFixed(2)}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Carrinho de Compras */}
+          <div className="rounded-xl border border-gray-700 bg-[#323232] p-6 shadow-sm flex flex-col">
+            <h2 className="mb-4 text-xl font-semibold text-gray-200">Carrinho</h2>
+            <div className="flex-1 min-h-[300px] rounded-lg bg-[#262626] border border-gray-700 p-4 mb-6">
+              {cart.length === 0 && (
+                <p className="text-center text-gray-500 mt-10 italic">Carrinho vazio</p>
+              )}
             </div>
-
-            <div className="mt-8 pt-4 border-t border-gray-700">
-              <div className="flex justify-between items-end mb-4">
+            
+            <div className="mt-auto pt-4 border-t border-gray-700">
+              <div className="mb-4 flex items-center justify-between">
                 <span className="text-gray-400">Total da Venda</span>
-                <span className="text-3xl font-bold text-white">R$ {totalSale.toFixed(2)}</span>
+                <span className="text-3xl font-bold text-white">R$ 0.00</span>
               </div>
               <button 
-                onClick={() => { alert("Venda finalizada com regra FEFO!"); setCart([]); }}
-                className="w-full bg-[#6b9dff] hover:bg-[#5a8dec] text-white font-bold py-3 rounded-xl transition-all shadow-lg"
+                onClick={handleFinalizeSale}
+                className="w-full rounded-lg bg-[#6b9dff] py-4 text-lg font-bold text-white hover:opacity-90 transition-opacity shadow-lg"
               >
                 Finalizar Venda
               </button>
