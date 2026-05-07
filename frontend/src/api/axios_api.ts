@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL || '';
+// URL base da API mock no Render
+const baseURL = 'https://smart-inventory-api-xiul.onrender.com';
 
 export const axios_api = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
 });
-
-if (process.env.NODE_ENV === 'development') {
-  console.log('[API] URL:', baseURL || '(relativa)');
-}
