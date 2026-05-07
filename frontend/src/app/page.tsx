@@ -1,29 +1,29 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-// ✅ CORREÇÃO: Removido o import inexistente de useInventory que quebrava o Vercel
-import { Package, AlertTriangle, XCircle, DollarSign, LogOut } from 'lucide-react';
+import { Package, AlertTriangle, XCircle, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useProductsContext } from '@/hooks/useProductsContext';
-import { useAuthContext } from '@/hooks/useAuthContext'; // ✅ Usando o hook padrão
-import { useEffect } from 'react';
+import { useAuthContext } from '@/hooks/useAuthContext';
+import { useEffect, useState } from 'react';
 
 const COLORS = ['#15bd53', '#eab308', '#ca1111'];
 
 export default function DashboardPage() {
-  // ✅ Puxamos produtos e a função de busca do contexto correto
   const { products, getProducts } = useProductsContext();
   const { user, logout } = useAuthContext();
-  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
 
+  // ✅ CORREÇÃO: Garante que o gráfico e os cálculos rodem apenas no navegador
   useEffect(() => {
+    setIsClient(true);
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   const userName = user?.name ?? 'Usuário'; 
 
-  // Lógica de cálculo da Dashboard (Substituindo o antigo useInventory)
+  // Lógica de cálculo da Dashboard
   const totalItems = products.length;
   const expiredProducts = products.filter(p => new Date(p.expiryDate) < new Date());
   const warningProducts = products.filter(p => {
@@ -37,6 +37,9 @@ export default function DashboardPage() {
     { name: 'Em alerta', value: warningProducts.length },
     { name: 'Vencidos', value: expiredProducts.length },
   ];
+
+  // Evita erro de hidratação no build estático do Vercel
+  if (!isClient) return <div className="min-h-screen bg-[#262626]" />;
 
   return (
     <div className="min-h-screen p-4 md:p-8 text-white bg-[#262626]">
@@ -57,8 +60,8 @@ export default function DashboardPage() {
           </button>
         </header>
 
-        {/* Gráfico e Cards */}
         <div className='flex flex-col lg:flex-row gap-8 mb-8'>
+          {/* Gráfico de Proporção */}
           <div className="w-full lg:w-[600px] h-[400px] rounded-xl border border-gray-700 bg-[#323232] p-7">
             <h2 className="text-lg font-semibold mb-4">Proporção de Validade (FEFO)</h2>
             <ResponsiveContainer width="100%" height="100%">
@@ -73,12 +76,13 @@ export default function DashboardPage() {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip contentStyle={{ backgroundColor: '#222', border: 'none' }} />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
+          {/* Cards Laterais */}
           <div className="flex-1 grid grid-cols-1 gap-4">
             <div className="flex items-center rounded-xl border border-gray-700 bg-[#323232] p-5">
               <Package className="mr-4 text-green-500" size={32} />
@@ -104,7 +108,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Tabela de Produtos */}
+        {/* Tabela Resumida */}
         <div className="rounded-xl border border-gray-700 bg-[#323232] overflow-hidden">
           <div className="p-6 border-b border-gray-700 flex justify-between items-center">
             <h2 className="text-lg font-semibold">Itens Próximos ao Vencimento</h2>
