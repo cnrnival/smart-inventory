@@ -4,28 +4,31 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-app.use(cors()); 
-app.use(express.json()); 
-
-// ✅ MELHORIA: O Render exige que a porta seja dinâmica via process.env.PORT
+app.use(cors()); // Permite que o frontend acesse a API
+app.use(express.json()); // Habilita o recebimento de JSON no corpo das requisições
+ 
+// Ele tentará ler a porta do sistema; se não houver, usa a 3333 (para seu teste local).
 const PORT = process.env.PORT || 3333;
 
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
 
+// Helper para ler dados garantindo a estrutura correta
 const readData = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8'));
+// Helper para salvar dados mantendo a formatação
 const saveData = (filePath, data) => fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-// --- ROTAS DE USUÁRIOS (Sua lógica original mantida) ---
+// --- ROTAS DE USUÁRIOS ---
 
 app.get('/users', (req, res) => {
   const { email, password } = req.query;
   let { users } = readData(usersPath);
   
+  // Filtro de login: se enviar email/senha, busca o usuário específico
   if (email) users = users.filter(u => u.email === email);
   if (password) users = users.filter(u => u.password === password);
   
-  res.json(users); 
+  res.json(users); // Retorna Array direto conforme o frontend espera
 });
 
 app.post('/users', (req, res) => {
@@ -46,7 +49,7 @@ app.delete('/users/:id', (req, res) => {
   res.status(204).send();
 });
 
-// --- ROTAS DE PRODUTOS (Sua lógica original mantida) ---
+// --- ROTAS DE PRODUTOS ---
 
 app.get('/products', (req, res) => {
   const { products } = readData(productsPath);
@@ -64,5 +67,5 @@ app.post('/products', (req, res) => {
   res.status(201).json(newProduct);
 });
 
-// ✅ MELHORIA: Usando a variável PORT para o Render não dar erro
+// ✅ ALTERADO: Agora usa a variável PORT dinâmica
 app.listen(PORT, () => console.log(`✅ API Smart Inventory rodando na porta ${PORT}`));
