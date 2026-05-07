@@ -18,12 +18,38 @@ export default function LoginPage() {
       if (resp.data.length > 0) {
         login(resp.data[0]);
         router.push('/');
-      } else { alert('Credenciais inválidas'); }
-    } catch { alert('Erro na API'); }
+      } else {
+        alert('Credenciais inválidas');
+      }
+    } catch (error) {
+      alert('Erro ao conectar com o servidor');
+=======
+    setIsLoading(true);
+    try {
+      const response = await axios_api.get(
+        `/users?email=${email.trim()}&password=${password.trim()}`
+      );
+      
+      const users = Array.isArray(response.data) ? response.data : response.data.users ?? [];
+
+      if (users.length > 0) {
+        toast.success('Login realizado!');
+        login(users[0]);
+        router.push('/');
+      } else {
+        toast.error('Email ou senha inválidos.');
+      }
+    } catch (error) {
+      toast.error('Erro ao conectar. Tente novamente.');
+    } finally {
+      setIsLoading(false);
+>>>>>>> parent of ac5515f (implementation of login redirect to dashboard)
+    }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#212121] p-4 text-white">
+<<<<<<< HEAD
+    <div className="flex min-h-screen items-center justify-center bg-[#212121] p-4 text-white font-sans">
       <div className="w-full max-w-md rounded-2xl bg-[#333333] p-10 shadow-2xl border border-gray-600">
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold text-[#6b9dff]">Smart Inventory</h1>
