@@ -1,4 +1,3 @@
-// frontend/server.js
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -10,11 +9,10 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3333;
 
-// Os arquivos JSON estão na RAIZ do repositório (um nível acima de frontend/)
-const productsPath = path.join(__dirname, '..', 'products.json');
-const usersPath = path.join(__dirname, '..', 'users.json');
+// Arquivos JSON estão na MESMA pasta que este server.js
+const productsPath = path.join(__dirname, 'products.json');
+const usersPath = path.join(__dirname, 'users.json');
 
-// Funções auxiliares para ler e escrever
 function readProducts() {
   const data = fs.readFileSync(productsPath, 'utf8');
   return JSON.parse(data);
@@ -33,7 +31,12 @@ function writeUsers(data) {
   fs.writeFileSync(usersPath, JSON.stringify(data, null, 2));
 }
 
-// ========== ROTAS DE USUÁRIOS ==========
+// Rota raiz (opcional, só para não dar "Cannot GET /")
+app.get('/', (req, res) => {
+  res.json({ message: 'Smart Inventory API', endpoints: ['/users', '/products'] });
+});
+
+// USERS
 app.get('/users', (req, res) => {
   const { email, password } = req.query;
   let { users } = readUsers();
@@ -44,10 +47,7 @@ app.get('/users', (req, res) => {
 
 app.post('/users', (req, res) => {
   const data = readUsers();
-  const newUser = {
-    id: Math.random().toString(36).substr(2, 9),
-    ...req.body,
-  };
+  const newUser = { id: Math.random().toString(36).substr(2, 9), ...req.body };
   data.users.push(newUser);
   writeUsers(data);
   res.status(201).json(newUser);
@@ -60,7 +60,7 @@ app.delete('/users/:id', (req, res) => {
   res.status(204).send();
 });
 
-// ========== ROTAS DE PRODUTOS ==========
+// PRODUCTS
 app.get('/products', (req, res) => {
   const { products } = readProducts();
   res.json(products);
@@ -68,10 +68,7 @@ app.get('/products', (req, res) => {
 
 app.post('/products', (req, res) => {
   const data = readProducts();
-  const newProduct = {
-    id: Math.random().toString(36).substr(2, 9),
-    ...req.body,
-  };
+  const newProduct = { id: Math.random().toString(36).substr(2, 9), ...req.body };
   data.products.push(newProduct);
   writeProducts(data);
   res.status(201).json(newProduct);
@@ -85,7 +82,7 @@ app.delete('/products/:id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ API Smart Inventory rodando na porta ${PORT}`);
+  console.log(`✅ API rodando na porta ${PORT}`);
   console.log(`📦 Produtos: ${productsPath}`);
   console.log(`👥 Usuários: ${usersPath}`);
 });
