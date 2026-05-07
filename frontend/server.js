@@ -9,10 +9,11 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3333;
 
-// Arquivos JSON estão na MESMA pasta que este server.js
+// Caminhos dos arquivos JSON (dentro da mesma pasta)
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
 
+// Funções auxiliares
 function readProducts() {
   const data = fs.readFileSync(productsPath, 'utf8');
   return JSON.parse(data);
@@ -31,12 +32,119 @@ function writeUsers(data) {
   fs.writeFileSync(usersPath, JSON.stringify(data, null, 2));
 }
 
-// Rota raiz (opcional, só para não dar "Cannot GET /")
+// Rota raiz: página HTML com links visuais
 app.get('/', (req, res) => {
-  res.json({ message: 'Smart Inventory API', endpoints: ['/users', '/products'] });
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Smart Inventory API</title>
+      <style>
+        body {
+          font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+          max-width: 900px;
+          margin: 2rem auto;
+          padding: 0 1rem;
+          background: #f5f7fb;
+          color: #1e293b;
+        }
+        h1 {
+          color: #6b9dff;
+          border-bottom: 2px solid #6b9dff;
+          display: inline-block;
+          padding-bottom: 0.25rem;
+        }
+        .card {
+          background: white;
+          border-radius: 1rem;
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+          padding: 1.5rem;
+          margin: 1.5rem 0;
+        }
+        .endpoint {
+          background: #f1f5f9;
+          border-left: 4px solid #6b9dff;
+          padding: 0.75rem 1rem;
+          margin: 1rem 0;
+          border-radius: 0.5rem;
+        }
+        a {
+          text-decoration: none;
+          font-weight: 600;
+          color: #6b9dff;
+          font-size: 1.1rem;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        pre {
+          background: #0f172a;
+          color: #e2e8f0;
+          padding: 1rem;
+          border-radius: 0.75rem;
+          overflow-x: auto;
+          font-size: 0.85rem;
+        }
+        button {
+          background: #6b9dff;
+          border: none;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+        button:hover {
+          background: #5a8bec;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>📦 Smart Inventory API</h1>
+      <div class="card">
+        <p>Clique nos botões abaixo para visualizar os dados:</p>
+        <div class="endpoint">
+          <a href="/users">👥 /users</a> – Lista de usuários cadastrados
+        </div>
+        <div class="endpoint">
+          <a href="/products">📄 /products</a> – Lista de produtos em estoque
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📋 Visualizador rápido</h2>
+        <button id="btnUsers">Carregar Usuários</button>
+        <button id="btnProducts">Carregar Produtos</button>
+        <pre id="output">Clique em um botão para ver os dados aqui...</pre>
+      </div>
+
+      <script>
+        const output = document.getElementById('output');
+        
+        async function fetchData(url, label) {
+          output.textContent = '⏳ Carregando...';
+          try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(\`Erro \${res.status}\`);
+            const data = await res.json();
+            output.textContent = JSON.stringify(data, null, 2);
+          } catch (err) {
+            output.textContent = \`❌ Erro ao carregar \${label}: \${err.message}\`;
+          }
+        }
+
+        document.getElementById('btnUsers').onclick = () => fetchData('/users', 'usuários');
+        document.getElementById('btnProducts').onclick = () => fetchData('/products', 'produtos');
+      </script>
+    </body>
+    </html>
+  `);
 });
 
-// USERS
+// ========== ROTAS DA API ==========
 app.get('/users', (req, res) => {
   const { email, password } = req.query;
   let { users } = readUsers();
@@ -60,7 +168,6 @@ app.delete('/users/:id', (req, res) => {
   res.status(204).send();
 });
 
-// PRODUCTS
 app.get('/products', (req, res) => {
   const { products } = readProducts();
   res.json(products);
