@@ -3,6 +3,7 @@
 import { createContext, useState, ReactNode, useCallback } from "react";
 import { axios_api } from "@/api/axios_api";
 
+// Definição da estrutura do usuário
 interface User {
   id: string;
   name: string;
@@ -15,7 +16,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   usersList: User[];
-  login: (credentials: any) => Promise<void>; // ✅ Ajustado para aceitar objeto de credenciais ou dados do usuário
+  login: (userData: User) => void;
   logout: () => void;
   getUsers: () => Promise<void>;
   registerUser: (userData: any) => Promise<void>;
@@ -27,32 +28,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [usersList, setUsersList] = useState<User[]>([]);
 
-  // ✅ Mantive sua lógica, permitindo que o login receba dados da API ou credenciais
-  const login = async (data: any) => {
-    if (data.email && data.password) {
-      // Se vier credenciais, faz o post
-      try {
-        const response = await axios_api.post('/login', data);
-        setUser(response.data.user || response.data);
-      } catch (error) {
-        console.error("Erro no login:", error);
-        throw error;
-      }
-    } else {
-      // Se vier o objeto pronto, apenas loga (seu uso atual)
-      setUser(data);
-    }
-  };
-
+  //Login simples: recebe os dados do usuário e salva no estado
+  const login = (userData: User) => setUser(userData);
+  
   const logout = () => {
     setUser(null);
     setUsersList([]);
   };
 
-  // useCallback evita que a função mude em cada render, economizando recursos
+  //Busca lista de usuários/colaboradores da API
   const getUsers = useCallback(async () => {
     try {
       const response = await axios_api.get('/users');
+      // Garante que o dado retornado seja sempre um Array
       const data = Array.isArray(response.data) ? response.data : response.data.users ?? [];
       setUsersList(data);
     } catch (error) {
@@ -60,6 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  //Registra novo usuário e atualiza a lista local
   const registerUser = async (userData: any) => {
     try {
       await axios_api.post('/users', userData);
