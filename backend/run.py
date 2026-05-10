@@ -1,30 +1,44 @@
 from flask import Flask, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-import sqlite3
+from config import Config
 
-app = Flask(__name__)
-CORS(app)
+db = SQLAlchemy()
+migrate = Migrate()
+jwt = JWTManager()
 
-def get_db_connection():
-    conn = sqlite3.connect('inventory.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-@app.route('/api/dashboard/summary', methods=['GET'])
-def get_summary():
-    try:
-        conn = get_db_connection()
-        row = conn.execute('SELECT COUNT(*) as total FROM produtos').fetchone()
-        total_produtos = row['total']
-        conn.close()
-        return jsonify({
-            "financialRisk": 255.00,   # mock, será substituído na Sprint 2
-            "totalProducts": total_produtos,
-            "status": "online",
-            "message": "API Smart Inventory ativa."
-        }), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    db.init_app(app)
+    migrate.init_app(app, db)
+    jwt.init_app(app)
+    CORS(app)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    # Rota de saúde (health check)
+    @app.route('/health')
+    def health():
+        return jsonify({'status': 'ok', 'message': 'Smart Inventory API'})
+
+    # Rota raiz HTML (evita "Cannot GET /")
+    @app.route('/')
+    def home():
+        return '''
+        <h1>Smart Inventory API</h1>
+        <p>API funcionando. Use os endpoints:</p>
+        <ul>
+            <li><a href="/health">/health</a></li>
+            <li>POST /auth/register</li>
+            <li>POST /auth/login</li>
+            <li>GET /auth/me (protegido)</li>
+        </ul>
+        '''
+
+    # Registrar blueprints (vazios por enquanto – Pessoa B e C preencherão)
+    from app.routes import auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    return app
