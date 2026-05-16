@@ -184,6 +184,7 @@ app.get('/', (req, res) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 app.post('/users', (req, res) => {
   const data = readData(usersPath);
   const newUser = { 
@@ -276,20 +277,25 @@ app.listen(PORT, () => {
 >>>>>>> parent of 14b757b (resolve build errors, refactor auth context and implement FEFO logic)
 =======
 // Rota de Produtos
+=======
+>>>>>>> parent of 851af1b (up)
 app.get('/products', (req, res) => {
   res.json(products);
 });
 
-// Rota de Usuários
 app.get('/users', (req, res) => {
   res.json(users);
 });
 
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
+<<<<<<< HEAD
   console.log(`📦 Endpoints: /products , /users`);
 });
 >>>>>>> parent of 14b757b (resolve build errors, refactor auth context and implement FEFO logic)
+=======
+});
+>>>>>>> parent of 851af1b (up)
 =======
 });
 >>>>>>> parent of 851af1b (up)
