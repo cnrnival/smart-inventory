@@ -3,12 +3,13 @@
 import { createContext, useState, ReactNode } from "react";
 import { axios_api } from "@/api/axios_api";
 
+// ✅ Interface atualizada com 'document' e 'role'
 interface User {
   id: string;
   name: string;
   email: string;
-  document?: string;
-  role?: string;
+  document?: string; // CPF ou CNPJ
+  role?: string;     // Cargo
   isAdmin: boolean;
 }
 
@@ -18,7 +19,6 @@ interface AuthContextType {
   login: (userData: User) => void;
   logout: () => void;
   getUsers: () => Promise<void>;
-  registerUser: (userData: any) => Promise<void>; // ✅ Adicionado para resolver o erro
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -44,19 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // ✅ Nova função de registro adicionada
-  const registerUser = async (userData: any) => {
-    try {
-      await axios_api.post('/users', userData);
-      await getUsers(); // Atualiza a lista após cadastrar
-    } catch (error) {
-      console.error("Erro ao registrar usuário:", error);
-      throw error;
-    }
-  };
-
   return (
-    <AuthContext.Provider value={{ user, usersList, login, logout, getUsers, registerUser }}>
+    <AuthContext.Provider value={{ user, usersList, login, logout, getUsers }}>
       {children}
     </AuthContext.Provider>
   );
