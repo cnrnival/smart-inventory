@@ -177,24 +177,11 @@ const usersPath = path.join(__dirname, 'users.json');
 const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
-// Rota raiz (Agora com links clicáveis em HTML)
 app.get('/', (req, res) => {
-  res.send(`
-    <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
-      <h1>🚀 API Smart Inventory</h1>
-      <p>Endpoints disponíveis para consulta:</p>
-      <ul style="list-style: none; padding: 0; font-size: 1.2rem;">
-        <li style="margin: 10px 0;">
-          <a href="/users" style="color: #007bff; text-decoration: none; font-weight: bold;">👉 /users</a>
-        </li>
-        <li style="margin: 10px 0;">
-          <a href="/products" style="color: #007bff; text-decoration: none; font-weight: bold;">👉 /products</a>
-        </li>
-      </ul>
-    </div>
-  `);
+  res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
 });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 app.post('/users', (req, res) => {
@@ -271,17 +258,19 @@ app.listen(PORT, () => console.log(`✅ API Smart Inventory rodando na porta ${P
 >>>>>>> parent of eb91c8e (add internal API routes and next.config.js for Render deployment)
 =======
 // Rota de Produtos
+=======
+>>>>>>> parent of 851af1b (up)
 app.get('/products', (req, res) => {
   res.json(products);
 });
 
-// Rota de Usuários
 app.get('/users', (req, res) => {
   res.json(users);
 });
 
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
+<<<<<<< HEAD
   console.log(`📦 Endpoints: /products , /users`);
 });
 >>>>>>> parent of 14b757b (resolve build errors, refactor auth context and implement FEFO logic)
@@ -301,3 +290,6 @@ app.listen(PORT, () => {
   console.log(`📦 Endpoints: /products , /users`);
 });
 >>>>>>> parent of 14b757b (resolve build errors, refactor auth context and implement FEFO logic)
+=======
+});
+>>>>>>> parent of 851af1b (up)
