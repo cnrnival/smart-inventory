@@ -180,7 +180,11 @@ const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Endpoints
+=======
+// Rota raiz (mensagem informativa)
+>>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
 =======
 // Rota raiz (mensagem informativa)
 >>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
@@ -188,6 +192,7 @@ app.get('/', (req, res) => {
   res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
 });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -274,6 +279,9 @@ app.listen(PORT, () => console.log(`✅ API Smart Inventory rodando na porta ${P
 =======
 // Rota 
 >>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
+=======
+// Rota 
+>>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
 app.get('/products', (req, res) => {
   res.json(products);
 });
@@ -283,6 +291,7 @@ app.get('/users', (req, res) => {
 });
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   console.log(`📦 Endpoints: /products , /users`);
@@ -325,6 +334,10 @@ app.listen(PORT, () => {
 =======
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
+  console.log(`📦 Endpoints: /products , /users`);
+});
+>>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
+=======
   console.log(`📦 Endpoints: /products , /users`);
 });
 >>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
