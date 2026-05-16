@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useState, ReactNode, useCallback } from "react";
+import { createContext, useState, ReactNode } from "react";
 import { axios_api } from "@/api/axios_api";
 
 interface User {
@@ -15,10 +15,10 @@ interface User {
 interface AuthContextType {
   user: User | null;
   usersList: User[];
-  login: (credentials: any) => Promise<void>; // ✅ Ajustado para aceitar objeto de credenciais ou dados do usuário
+  login: (userData: User) => void;
   logout: () => void;
   getUsers: () => Promise<void>;
-  registerUser: (userData: any) => Promise<void>;
+  registerUser: (userData: any) => Promise<void>; // ✅ Adicionado para resolver o erro
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -27,30 +27,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [usersList, setUsersList] = useState<User[]>([]);
 
-  // ✅ Mantive sua lógica, permitindo que o login receba dados da API ou credenciais
-  const login = async (data: any) => {
-    if (data.email && data.password) {
-      // Se vier credenciais, faz o post
-      try {
-        const response = await axios_api.post('/login', data);
-        setUser(response.data.user || response.data);
-      } catch (error) {
-        console.error("Erro no login:", error);
-        throw error;
-      }
-    } else {
-      // Se vier o objeto pronto, apenas loga (seu uso atual)
-      setUser(data);
-    }
-  };
-
+  const login = (userData: User) => setUser(userData);
+  
   const logout = () => {
     setUser(null);
     setUsersList([]);
   };
 
-  // useCallback evita que a função mude em cada render, economizando recursos
-  const getUsers = useCallback(async () => {
+  const getUsers = async () => {
     try {
       const response = await axios_api.get('/users');
       const data = Array.isArray(response.data) ? response.data : response.data.users ?? [];
@@ -58,12 +42,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
     }
-  }, []);
+  };
 
+  // ✅ Nova função de registro adicionada
   const registerUser = async (userData: any) => {
     try {
       await axios_api.post('/users', userData);
-      await getUsers(); 
+      await getUsers(); // Atualiza a lista após cadastrar
     } catch (error) {
       console.error("Erro ao registrar usuário:", error);
       throw error;
