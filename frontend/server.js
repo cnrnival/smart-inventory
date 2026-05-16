@@ -11,6 +11,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3333;
 
+<<<<<<< HEAD
 // Caminhos dos arquivos JSON (dentro da mesma pasta)
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
@@ -175,10 +176,17 @@ const PORT = process.env.PORT || 3333;
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
 
+=======
+// Caminhos dos seus arquivos
+const productsPath = path.join(__dirname, 'products.json');
+const usersPath = path.join(__dirname, 'users.json');
+
+>>>>>>> parent of f9181ad (up)
 // Lê os dados uma vez (para não ler a cada requisição – mas pode ser melhorado depois)
 const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // Endpoints
@@ -188,10 +196,14 @@ const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 =======
 // Rota raiz (mensagem informativa)
 >>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
+=======
+// Endpoints
+>>>>>>> parent of f9181ad (up)
 app.get('/', (req, res) => {
   res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
 });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -295,6 +307,8 @@ app.get('/users', (req, res) => {
   res.json(users);
 });
 
+=======
+>>>>>>> parent of f9181ad (up)
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
 <<<<<<< HEAD
