@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ==============================================================================
 # SMART INVENTORY - GESTÃO DE VALIDADE (FEFO)
 # ==============================================================================
@@ -63,3 +64,20 @@ yarn-error.log*
 .eslintcache
 
 backend/.env
+=======
+# Node modules
+node_modules/
+frontend/node_modules/
+backend/venv/
+
+# Arquivos de dependência
+package-lock.json
+
+# Banco de dados
+*.db
+*.sqlite
+
+# Variáveis de ambiente
+.env.local
+.env.production
+>>>>>>> parent of 094ef36 (chore: atualiza .gitignore para ignorar node_modules, venv e arquivos temporários)
