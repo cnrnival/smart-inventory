@@ -1,67 +1,102 @@
 'use client'
-
-import { useState } from 'react';
+import Link from "next/link";
+import {Package, SettingsIcon, Trash} from "lucide-react";
+import { useEffect, useState } from "react";
+import { Product } from "@/types/inventory";
+import { PaymentComponent } from "@/components/paymentcomponent";
+import { ProductType } from "@/types/ProductType";
 import { useProductsContext } from "@/hooks/useProductsContext";
 
-export default function NewSalePage() {
-  const { products } = useProductsContext();
-  const [cart, setCart] = useState<any[]>([]);
+export default function NewSale(){
 
-  // ✅ Cálculo do total baseado no array do carrinho
-  const totalSale = cart.reduce((acc, item) => acc + (item.price || 0), 0);
+    const { products, getProducts } = useProductsContext();
+    const [cart, setCart] = useState<ProductType[]>([]);
+    const [paymentOpen, setPaymentOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  return (
-    <div className="min-h-screen bg-[#262626] p-8 text-white">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-[#6b9dff]">Frente de Caixa (PDV)</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Lado Esquerdo: Seleção */}
-          <div className="bg-[#323232] p-6 rounded-2xl border border-gray-700">
-            <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Produtos em Estoque</h2>
-            <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2">
-              {products.map(product => (
-                <button
-                  key={product.id}
-                  onClick={() => setCart([...cart, product])}
-                  className="w-full flex justify-between p-3 bg-[#262626] rounded-lg hover:border-[#6b9dff] border border-transparent transition-all"
-                >
-                  <span>{product.name}</span>
-                  <span className="text-green-400 font-bold">R$ {Number(product.price).toFixed(2)}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+    useEffect(() => {
+            getProducts();
+        }, [])
 
-          {/* Lado Direito: Carrinho */}
-          <div className="bg-[#323232] p-6 rounded-2xl border border-gray-700 flex flex-col justify-between">
-            <div>
-              <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Carrinho</h2>
-              <ul className="space-y-2">
-                {cart.map((item, index) => (
-                  <li key={index} className="text-sm flex justify-between text-gray-300">
-                    <span>{item.name}</span>
-                    <span>R$ {Number(item.price).toFixed(2)}</span>
-                  </li>
-                ))}
-              </ul>
+    function showMenu() {
+        setMenuOpen(!menuOpen);
+    }
+
+    function addToCart(product: ProductType) {
+        setCart((prevCart) => [...prevCart, product]);
+    }
+
+    function openPayment() {
+        setPaymentOpen(!paymentOpen);
+    }   
+
+    return (
+        <div className=" w-screen md:h-[100vh] sm:min-h-screen flex flex-col bg-background text-white bg-[#262626]">
+            <div className="sticky top-0 z-50 h-[60px] bg-[#1f1f1f]">
+                <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                    <div className="flex items-center gap-2 text-xl font-bold text-[#6b9dff]">
+                        <Package className="h-6 w-6" />
+                        Smart Inventory
+                    </div>
+                    <div className="h-4 w-4 text-white" onClick={showMenu}>
+                        <SettingsIcon className="h-full w-full text-white" />
+                        {menuOpen && (
+                            <ul className="w-[150px] h-[30px] bg-white absolute top-10 right-7 mt-1 flex flex-col items-start justify-center rounded-md p-2 ">
+                                 <Link href="/" className="text-black text-sm">Ir para o início</Link>
+                            </ul>
+                        )}
+                    </div>
+                </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-gray-700">
-              <div className="flex justify-between items-end mb-4">
-                <span className="text-gray-400">Total da Venda</span>
-                <span className="text-3xl font-bold text-white">R$ {totalSale.toFixed(2)}</span>
-              </div>
-              <button 
-                onClick={() => { alert("Venda finalizada com regra FEFO!"); setCart([]); }}
-                className="w-full bg-[#6b9dff] hover:bg-[#5a8dec] text-white font-bold py-3 rounded-xl transition-all shadow-lg"
-              >
-                Finalizar Venda
-              </button>
-            </div>
-          </div>
+            <main className="flex-1 flex overflow-hidden">
+                <div className="w-[60%] h-full p-4">
+                    <div className="w-full h-[8%] bg-[#323232]"></div>
+                    <div className="w-full h-[92%] grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-6 p-6 overflow-auto hide-scrollbar">
+                        {products.map((product) => (
+                            <div 
+                            key={product.id} 
+                            className="bg-[#424242] aspect-square flex flex-col rounded-md items-center active:bg-[#555] cursor-pointer p-4"
+                             onClick={() => addToCart(product)}>
+                                <div className="w-full h-[20px] flex items-center justify-end">
+                                    {cart.some((item) => item.id === product.id) &&
+                                    <div className="bg-red-600 w-[20px] h-full flex items-center justify-center rounded-xl">
+                                    {cart.some((item) => item.id === product.id) ? `${cart.filter((item) => item.id === product.id).length}` : ''}</div>}
+                                </div>
+                                <span className="font-bold">{product.name}</span>
+                                <span className="text-lg font-bold">R$ {product.price.toFixed(2)}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-[#323232] w-[40%] h-full p-4 flex flex-col">
+                    <div className="w-full h-[75%] overflow-auto hide-scrollbar">
+                        {cart.map((product, index) => (
+                            <div 
+                            key={index}
+                            className="bg-[#424242] w-full h-[60px] border-b border-[#555] flex flex-row items-center justify-center rounded gap-4">
+                                <span className="size-10 bg-red-200"></span>
+                                <span className="font-bold">{product.name}</span>
+                                <span className="text-sm">Vence em: {product.expiryDate}</span>
+                                <span className="w-5 h-5 border border-white"></span>
+                                <Trash className="h-5 w-5 text-red-500 mt-2" />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="w-full h-[15%] border-t-2 border-[#555] flex flex-col justify-between items-end p-4">
+                        <span>Subtotal: R$ 0,00</span>
+                        <span className="text-xl font-bold">Total: R$ 0,00</span>
+                    </div>
+                    <div className="w-full h-[10%] flex items-center justify-end p-2">
+                        <button className="bg-[#6b9dff] hover:bg-[#6b9dff]/70 text-white font-bold py-2 px-4 rounded" onClick={openPayment}>
+                            <span>Finalizar Compra</span>
+                        </button>
+                         {paymentOpen && (   
+                                <PaymentComponent openPayment={openPayment}/>
+                        )}
+                    </div>
+                </div>
+            </main>
         </div>
-      </div>
-    </div>
-  );
+    )
 }

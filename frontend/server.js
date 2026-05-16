@@ -1,9 +1,9 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const cors = require('cors');
 
 const app = express();
+<<<<<<< HEAD
 <<<<<<< HEAD
 app.use(cors());
 app.use(express.json());
@@ -164,29 +164,35 @@ app.use(cors()); // Permite que o frontend acesse a API
 app.use(express.json()); // Habilita o recebimento de JSON no corpo das requisições
  
 // Ele tentará ler a porta do sistema; se não houver, usa a 3333 (para seu teste local).
+=======
+>>>>>>> parent of 14b757b (resolve build errors, refactor auth context and implement FEFO logic)
 const PORT = process.env.PORT || 3333;
 
 const productsPath = path.join(__dirname, 'products.json');
 const usersPath = path.join(__dirname, 'users.json');
 
-// Helper para ler dados garantindo a estrutura correta
-const readData = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8'));
-// Helper para salvar dados mantendo a formatação
-const saveData = (filePath, data) => fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
+const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 
-// --- ROTAS DE USUÁRIOS ---
-
-app.get('/users', (req, res) => {
-  const { email, password } = req.query;
-  let { users } = readData(usersPath);
-  
-  // Filtro de login: se enviar email/senha, busca o usuário específico
-  if (email) users = users.filter(u => u.email === email);
-  if (password) users = users.filter(u => u.password === password);
-  
-  res.json(users); // Retorna Array direto conforme o frontend espera
+// Rota raiz (Agora com links clicáveis em HTML)
+app.get('/', (req, res) => {
+  res.send(`
+    <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+      <h1>🚀 API Smart Inventory</h1>
+      <p>Endpoints disponíveis para consulta:</p>
+      <ul style="list-style: none; padding: 0; font-size: 1.2rem;">
+        <li style="margin: 10px 0;">
+          <a href="/users" style="color: #007bff; text-decoration: none; font-weight: bold;">👉 /users</a>
+        </li>
+        <li style="margin: 10px 0;">
+          <a href="/products" style="color: #007bff; text-decoration: none; font-weight: bold;">👉 /products</a>
+        </li>
+      </ul>
+    </div>
+  `);
 });
 
+<<<<<<< HEAD
 app.post('/users', (req, res) => {
   const data = readData(usersPath);
   const newUser = { 
@@ -259,3 +265,19 @@ app.listen(PORT, () => {
 // ✅ ALTERADO: Agora usa a variável PORT dinâmica
 app.listen(PORT, () => console.log(`✅ API Smart Inventory rodando na porta ${PORT}`));
 >>>>>>> parent of eb91c8e (add internal API routes and next.config.js for Render deployment)
+=======
+// Rota de Produtos
+app.get('/products', (req, res) => {
+  res.json(products);
+});
+
+// Rota de Usuários
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ API rodando na porta ${PORT}`);
+  console.log(`📦 Endpoints: /products , /users`);
+});
+>>>>>>> parent of 14b757b (resolve build errors, refactor auth context and implement FEFO logic)

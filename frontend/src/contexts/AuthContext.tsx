@@ -1,46 +1,52 @@
-'use client'
+'use client';
+import { createContext, useState, useEffect, ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-import { createContext, useState, ReactNode } from "react";
-import { axios_api } from "@/api/axios_api";
+type User = {
+    id: string;
+    name: string;
+    email: string;
+};
 
-// Interface para o usuário
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  isAdmin: boolean;
-}
+type AuthContextType = {
+    user: User | null;
+    login: (userData: User) => void;
+    logout: () => void;
+};
 
-// Interface para o que o contexto fornece
-interface AuthContextType {
-  user: User | null;
-  login: (user: User) => void;
-  logout: () => void;
-  getUsers: () => Promise<User[]>;
-}
-
-// Exportando o contexto (Isso resolve o erro no hook)
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const router = useRouter();
 
-  const login = (userData: User) => {
-    setUser(userData);
-  };
+    useEffect(() => {
+        const savedUser = localStorage.getItem('smart_inventory_user');
+        if (savedUser) {
+            try {
+                setUser(JSON.parse(savedUser));
+            } catch (e) {
+                console.error("Erro ao carregar usuário do storage", e);
+            }
+        }
+    }, []);
 
-  const logout = () => {
-    setUser(null);
-  };
+    const login = (userData: User) => {
+        setUser(userData);
+        localStorage.setItem('smart_inventory_user', JSON.stringify(userData));
+    };
 
-  const getUsers = async () => {
-    const response = await axios_api.get('/users');
-    return response.data;
-  };
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem('smart_inventory_user');
+        toast.success("Sessão encerrada com sucesso!");
+        router.push('/login');
+    };
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout, getUsers }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
