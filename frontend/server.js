@@ -200,6 +200,7 @@ app.get('/', (req, res) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 app.post('/users', (req, res) => {
   const data = readData(usersPath);
   const newUser = { 
@@ -282,13 +283,18 @@ app.listen(PORT, () => console.log(`✅ API Smart Inventory rodando na porta ${P
 =======
 // Rota 
 >>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
+=======
+// Rota para produtos
+>>>>>>> parent of ceae241 (feat: adiciona rota raiz na API Express)
 app.get('/products', (req, res) => {
   res.json(products);
 });
 
+// Rota para usuários
 app.get('/users', (req, res) => {
   res.json(users);
 });
+
 app.listen(PORT, () => {
   console.log(`✅ API rodando na porta ${PORT}`);
 <<<<<<< HEAD
