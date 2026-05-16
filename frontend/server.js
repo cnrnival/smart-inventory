@@ -190,6 +190,7 @@ const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 <<<<<<< HEAD
 <<<<<<< HEAD
 // Endpoints
+<<<<<<< HEAD
 =======
 // Rota raiz (mensagem informativa)
 >>>>>>> parent of f7342c4 (fix: corrige rotas /users e /products e atualiza server.js)
@@ -201,6 +202,14 @@ const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
 >>>>>>> parent of f9181ad (up)
 app.get('/', (req, res) => {
   res.send('API Smart Inventory - endpoints disponíveis: /users, /products');
+=======
+app.get('/products', (req, res) => {
+  res.json(products);
+});
+
+app.get('/users', (req, res) => {
+  res.json(users);
+>>>>>>> parent of c01e5b1 (atualizando rota)
 });
 
 <<<<<<< HEAD
