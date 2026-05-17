@@ -21,7 +21,7 @@ export default function WelcomePage() {
   return (
     <div className="w-full min-h-screen flex flex-col font-sans text-slate-800 bg-slate-50 overflow-x-hidden scroll-smooth">
       
-      <FakeNavBar isWelcomePage={true}/>
+      <FakeNavBar/>
 
       <div className="flex-1">
         
@@ -117,7 +117,7 @@ export default function WelcomePage() {
         </section>
 
         {/* DASHBOARD E COMPARATIVO */}
-        <section className="bg-slate-50 py-16 px-4">
+        <section className="bg-slate-50 py-16 px-4" id="diferencial">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             
             {/* INFORMAÇÕES DE DASHBOARD E ACESSO */}
