@@ -20,7 +20,7 @@
 
         if (isLoading) {
             return (
-                <div className="flex min-h-screen items-center justify-center text-black bg-[#E8E9E8]">
+                <div className="flex min-h-screen items-center justify-center text-black bg-slate-100">
                     <p className="animate-pulse text-lg font-medium">Carregando estoque...</p>
                 </div>
             );

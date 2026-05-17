@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import { UserPlus, Package } from "lucide-react";
 
 type Props = {
   isAdmin: boolean;
@@ -39,7 +40,6 @@ export function UserForm({
       isAdmin,
     };
 
-    // Validações
     if (!name || !email || !password || !document) {
       toast.error("Preencha todos os campos.");
       return;
@@ -52,12 +52,13 @@ export function UserForm({
     try {
       await registerUser(newUserData, isAdmin);
 
-      if (isInInventoryPage == false) {
+      if (isInInventoryPage === false) {
         toast.success("Conta criada com sucesso!");
         router.push("/");
       } else {
+        toast.success("Colaborador adicionado!");
         if (ShowCollaboratorForm) {
-          ShowCollaboratorForm();
+          ShowCollaboratorForm(); // Fecha o formulário/modal na página pai após salvar
         }
       }
     } catch (error) {
@@ -67,116 +68,99 @@ export function UserForm({
   };
 
   return (
-    <main
-      className={
-        isInInventoryPage === false
-          ? `container mx-auto flex items-center justify-center px-4 py-10`
-          : `w-full h-full mx-auto flex items-center justify-center  py-10 select-none text-black bg-black/50 absolute inset-0 rounded-xl`
-      }
-      onClick={ShowCollaboratorForm}
-    >
-      <div
-        className="w-full max-w-md rounded-xl p-8 shadow-sm bg-[#b2b2b2] shadow-sm shadow-black/50 text-black/70"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h1 className="text-center text-3xl font-bold text-[#6b9dff]">
-          Smart Inventory
+    <div className="w-full max-w-md mx-auto">
+      <div className="flex flex-col items-center mb-6">
+        <div className="bg-blue-50 text-blue-600 p-2.5 rounded-xl mb-3 md:hidden">
+          {isInInventoryPage ? <UserPlus className="h-6 w-6" /> : <Package className="h-6 w-6" />}
+        </div>
+        <h1 className="text-center text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          {isInInventoryPage ? "Novo Colaborador" : "Crie sua conta"}
         </h1>
-        <p className="mt-2 text-center">Crie sua conta</p>
-
-        <form onSubmit={handleSubmit} className="mt-5 space-y-5 text-black/70">
-          <div>
-            <label
-              htmlFor="name"
-              className="mb-1 block text-sm font-medium text-black/70"
-            >
-              Nome *
-            </label>
-            <input
-              id="name"
-              type="text"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Seu nome completo"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="email"
-              className="mb-1 block text-sm font-medium text-black/70"
-            >
-              Email *
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              placeholder="seu@email.com"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="document"
-              className="mb-1 block text-sm font-medium text-black/70"
-            >
-              CPF/CNPJ da Empresa *
-            </label>
-            <input
-              id="document"
-              type="text"
-              value={form.document}
-              onChange={(e) => setForm({ ...form, document: e.target.value })}
-              placeholder="Apenas números"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="mb-1 block text-sm font-medium text-black/70"
-            >
-              Senha *
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              placeholder="Mínimo 4 caracteres"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-[#6b9dff] focus:ring-2 focus:ring-[#6b9dff]/20 bg-white"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6b9dff]/90 bg-[#6b9dff] hover:bg-[#6b9dff]/70"
-          >
-            {isInInventoryPage === false ? "Criar conta" : "Cadastrar usuário"}
-          </button>
-        </form>
-
-        {isInInventoryPage === false && (
-          <p className="mt-6 text-center text-sm">
-            Já tem conta?{" "}
-            <Link
-              href="/login"
-              className="font-medium hover:underline text-[#6b9dff] hover:text-[#6b9dff]/70"
-            >
-              Fazer login
-            </Link>
-          </p>
-        )}
+        <p className="mt-1.5 text-center text-slate-500 font-medium text-sm">
+          {isInInventoryPage ? "Cadastre um usuário na plataforma" : "Preencha seus dados abaixo"}
+        </p>
       </div>
-    </main>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="mb-1 block text-sm font-semibold text-slate-700">
+            Nome Completo *
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            placeholder="Ex: João da Silva"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="mb-1 block text-sm font-semibold text-slate-700">
+            E-mail *
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            placeholder="seu@email.com"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="document" className="mb-1 block text-sm font-semibold text-slate-700">
+            CPF/CNPJ da Empresa *
+          </label>
+          <input
+            id="document"
+            type="text"
+            value={form.document}
+            onChange={(e) => setForm({ ...form, document: e.target.value })}
+            placeholder="Apenas números"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="mb-1 block text-sm font-semibold text-slate-700">
+            Senha *
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            placeholder="Mínimo 4 caracteres"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full rounded-xl bg-blue-600 px-4 py-3 mt-4 text-sm font-bold text-white transition-all hover:bg-blue-700 shadow-sm shadow-blue-600/30"
+        >
+          {isInInventoryPage === false ? "Finalizar Cadastro" : "Cadastrar usuário"}
+        </button>
+      </form>
+
+      {isInInventoryPage === false && (
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Já tem conta?{" "}
+          <Link
+            href="/login"
+            className="font-bold text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+          >
+            Fazer login
+          </Link>
+        </p>
+      )}
+    </div>
   );
 }

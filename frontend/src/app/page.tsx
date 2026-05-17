@@ -16,8 +16,8 @@ import { use, useEffect } from 'react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { useAuthContext } from '@/hooks/useAuthContext';
 
-// Constante de cores para o gráfico de pizza
-const COLORS = ['#15bd53', '#eab308', '#ca1111'];
+// Cores atualizadas para combinar com a paleta moderna do Tailwind (green-500, amber-500, red-500)
+const COLORS = ['#22c55e', '#f59e0b', '#ef4444'];
 
 export default function DashboardPage() {
 
@@ -29,11 +29,8 @@ export default function DashboardPage() {
 
   useEffect(() => {
     getProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Obter nome do usuário logado (mock enquanto não há autenticação real)
-  // s
   // Função auxiliar para obter nome do produto pelo ID
   const getProductName = (productId: string) =>
     products.find(p => p.id === productId)?.name ?? 'Produto não encontrado';
@@ -43,11 +40,9 @@ export default function DashboardPage() {
     router.push('/login');
   };
 
-  
-
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-black">
+      <div className="flex min-h-screen items-center justify-center text-slate-800 bg-slate-50">
         <p className="animate-pulse text-lg font-medium">Carregando dashboard...</p>
       </div>
     );
@@ -60,20 +55,20 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-8 text-black bg-[#E8E9E8]">
+    <div className="min-h-screen p-4 md:p-8 font-sans text-slate-800 bg-slate-50">
       <div className="mx-auto max-w-6xl space-y-8">
         
         {/* Cabeçalho */}
-        <header className="flex flex-col items-start justify-between gap-4 rounded-xl  shadow-md shadow-black/70 bg-[#c9c9c9] p-6 shadow-sm sm:flex-row sm:items-center">
+        <header className="flex flex-col items-start justify-between gap-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-center">
           <div>
-            <h1 className="text-2xl font-bold">Dashboard de Risco</h1>
-            <p className="text-sm">
-              Bem-vindo(a), <span className="font-semibold text-[#6b9dff]">{user?.name}</span>
+            <h1 className="text-2xl font-bold text-slate-800">Dashboard de Risco</h1>
+            <p className="text-sm text-slate-500 mt-1">
+              Bem-vindo(a), <span className="font-semibold text-blue-600">{user?.name}</span>
             </p>
           </div>
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-2 rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-100"
+            className="inline-flex items-center gap-2 rounded-lg bg-red-50 border border-red-100 px-4 py-2 text-sm font-semibold text-red-600 transition-colors hover:bg-red-100"
           >
             <LogOut size={16} />
             Sair
@@ -82,13 +77,13 @@ export default function DashboardPage() {
 
         {/* Gráfico em pizza e Cards */}
         {/* Usamos lg:h-[450px] no container pai para ditar a altura exata de ambos os lados */}
-        <div className='flex flex-col lg:flex-row gap-8 mb-8 lg:h-[450px]'>
+        <div className='flex flex-col lg:flex-row gap-6 mb-8 lg:h-[450px]'>
           
           {/* Lado do Gráfico */}
           {products.length > 0 && (
             <div className="w-full lg:w-[600px] h-[450px] lg:h-full">
-              <div className="rounded-xl shadow-md shadow-black/70 bg-[#c9c9c9] p-7 shadow-sm flex flex-col h-full w-full">
-                <h2 className="text-lg font-semibold mb-4">Proporção de Produtos</h2>
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col h-full w-full">
+                <h2 className="text-lg font-bold text-slate-800 mb-4">Proporção de Produtos</h2>
                 <div className='flex-1 min-h-0 w-full'>
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -98,14 +93,18 @@ export default function DashboardPage() {
                         cy="50%"
                         labelLine={false}
                         label={({ name, percent }) => (percent && percent > 0 && name) ? `${name}: ${(percent * 100).toFixed(0)}%` : ''}
-                        outerRadius={100}
+                        outerRadius={110}
                         dataKey="value"
+                        stroke="none"
                       >
                         {pieData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value) => [`${value} lotes`, 'Quantidade']} />
+                      <Tooltip 
+                        formatter={(value) => [`${value} lotes`, 'Quantidade']} 
+                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                      />
                       <Legend />
                     </PieChart>
                   </ResponsiveContainer>
@@ -115,53 +114,51 @@ export default function DashboardPage() {
           )}
 
           {/* Lado dos Cards de resumo */}
-          {/* h-full puxa a altura exata definida no pai (450px) e gap-4 separa os filhos */}
           <div className="w-full lg:flex-1 flex flex-col gap-4 h-full">
             
-            {/* Adicionado flex-1 em cada card para preencherem a altura total por igual */}
             {/* Card: Produtos Válidos */}
-            <div className="flex-1 flex items-center rounded-xl  shadow-md shadow-black/70 bg-[#c9c9c9] p-5 shadow-sm">
-              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-green-600/20 text-green-500">
+            <div className="flex-1 flex items-center rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-md">
+              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600">
                 <Check size={28} />
               </div>
               <div className="flex flex-col">
-                <p className="text-sm font-medium text-black/50">Produtos Válidos</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-black">{validProducts.length}</p>
+                <p className="text-sm font-medium text-slate-500">Produtos Válidos</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-slate-800">{validProducts.length}</p>
               </div>
             </div>
 
             {/* Card: Em Alerta */}
-            <div className="flex-1 flex items-center rounded-xl  shadow-md shadow-black/70 bg-[#c9c9c9] p-5 shadow-sm">
-              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-yellow-500/20 text-yellow-500">
+            <div className="flex-1 flex items-center rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-md">
+              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-yellow-50 text-yellow-600">
                 <AlertTriangle size={28} />
               </div>
               <div className="flex flex-col">
-                <p className="text-sm font-medium text-black/50">Em Alerta</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-black">{nearExpiryProducts.length}</p>
+                <p className="text-sm font-medium text-slate-500">Em Alerta</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-slate-800">{nearExpiryProducts.length}</p>
               </div>
             </div>
 
             {/* Card: Críticos */}
-            <div className="flex-1 flex items-center rounded-xl  shadow-md shadow-black/70 bg-[#c9c9c9] p-5 shadow-sm">
-              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-gray-600/50 text-black">
+            <div className="flex-1 flex items-center rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-md">
+              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500">
                 <AlertTriangle size={28} />
               </div>
               <div className="flex flex-col">
-                <p className="text-sm font-medium text-black/50">Críticos</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-black">
+                <p className="text-sm font-medium text-slate-500">Críticos</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-slate-800">
                   {products.filter(b => b.status === 'critical').length}
                 </p>
               </div>
             </div>
 
             {/* Card: Vencidos */}
-            <div className="flex-1 flex items-center rounded-xl  shadow-md shadow-black/70 bg-[#c9c9c9] p-5 shadow-sm">
-              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-red-600/20 text-red-500">
+            <div className="flex-1 flex items-center rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-md">
+              <div className="mr-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
                 <XCircle size={28} />
               </div>
               <div className="flex flex-col">
-                <p className="text-sm font-medium text-black/50">Vencidos</p>
-                <p className="mt-1 text-3xl font-bold leading-none text-black">{expiredProducts.length}</p>
+                <p className="text-sm font-medium text-slate-500">Vencidos</p>
+                <p className="mt-1 text-3xl font-bold leading-none text-slate-800">{expiredProducts.length}</p>
               </div>
             </div>
 
@@ -170,26 +167,28 @@ export default function DashboardPage() {
       </div>
 
       {/* Card de Risco Financeiro */}
-      <div className="rounded-xl  shadow-md shadow-black/70 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[#c9c9c9] p-6 mb-8 max-w-6xl mx-auto">
+      <div className="rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 mb-8 max-w-6xl mx-auto">
         <div>
           <div className="flex items-center gap-3 mb-2 w-full">
-            <DollarSign size={20} />
-            <h3 className="text-sm font-medium ">Risco Financeiro Total</h3>
+            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+              <DollarSign size={20} />
+            </div>
+            <h3 className="text-lg font-bold text-slate-800">Risco Financeiro Total</h3>
           </div>
-          <p className="text-sm text-black/50">
+          <p className="text-sm text-slate-500">
             Valor de produtos em alerta, críticos ou vencidos.
           </p>
         </div>
-        <p className="text-4xl font-bold text-black">
+        <p className="text-4xl font-bold text-slate-800">
           {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(financialRisk)}
         </p>
       </div>
 
       {/* Tabela de Produtos */}
-      <div className="rounded-xl  shadow-md shadow-black/70 shadow-sm overflow-hidden bg-[#c9c9c9] max-w-6xl mx-auto">
-        <div className="border-b border-black/50 px-6 py-4 flex justify-between flex-row items-center">
-          <h2 className="text-lg font-semibold">Produtos para se atentar</h2>
-          <Link href="/inventory" className="flex items-center gap-2 text-sm font-bold text-[#6b9dff] hover:underline">
+      <div className="rounded-xl border border-slate-200 shadow-sm overflow-hidden bg-white max-w-6xl mx-auto">
+        <div className="border-b border-slate-100 px-6 py-5 flex justify-between flex-row items-center bg-white">
+          <h2 className="text-lg font-bold text-slate-800">Produtos para se atentar</h2>
+          <Link href="/inventory" className="flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline transition-colors">
             Ver estoque
           </Link>
         </div>
@@ -197,36 +196,34 @@ export default function DashboardPage() {
         <div className="overflow-auto max-h-[500px] hide-scrollbar">
           <table className="w-full text-left text-sm">
             
-            {/* Adicione sticky top-0 e o bg-color aqui para o cabeçalho fixar no topo */}
-            <thead className="border-b border-black/50 sticky top-0 bg-[#c9c9c9] z-10">
+            <thead className="border-b border-slate-200 sticky top-0 bg-slate-50 z-10">
               <tr>
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-black">Produto</th>
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-black">Validade</th>
-                <th className="whitespace-nowrap px-6 py-4 text-right font-medium ttext-black">Qtd</th>
-                <th className="whitespace-nowrap px-6 py-4 font-medium ttext-black">Status</th>
+                <th className="whitespace-nowrap px-6 py-4 font-semibold text-slate-500 text-xs uppercase tracking-wider">Produto</th>
+                <th className="whitespace-nowrap px-6 py-4 font-semibold text-slate-500 text-xs uppercase tracking-wider">Validade</th>
+                <th className="whitespace-nowrap px-6 py-4 text-right font-semibold text-slate-500 text-xs uppercase tracking-wider">Qtd</th>
+                <th className="whitespace-nowrap px-6 py-4 font-semibold text-slate-500 text-xs uppercase tracking-wider">Status</th>
               </tr>
             </thead>
 
-            {/* Remova o overflow-y-auto e o max-h-[300px] daqui */}
-            <tbody className="divide-y divide-black/50 bg-[#c9c9c9]">
+            <tbody className="divide-y divide-slate-100 bg-white">
               {riskyProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-black/50">
-                    Nenhum lote cadastrado no momento.
+                  <td colSpan={4} className="px-6 py-8 text-center text-slate-500 font-medium">
+                    Nenhum lote com risco no momento. Tudo certo!
                   </td>
                 </tr>
               ) : (
                 riskyProducts
                   .sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime())
                   .map((product) => (
-                    <tr key={product.id} className="transition-colors hover:bg-[#b1b1b1]">
-                      <td className="whitespace-nowrap px-6 py-4 font-medium text-black">
+                    <tr key={product.id} className="transition-colors duration-150 hover:bg-slate-50 group">
+                      <td className="whitespace-nowrap px-6 py-4 font-medium text-slate-800">
                         {product.name || getProductName(product.id)}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-black">
+                      <td className="whitespace-nowrap px-6 py-4 text-slate-600">
                         {product.expiryDate ? new Date(product.expiryDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '-'}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-right font-medium text-black">
+                      <td className="whitespace-nowrap px-6 py-4 text-right font-medium text-slate-700">
                         {product.quantity}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
