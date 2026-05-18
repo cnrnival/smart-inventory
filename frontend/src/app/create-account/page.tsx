@@ -1,6 +1,6 @@
 'use client';
 
-import { UserForm } from "@/components/userform";
+import { UserForm } from "@/components/Forms/userform";
 import { Package } from "lucide-react";
 
 export default function CreateAccountPage() {
