@@ -71,7 +71,7 @@ export default function NewSale() {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={handleSafeExit}
-                            className="text-xs sm:text-sm font-semibold text-red-400 hover:text-red-300 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-xl transition-all cursor-pointer"
+                            className="text-xs sm:text-sm font-semibold text-red-400 hover:text-red-300 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-xl transition-all cursor-pointer active:scale-95"
                         >
                             Sair da Venda
                         </button>
@@ -89,7 +89,7 @@ export default function NewSale() {
                         <h3 className="font-bold text-lg text-slate-800">Carrinho</h3>
                         <button
                             onClick={() => setIsProductModalOpen(true)}
-                            className="md:hidden flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors"
+                            className="md:hidden flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors active:scale-95"
                         >
                             <Plus size={16} />
                             Adicionar Produto
@@ -131,7 +131,7 @@ export default function NewSale() {
 
                     <div className="w-full mt-6 flex items-center justify-end shrink-0 relative">
                         <button
-                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-4 rounded-xl w-full transition-colors shadow-sm shadow-blue-600/30 flex items-center justify-center gap-2"
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-4 rounded-xl w-full transition-colors shadow-sm shadow-blue-600/30 flex items-center justify-center gap-2 active:scale-95"
                             onClick={openPayment}
                         >
                             Finalizar Compra

@@ -155,7 +155,7 @@ export function UserForm({
           Já tem conta?{" "}
           <Link
             href="/login"
-            className="font-bold text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+            className="font-bold text-blue-600 hover:text-blue-700 hover:underline transition-colors active:scale-95"
           >
             Fazer login
           </Link>

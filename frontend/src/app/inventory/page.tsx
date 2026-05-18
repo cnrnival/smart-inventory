@@ -33,7 +33,7 @@ export default function InventoryPage(){
             <div className="flex flex-row justify-between items-center mb-6 shrink-0">
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Estoque de Produtos</h2>
                 <button 
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg h-10 px-4 flex items-center gap-2 transition-colors duration-200 shadow-sm shadow-blue-600/30" 
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg h-10 px-4 flex items-center gap-2 transition-colors duration-200 shadow-sm shadow-blue-600/30 active:scale-95" 
                     onClick={toggleProductForm}
                 >
                     <PlusCircle className="w-5 h-5" />

@@ -44,14 +44,14 @@ export default function WelcomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 mt-4">
             <Link 
                 href="/create-account" 
-                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#6b9dff] hover:bg-[#6b9dff]/80 text-[#222222] font-bold py-3.5 px-8 rounded-xl transition-all shadow-sm"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#6b9dff] hover:bg-[#6b9dff]/80 text-[#222222] font-bold py-3.5 px-8 rounded-xl transition-all shadow-sm active:scale-95"
             >
               Começar Agora
               <ArrowRight size={18} />
             </Link>
             <Link 
                 href="/login" 
-                className="w-full sm:w-auto flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 font-semibold py-3.5 px-8 rounded-xl border border-slate-200 transition-all shadow-sm"
+                className="w-full sm:w-auto flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 font-semibold py-3.5 px-8 rounded-xl border border-slate-200 transition-all shadow-sm active:scale-95"
             >
               Acessar meu Estoque
             </Link>

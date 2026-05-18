@@ -17,15 +17,15 @@ export default function CollaboratorsPage(){
     function ShowCollaboratorForm() {
         setIsCollaboratorFormOpen(!isCollaboratorFormOpen);
     }
-    
+
     return (
         <div className="flex-1 flex flex-col bg-slate-50 h-full p-4 sm:p-8 font-sans">
-            
+
             {/* Topo da Página */}
             <div className="flex flex-row justify-between items-center mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Colaboradores</h2>
                 <button 
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg h-10 px-4 flex items-center gap-2 transition-colors duration-200 shadow-sm shadow-blue-600/30" 
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg h-10 px-4 flex items-center gap-2 transition-colors duration-200 shadow-sm shadow-blue-600/30 active:scale-95" 
                     onClick={ShowCollaboratorForm}
                 >
                     <PlusCircle className="w-5 h-5" />
@@ -52,15 +52,15 @@ export default function CollaboratorsPage(){
             <ul className="flex flex-1 flex-col bg-white border border-slate-200 rounded-b-xl shadow-sm overflow-y-auto max-h-[530px] hide-scrollbar">
                 {usersList.map((user) => (
                     <li key={user.id} className="flex flex-row h-16 items-center px-6 text-slate-600 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors duration-150 shrink-0">
-                        
+
                         <span className="w-[40%] flex justify-start font-medium text-slate-800">
                             {user.name}
                         </span>
-                        
+
                         <span className="w-[35%] flex justify-start truncate pr-4">
                             {user.email}
                         </span>
-                        
+
                         <span className="w-[15%] flex justify-start">
                             <span className={`px-2.5 py-1 rounded-md text-xs font-medium border ${
                                 user.isAdmin 
@@ -70,7 +70,7 @@ export default function CollaboratorsPage(){
                                 {user.isAdmin ? 'Admin' : 'Colaborador'}
                             </span>
                         </span>
-                        
+
                         <div className="w-[10%] flex justify-center items-center gap-2 sm:gap-4">
                             <button className="p-1.5 rounded-md text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
                                 <Edit className="w-4 h-4 sm:w-5 sm:h-5" />
